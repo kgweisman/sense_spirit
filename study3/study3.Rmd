@@ -34,9 +34,6 @@ d3_demo <- d3 %>% select(-contains("score")) %>%
                          !grepl("female", tolower(subject_gender)), 1, 0),
          female = ifelse(grepl("female", tolower(subject_gender)), 1, 0),
          subject_age = ifelse(subject_age > 120, NA_real_, subject_age))
-# subject_ses already coded as -2 to +2
-# subject_religiosity already coded as -2 to +2
-# subject_afford already coded as 1 = yes, 0 = no)
 ```
 
 ```{r}
@@ -71,7 +68,7 @@ d3_demo %>%
 
 # Primary analyses
 
-## Table S25
+## Table S25 (Spiritual Events)
 
 ```{r}
 r1_spev <- lmer(spev_score ~ abs_score 
@@ -95,7 +92,7 @@ regtab_fun(r1_spev) %>%
 regtab_ran_fun(r1_spev) %>% regtab_style_fun()
 ```
 
-## Table S26
+## Table S26 (Daily Spiritual Experiences)
 
 ```{r}
 r1_dse <- lmer(dse_score ~ abs_score 
@@ -122,7 +119,7 @@ regtab_ran_fun(r1_dse) %>% regtab_style_fun()
 
 # Bayesian versions
 
-## Table S27
+## Table S27 (Spiritual Events)
 
 ```{r}
 # r1_spev_bayes <- brm(spev_score ~ abs_score
@@ -148,8 +145,7 @@ regtab_fun(r1_spev_bayes, por_name = "Porosity Scale") %>%
 regtab_ran_fun(r1_spev_bayes) %>% regtab_style_fun()
 ```
 
-
-## Table S28
+## Table S28 (Daily Spiritual Experiences)
 
 ```{r}
 # r1_dse_bayes <- brm(dse_score ~ abs_score
@@ -178,7 +174,7 @@ regtab_ran_fun(r1_dse_bayes) %>% regtab_style_fun()
 
 # Country as fixed effect
 
-## Table S29
+## Table S29 (Spiritual Events)
 
 ```{r}
 r2_spev <- lm(spev_score ~ abs_score * country,
@@ -194,7 +190,7 @@ regtab_fun(r2_spev, std_beta = T, por_name = "Porosity Scale") %>%
   regtab_style_fun(row_emph = 2)
 ```
 
-## Table S30
+## Table S30 (Daily Spiritual Experiences)
 
 ```{r}
 r2_dse <- lm(dse_score ~ abs_score * country,

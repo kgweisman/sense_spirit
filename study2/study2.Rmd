@@ -115,9 +115,6 @@ d2_demo <- d2 %>% select(-contains("score")) %>%
          christian = (subject_religion == "Christian"),
          muslim = (subject_religion == "Muslim"),
          other = (subject_religion == "Other"))
-# subject_ses already coded as -2 to +2
-# subject_religiosity already coded as -2 to +2
-# subject_afford already coded as 1 = yes, 0 = no)
 ```
 
 ```{r}
@@ -132,7 +129,7 @@ d2_demo %>%
             percent_urban = mean(subject_urban_rural, na.rm = T),
             percent_affr = mean(subject_afford, na.rm = T),
             mean_ses = mean(subject_ses, na.rm = T),
-            mean_howr = mean(subject_religiosity, na.rm = T),
+            mean_religiosity = mean(subject_religiosity, na.rm = T),
             percent_christian = mean(christian, na.rm = T),
             percent_agnostic_atheist = mean(agnostic_atheist, na.rm = T),
             percent_buddhist = mean(buddhist, na.rm = T),
@@ -146,7 +143,7 @@ d2_demo %>%
          `Age range` = age_range, `Mean age` = mean_age,
          `% male` = percent_male, `% female` = percent_female,
          `% urban` = percent_urban, `% can afford` = percent_affr,
-         `Mean SES` = mean_ses, `Mean religiosity` = mean_howr,
+         `Mean SES` = mean_ses, `Mean religiosity` = mean_religiosity,
          `% Christian` = percent_christian, 
          `% Agnostic/Atheist` = percent_agnostic_atheist, 
          `% Buddhist` = percent_buddhist, 
