@@ -164,6 +164,9 @@ regtab_ran_fun <- function(reg,
       rantab <- bind_rows(rantab, temptab)
     }
     
+    rantab <- rantab %>%
+      filter(!grepl("cor\\(", Type))
+    
     resid <- regsum$spec_pars %>%
       data.frame() %>%
       bind_cols("grp" = "Residual", Type = "sd(Intercept)")
