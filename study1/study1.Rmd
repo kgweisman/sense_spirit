@@ -65,7 +65,7 @@ d1_demo %>%
   # collapse_rows(1:2)
 ```
 
-# Preliminary analyses
+# Preliminary analysis
 
 ## Table S15
 
@@ -83,7 +83,7 @@ regtab_fun(r0, std_beta = T) %>% regtab_style_fun()
 ```
 
 
-# Primary analyses
+# Primary analysis
 
 ## Table S16
 
@@ -110,7 +110,7 @@ regtab_ran_fun(r1) %>% regtab_style_fun()
 ```
 
 
-# Bayesian versions
+# Bayesian version
 
 ## Table S17
 
