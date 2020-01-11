@@ -1,0 +1,270 @@
+---
+title: "Study 1"
+subtitle: "Luhrmann, Weisman, et al."
+output: 
+  html_notebook:
+    theme: flatly
+    toc: true
+    toc_float: true
+---
+
+In Study 1, adults with strong religious commitments and faith practices were interviewed in depth about their spiritual experiences and their understanding of the mind by experienced ethnographers. These interviews yielded one measure of porosity (“Porosity Vignettes”), one measure of absorption (the Absorption scale), and one measure of spiritual experience (“Spiritual Events” scale).
+
+This notebook contains all of the analyses for Study 1.
+
+```{r, message = F}
+source("../scripts_general/dependencies.R")
+source("../scripts_general/custom_funs.R")
+source("../scripts_general/var_recode_contrast.R")
+source("../scripts_general/data_load.R")
+```
+
+```{r}
+# show contrasts
+contrasts(d1$country)
+contrasts(d1$site)
+contrasts(d1$religion)
+```
+
+# Demographics
+
+## Table S14
+
+```{r}
+d1_demo <- d1 %>% select(-contains("score")) %>% 
+  mutate(male = ifelse(grepl("male", tolower(subject_gender)) &
+                         !grepl("female", tolower(subject_gender)), 1, 0),
+         female = ifelse(grepl("female", tolower(subject_gender)), 1, 0),
+         subject_age = ifelse(subject_age > 120, NA_real_, subject_age),
+         subject_hs = ifelse(grepl("yes", tolower(subject_hs)), 1, 0))
+```
+
+```{r}
+d1_demo %>%
+  mutate(site = factor(site, levels = c("urban", "rural"))) %>%
+  group_by(country, site, religion) %>%
+  summarise(n = n(),
+            age_range = paste0(min(subject_age, na.rm = T), "-",
+                               max(subject_age, na.rm = T)),
+            mean_age = mean(subject_age, na.rm = T),
+            percent_male = mean(male, na.rm = T),
+            percent_female = mean(female, na.rm = T),
+            percent_hs = mean(subject_hs, na.rm = T),
+            percent_special = mean(subject_specialrole, na.rm = T)) %>%
+  ungroup() %>%
+  # mutate_at(vars(starts_with("mean_")), funs(format(round(., 2), nsmall = 2))) %>%
+  mutate_at(vars(starts_with("percent_")),
+            funs(paste0(round(. * 100), "%"))) %>%
+  rename(Country = country, Site = site, Religion = religion,
+         `Age range` = age_range, `Mean age` = mean_age,
+         `% male` = percent_male, `% female` = percent_female,
+         `% attended high school` = percent_hs,
+         `% serving a 'special role'` = percent_special) %>%
+  kable(digits = 2, align = c(rep("l", 3), rep("r", 4))) %>%
+  kable_styling(font_size = 16) # %>%
+  # collapse_rows(1:2)
+```
+
+# Preliminary analyses
+
+## Table S15
+
+```{r}
+r0 <- lm(spev_score ~ country * site * religion,
+         data = d1)
+```
+
+```{r}
+rsquared(r0)
+```
+
+```{r}
+regtab_fun(r0, std_beta = T) %>% regtab_style_fun()
+```
+
+
+# Primary analyses
+
+## Table S16
+
+```{r}
+r1 <- lmer(spev_score ~ pv_score * abs_score 
+           # + (pv_score * abs_score || country/site/religion), # singular
+           # + (pv_score + abs_score || country/site/religion), # singular
+           + (1 | country/site/religion),
+           control = lmerControl(optimizer = "bobyqa"),
+           data = d1 %>% mutate_at(vars(ends_with("_score")), scale))
+```
+
+```{r}
+rsquared(r1)
+```
+
+```{r}
+regtab_fun(r1, por_var = "pv_score", por_name = "Porosity Vignettes") %>% 
+  regtab_style_fun(row_emph = 2:3)
+```
+
+```{r}
+regtab_ran_fun(r1) %>% regtab_style_fun()
+```
+
+
+# Bayesian versions
+
+## Table S17
+
+```{r}
+# r1_bayes <- brm(spev_score ~ pv_score * abs_score 
+#                 + (1 | country/site/religion),
+#                 data = d1 %>% mutate_at(vars(ends_with("_score")), scale),
+#                 control = list(adapt_delta = 0.999),
+#                 seed = 1234, cores = 4, chains = 4)
+# saveRDS(r1_bayes, "./models/r1_bayes.RDS")
+
+r1_bayes <- readRDS("./models/r1_bayes.RDS")
+```
+
+```{r}
+bayes_R2(r1_bayes)
+```
+
+```{r}
+regtab_fun(r1_bayes, por_var = "pv_score", por_name = "Porosity Vignettes") %>% 
+  regtab_style_fun(row_emph = 2:3)
+```
+
+```{r}
+regtab_ran_fun(r1_bayes) %>% regtab_style_fun()
+```
+
+
+# Country as fixed effect
+
+## Table S18
+
+```{r}
+r2 <- lm(spev_score ~ pv_score * abs_score * country,
+         data = d1 %>% mutate_at(vars(ends_with("_score")), scale))
+```
+
+```{r}
+rsquared(r2)
+```
+
+```{r}
+regtab_fun(r2, std_beta = T, 
+           por_var = "pv_score", por_name = "Porosity Vignettes") %>% 
+  regtab_style_fun(row_emph = 2:3)
+```
+
+
+# Other analyses
+
+## Simple correlations (Supplemental Information, p. 6)
+
+```{r}
+d1 %>% 
+  mutate_at(vars(ends_with("_score")), scale) %>%
+  select(pv_score, abs_score, spev_score) %>% 
+  cor(use = "pairwise.complete")
+```
+
+```{r}
+cor.test(scale(d1$pv_score), scale(d1$spev_score)) # standardizing unnecessary
+```
+
+```{r}
+cor.test(scale(d1$abs_score), scale(d1$spev_score)) # standardizing unnecessary
+```
+
+```{r}
+cor.test(scale(d1$pv_score), scale(d1$abs_score)) # standardizing unnecessary
+```
+
+## Analyses of recoded data (Supplemental information, p. 7)
+
+### Preliminary analyses (parallel to Table S15)
+
+```{r}
+r0_recoded <- lm(spev_recoded_score ~ country * site * religion,
+                 data = d1)
+```
+
+```{r}
+rsquared(r0)
+```
+
+```{r}
+regtab_fun(r0, std_beta = T) %>% regtab_style_fun()
+```
+
+### Primary analyses (parallel to Table S16)
+
+```{r}
+r1_recoded <- lmer(spev_recoded_score ~ pv_score * abs_score 
+                   + (1 | country/site/religion),
+                   control = lmerControl(optimizer = "bobyqa"),
+                   data = d1 %>% mutate_at(vars(ends_with("_score")), scale))
+```
+
+```{r}
+rsquared(r1_recoded)
+```
+
+```{r}
+regtab_fun(r1_recoded, por_var = "pv_score", por_name = "Porosity Vignettes") %>% 
+  regtab_style_fun(row_emph = 2:3)
+```
+
+```{r}
+regtab_ran_fun(r1_recoded) %>% regtab_style_fun()
+```
+
+
+### Bayesian version (parallel to Table S17)
+
+```{r}
+# r1_recoded_bayes <- brm(spev_recoded_score ~ pv_score * abs_score
+#                         + (1 | country/site/religion),
+#                         data = d1 %>% mutate_at(vars(ends_with("_score")), scale),
+#                         control = list(adapt_delta = 0.999),
+#                         seed = 1234, cores = 4, chains = 4)
+# saveRDS(r1_recoded_bayes, "./models/r1_recoded_bayes.RDS")
+
+r1_recoded_bayes <- readRDS("./models/r1_recoded_bayes.RDS")
+```
+
+```{r}
+bayes_R2(r1_bayes)
+```
+
+```{r}
+regtab_fun(r1_bayes, por_var = "pv_score", por_name = "Porosity Vignettes") %>% 
+  regtab_style_fun(row_emph = 2:3)
+```
+
+```{r}
+regtab_ran_fun(r1_bayes) %>% regtab_style_fun()
+```
+
+
+### Country as fixed effect (parallel to Table S18)
+
+```{r}
+r2_recoded <- lm(spev_recoded_score ~ pv_score * abs_score * country,
+                 data = d1 %>% mutate_at(vars(ends_with("_score")), scale))
+```
+
+```{r}
+rsquared(r2_recoded)
+```
+
+```{r}
+regtab_fun(r2_recoded, std_beta = T, 
+           por_var = "pv_score", por_name = "Porosity Vignettes") %>% 
+  regtab_style_fun(row_emph = 2:3)
+```
+
+
+
