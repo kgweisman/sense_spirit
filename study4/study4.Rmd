@@ -1,0 +1,935 @@
+---
+title: "Study 4"
+subtitle: "Luhrmann, Weisman, et al."
+output: 
+  html_notebook:
+    theme: flatly
+    toc: true
+    toc_float: true
+---
+
+In Study 4, college undergraduates completed a survey consisting of nine measures, including two indices of porosity, the Absorption scale, two indices of spiritual experience, two indices of more secular extraordinary experience, and two control measures.
+
+This notebook contains all of the analyses for Study 4, which closely follow our preregistration of this study (link: https://osf.io/kmtc4)
+
+```{r, message = F}
+source("../scripts_general/dependencies.R")
+source("../scripts_general/custom_funs.R")
+source("../scripts_general/var_recode_contrast.R")
+source("../scripts_general/data_load.R")
+```
+
+```{r}
+# show contrasts
+contrasts(d4$country)
+```
+
+# Demographics
+
+## Table S14
+
+```{r}
+d4_demo <- d4 %>% select(-contains("score")) %>% 
+  mutate(male = ifelse(grepl("male", tolower(subject_gender)) &
+                         !grepl("female", tolower(subject_gender)), 1, 0),
+         female = ifelse(grepl("female", tolower(subject_gender)), 1, 0),
+         subject_age = ifelse(subject_age > 120, NA_real_, subject_age),
+         urban = ifelse(subject_urban_rural == "urban", 1, 0),
+         subject_religion = case_when( # deal with religion
+             subject_religion %in% 
+               c("A.O.G.", "Anglican", "AoG", "AOG", "AOG (Assembly of God)",
+                 "Apostolic Life Ministry", "Assemblies of God", "Assemblies of God (AOG)",
+                 "Baptism", "Bible Church", "Bible Church of Vanuatu", "catholic",
+                 "Catholic", "catholicism", "Catholicism", "Catholicism / Christianism",
+                 "Chirstianity", "Christian", "Christian Mission Center",
+                 "Christian religion", "Christianianity", "christianity",
+                 "Christianity", "Church of Christ", "CMC", "CMC Church", "COC",
+                 "Living Water [Fresh waters]", "Living Wota (Freshwotas)", "Methodist",
+                 "New Governant Church of Vanuatu", "NTM", "only Christian",
+                 "Only Christian", "Only Christian!", "Pilow of Five Ministry",
+                 "Praise & Worship", "Presbyterian", "Roman Catholic", "S.D.A",
+                 "S.D.A. Youth", "Sabbath", "SDA (Saturday)", "SDA (Seventh Day Adventist)",
+                 "SDA, Seventh Day Adventist", "Seventh Day Adventist", "Sunday",
+                 "Sunday worship", "Sunday Worship", 
+                 "The Church of Jesus Christ of Latter Day Saints",
+                 "United Methodist Christian") ~ "Christian",
+             subject_religion %in% 
+               c("Buddhist", "Buddhism") ~ "Buddhist",
+             subject_religion %in%
+               c("Muslim", "Islam", "Islam / Mohammedanism", "Islam/Mohammedanism",
+                 "Some Islam habits") ~ "Muslim",
+             grepl("agnost", tolower(subject_religion)) |
+               grepl("atheis", tolower(subject_religion)) |
+               grepl("don't", tolower(subject_religion)) |
+               grepl("none", tolower(subject_religion)) |
+               subject_religion == "." | is.na(subject_religion) |
+               tolower(subject_religion) %in% 
+               c("n/a", "no", "no religion", 
+                 "no religion, finding one", "not really") ~ "Agnostic/Atheist",
+             TRUE ~ "Other"),
+           agnostic_atheist = (subject_religion == "Agnostic/Atheist"),
+           buddhist = (subject_religion == "Buddhist"),
+           christian = (subject_religion == "Christian"),
+           muslim = (subject_religion == "Muslim"),
+           other = (subject_religion == "Other"))
+```
+
+```{r}
+d4_demo %>%
+  group_by(country) %>%
+  summarise(n = n(),
+            age_range = paste0(min(subject_age, na.rm = T), "-",
+                               max(subject_age, na.rm = T)),
+            mean_age = mean(subject_age, na.rm = T),
+            percent_male = mean(male, na.rm = T),
+            percent_female = mean(female, na.rm = T),
+            percent_urban = mean(urban, na.rm = T),
+            percent_affr = mean(subject_afford, na.rm = T),
+            mean_ses = mean(subject_ses, na.rm = T),
+            mean_religiosity = mean(subject_religiosity, na.rm = T),
+            percent_christian = mean(christian, na.rm = T),
+            percent_agnostic_atheist = mean(agnostic_atheist, na.rm = T),
+            percent_buddhist = mean(buddhist, na.rm = T),
+            percent_muslim = mean(muslim, na.rm = T),
+            percent_other = mean(other, na.rm = T)) %>%
+  ungroup() %>%
+  # mutate_at(vars(starts_with("mean_")), funs(format(round(., 2), nsmall = 2))) %>%
+  mutate_at(vars(starts_with("percent_")),
+            funs(paste0(round(. * 100), "%"))) %>%
+  rename(Country = country, 
+         `Age range` = age_range, `Mean age` = mean_age,
+         `% male` = percent_male, `% female` = percent_female,
+         `% urban` = percent_urban, `% can afford` = percent_affr,
+         `Mean SES` = mean_ses, `Mean religiosity` = mean_religiosity,
+         `% Christian` = percent_christian, 
+         `% Agnostic/Atheist` = percent_agnostic_atheist, 
+         `% Buddhist` = percent_buddhist, 
+         `% Muslim` = percent_muslim, 
+         `% Other` = percent_other) %>%
+  mutate(Country = factor(Country, levels = levels_country)) %>%
+  arrange(Country) %>%
+  select(Country, n, `Age range`, `Mean age`, `% male`, `% female`,
+         `% Christian`, `% Buddhist`, `% Muslim`, `% Other`, `% Agnostic/Atheist`,
+         `% urban`, `% can afford`, `Mean SES`, `Mean religiosity`) %>%
+  kable(digits = 2, align = c(rep("l", 2), rep("r", ncol(.) - 2))) %>%
+  kable_styling(font_size = 16) # %>%
+# collapse_rows(1:2)
+```
+
+
+# Primary analyses
+
+```{r}
+d4_long <- d4 %>% 
+  # NOTE: standardized here instead of in regressions (due to constraints of brm())
+  mutate_at(vars(ends_with("_score")), scale) %>%
+  gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+  mutate(spirit_scale = factor(spirit_scale))
+
+contrasts(d4_long$spirit_scale) <- c(-1, 1); contrasts(d4_long$spirit_scale)
+```
+
+## Table S32 (Porosity Vignettes)
+
+```{r}
+r1_pv <- lmer(spirit_score ~ pv_score * spirit_scale  
+              # + (pv_score || country/subject_id),
+              + (1 | country/subject_id), # as preregistered
+              control = lmerControl(optimizer = "bobyqa"),
+              data = d4_long) # note: already standardized
+```
+
+```{r}
+rsquared(r1_pv)
+```
+
+```{r}
+regtab_fun(r1_pv, por_var = "pv_score", por_name = "Porosity Vignettes", 
+           scale_var = "spirit_scale1", scale_name = "scale") %>% 
+  regtab_style_fun(row_emph = 2)
+```
+
+```{r}
+regtab_ran_fun(r1_pv) %>% regtab_style_fun()
+```
+
+## Table S33 (Porosity Scale)
+
+```{r}
+r1_por <- lmer(spirit_score ~ por_score * spirit_scale  
+               # + (por_score || country/subject_id),
+               + (1 | country/subject_id), # as preregistered
+               control = lmerControl(optimizer = "bobyqa"),
+               data = d4_long) # note: already standardized
+```
+
+```{r}
+rsquared(r1_por)
+```
+
+```{r}
+regtab_fun(r1_por, por_var = "por_score", por_name = "Porosity Scale", 
+           scale_var = "spirit_scale1", scale_name = "scale") %>% 
+  regtab_style_fun(row_emph = 2)
+```
+
+```{r}
+regtab_ran_fun(r1_por) %>% regtab_style_fun()
+```
+
+## Table S34 (Absorption)
+
+```{r}
+r1_abs <- lmer(spirit_score ~ abs_score * spirit_scale  
+               # + (abs_score || country/subject_id),
+               + (1 | country/subject_id), # as preregistered
+               control = lmerControl(optimizer = "bobyqa"),
+               data = d4_long) # note: already standardized
+```
+
+```{r}
+rsquared(r1_abs)
+```
+
+```{r}
+regtab_fun(r1_abs, scale_var = "spirit_scale1", scale_name = "scale") %>% 
+  regtab_style_fun(row_emph = 2)
+```
+
+```{r}
+regtab_ran_fun(r1_abs) %>% regtab_style_fun()
+```
+
+
+# Bayesian versions
+
+## Table S35 (Porosity Vignettes)
+
+```{r}
+# r1_pv_bayes <- brm(spirit_score ~ pv_score * spirit_scale
+#                    + (1 | country/subject_id),
+#                    data = d4_long, # note: already standardized
+#                    control = list(adapt_delta = 0.99),
+#                    seed = 1234, cores = 4, chains = 4)
+# saveRDS(r1_pv_bayes, "./models/r1_pv_bayes.RDS")
+
+r1_pv_bayes <- readRDS("./models/r1_pv_bayes.RDS")
+```
+
+```{r}
+bayes_R2(r1_pv_bayes)
+```
+
+```{r}
+regtab_fun(r1_pv_bayes, 
+           por_var = "pv_score", por_name = "Porosity Vignettes", 
+           scale_var = "spirit_scale1") %>% 
+  regtab_style_fun(row_emph = 2)
+```
+
+```{r}
+regtab_ran_fun(r1_pv_bayes) %>% regtab_style_fun()
+```
+
+## Table S36 (Porosity Scale)
+
+```{r}
+# r1_por_bayes <- brm(spirit_score ~ por_score * spirit_scale
+#                    + (1 | country/subject_id),
+#                    data = d4_long, # note: already standardized
+#                    control = list(adapt_delta = 0.99),
+#                    seed = 1234, cores = 4, chains = 4)
+# saveRDS(r1_por_bayes, "./models/r1_por_bayes.RDS")
+
+r1_por_bayes <- readRDS("./models/r1_por_bayes.RDS")
+```
+
+```{r}
+bayes_R2(r1_por_bayes)
+```
+
+```{r}
+regtab_fun(r1_por_bayes, 
+           por_var = "por_score", por_name = "Porosity Scale", 
+           scale_var = "spirit_scale1") %>% 
+  regtab_style_fun(row_emph = 2)
+```
+
+```{r}
+regtab_ran_fun(r1_por_bayes) %>% regtab_style_fun()
+```
+
+## Table S37 (Absorption Scale)
+
+```{r}
+# r1_abs_bayes <- brm(spirit_score ~ abs_score * spirit_scale
+#                    + (1 | country/subject_id),
+#                    data = d4_long, # note: already standardized
+#                    control = list(adapt_delta = 0.99),
+#                    seed = 1234, cores = 4, chains = 4)
+# saveRDS(r1_abs_bayes, "./models/r1_abs_bayes.RDS")
+
+r1_abs_bayes <- readRDS("./models/r1_abs_bayes.RDS")
+```
+
+```{r}
+bayes_R2(r1_abs_bayes)
+```
+
+```{r}
+regtab_fun(r1_abs_bayes, 
+           scale_var = "spirit_scale1") %>% 
+  regtab_style_fun(row_emph = 2)
+```
+
+```{r}
+regtab_ran_fun(r1_abs_bayes) %>% regtab_style_fun()
+```
+
+
+# Country as fixed effect
+
+## Table S38 (Porosity Vignettes)
+
+```{r}
+r2_pv <- lmer(spirit_score ~ pv_score * spirit_scale * country
+              + (1 | subject_id),
+              data = d4_long) # note: already standardized
+```
+
+```{r}
+rsquared(r2_pv)
+```
+
+```{r}
+regtab_fun(r2_pv, std_beta = T, 
+           por_var = "pv_score", por_name = "Porosity Vignettes", 
+           scale_var = "spirit_scale1") %>% 
+  regtab_style_fun(row_emph = 2)
+```
+
+```{r}
+regtab_ran_fun(r2_pv) %>% regtab_style_fun()
+```
+
+## Table S39 (Porosity Scale)
+
+```{r}
+r2_por <- lmer(spirit_score ~ por_score * spirit_scale * country
+               + (1 | subject_id),
+               data = d4_long) # note: already standardized
+```
+
+```{r}
+rsquared(r2_por)
+```
+
+```{r}
+regtab_fun(r2_por, std_beta = T, 
+           por_var = "por_score", por_name = "Porosity Scale", 
+           scale_var = "spirit_scale1") %>% 
+  regtab_style_fun(row_emph = 2)
+```
+
+```{r}
+regtab_ran_fun(r2_por) %>% regtab_style_fun()
+```
+
+## Table S40 (Absorption Scale)
+
+```{r}
+r2_abs <- lmer(spirit_score ~ abs_score * spirit_scale * country
+               + (1 | subject_id),
+               data = d4_long) # note: already standardized
+```
+
+```{r}
+rsquared(r2_abs)
+```
+
+```{r}
+regtab_fun(r2_abs, std_beta = T, 
+           scale_var = "spirit_scale1") %>% 
+  regtab_style_fun(row_emph = 2)
+```
+
+```{r}
+regtab_ran_fun(r2_abs) %>% regtab_style_fun()
+```
+
+
+# Other analyses
+
+## Primary analyses, by country (Supplemental Information, p. 15)
+
+### Porosity Vignettes
+
+```{r}
+r1_pv_us <- lmer(spirit_score ~ pv_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "US") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+
+r1_pv_gh <- lmer(spirit_score ~ pv_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "Ghana") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+
+r1_pv_th <- lmer(spirit_score ~ pv_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "Thailand") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+
+r1_pv_ch <- lmer(spirit_score ~ pv_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "China") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+
+r1_pv_vt <- lmer(spirit_score ~ pv_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "Vanuatu") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+```
+
+```{r}
+bind_rows(regtab_fun(r1_pv_us, 
+                     por_var = "pv_score", por_name = "Porosity Vignettes",
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "US"),
+          regtab_fun(r1_pv_gh,
+                     por_var = "pv_score", por_name = "Porosity Vignettes",
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "Ghana"),
+          regtab_fun(r1_pv_th,
+                     por_var = "pv_score", por_name = "Porosity Vignettes",
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "Thailand"),
+          regtab_fun(r1_pv_ch,
+                     por_var = "pv_score", por_name = "Porosity Vignettes",
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "China"),
+          regtab_fun(r1_pv_vt,
+                     por_var = "pv_score", por_name = "Porosity Vignettes",
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "Vanuatu")) %>%
+  select(Country, everything()) %>%
+  regtab_style_fun(row_emph = seq(2, 20, 4)) %>%
+  collapse_rows(1)
+```
+
+### Porosity Scale
+
+```{r}
+r1_por_us <- lmer(spirit_score ~ por_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "US") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+
+r1_por_gh <- lmer(spirit_score ~ por_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "Ghana") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+
+r1_por_th <- lmer(spirit_score ~ por_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "Thailand") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+
+r1_por_ch <- lmer(spirit_score ~ por_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "China") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+
+r1_por_vt <- lmer(spirit_score ~ por_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "Vanuatu") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+```
+
+```{r}
+bind_rows(regtab_fun(r1_por_us, 
+                     por_var = "por_score", por_name = "Porosity Scale",
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "US"),
+          regtab_fun(r1_por_gh,
+                     por_var = "por_score", por_name = "Porosity Scale",
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "Ghana"),
+          regtab_fun(r1_por_th,
+                     por_var = "por_score", por_name = "Porosity Scale",
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "Thailand"),
+          regtab_fun(r1_por_ch,
+                     por_var = "por_score", por_name = "Porosity Scale",
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "China"),
+          regtab_fun(r1_por_vt,
+                     por_var = "por_score", por_name = "Porosity Scale",
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "Vanuatu")) %>%
+  select(Country, everything()) %>%
+  regtab_style_fun(row_emph = seq(2, 20, 4)) %>%
+  collapse_rows(1)
+```
+
+### Absorption
+
+```{r}
+r1_abs_us <- lmer(spirit_score ~ abs_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "US") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+
+r1_abs_gh <- lmer(spirit_score ~ abs_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "Ghana") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+
+r1_abs_th <- lmer(spirit_score ~ abs_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "Thailand") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+
+r1_abs_ch <- lmer(spirit_score ~ abs_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "China") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+
+r1_abs_vt <- lmer(spirit_score ~ abs_score * spirit_scale  
+                 + (1 | subject_id), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d4 %>% 
+                   filter(country == "Vanuatu") %>%
+                   mutate_at(vars(ends_with("_score")), scale) %>%
+                   gather(spirit_scale, spirit_score, c(spev_score, dse_score)) %>%
+                   mutate(spirit_scale = factor(spirit_scale)),
+                 contrasts = list(spirit_scale = c(-1, 1)))
+```
+
+```{r}
+bind_rows(regtab_fun(r1_abs_us, 
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "US"),
+          regtab_fun(r1_abs_gh,
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "Ghana"),
+          regtab_fun(r1_abs_th,
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "Thailand"),
+          regtab_fun(r1_abs_ch,
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "China"),
+          regtab_fun(r1_abs_vt,
+                     scale_var = "spirit_scale1", scale_name = "Spirit scale") %>% 
+            mutate(Country = "Vanuatu")) %>%
+  select(Country, everything()) %>%
+  regtab_style_fun(row_emph = seq(2, 20, 4)) %>%
+  collapse_rows(1)
+```
+
+### Summary
+
+```{r}
+r1_bycountry_sum <- rbind(regtab_fun(r1_pv_us, por_var = "pv_score", por_name = "PV"), 
+                          regtab_fun(r1_pv_gh, por_var = "pv_score", por_name = "PV"), 
+                          regtab_fun(r1_pv_th, por_var = "pv_score", por_name = "PV"), 
+                          regtab_fun(r1_pv_ch, por_var = "pv_score", por_name = "PV"), 
+                          regtab_fun(r1_pv_vt, por_var = "pv_score", por_name = "PV"),
+                          regtab_fun(r1_por_us, por_name = "PS"), 
+                          regtab_fun(r1_por_gh, por_name = "PS"), 
+                          regtab_fun(r1_por_th, por_name = "PS"), 
+                          regtab_fun(r1_por_ch, por_name = "PS"), 
+                          regtab_fun(r1_por_vt, por_name = "PS"),
+                          regtab_fun(r1_abs_us), 
+                          regtab_fun(r1_abs_gh), 
+                          regtab_fun(r1_abs_th), 
+                          regtab_fun(r1_abs_ch), 
+                          regtab_fun(r1_abs_vt))
+
+r1_bycountry_sum %>%
+  filter(!Parameter %in% c("Intercept", "spirit_scale1"),
+         !grepl("×", Parameter)) %>%
+  arrange(β)
+```
+
+
+## Secular anomalous experiences
+
+```{r}
+d4_long_sec <- d4 %>% 
+  # NOTE: standardized here instead of in regressions (due to constraints of brm())
+  mutate_at(vars(ends_with("_score")), scale) %>%
+  gather(sec_scale, sec_score, c(hall_score, para_score)) %>%
+  mutate(sec_scale = factor(sec_scale))
+
+contrasts(d4_long_sec$sec_scale) <- c(-1, 1); contrasts(d4_long_sec$sec_scale)
+```
+
+### Table S41 (Porosity Vignettes)
+
+```{r}
+r3_pv <- lmer(sec_score ~ pv_score * sec_scale  
+              # + (pv_score || country/subject_id),
+              + (1 | country/subject_id), # parallel to primary analysis
+              control = lmerControl(optimizer = "bobyqa"),
+              data = d4_long_sec) # note: already standardized
+```
+
+```{r}
+rsquared(r3_pv)
+```
+
+```{r}
+regtab_fun(r3_pv, por_var = "pv_score", por_name = "Porosity Vignettes", 
+           scale_var = "sec_scale1", scale_name = "scale") %>% 
+  regtab_style_fun(row_emph = 2)
+```
+
+```{r}
+regtab_ran_fun(r3_pv) %>% regtab_style_fun()
+```
+
+### Table S42 (Porosity Scale)
+
+```{r}
+r3_por <- lmer(sec_score ~ por_score * sec_scale  
+               # + (por_score || country/subject_id),
+               + (1 | country/subject_id), # parallel to primary analysis
+               control = lmerControl(optimizer = "bobyqa"),
+               data = d4_long_sec) # note: already standardized
+```
+
+```{r}
+rsquared(r3_por)
+```
+
+```{r}
+regtab_fun(r3_por, por_var = "por_score", por_name = "Porosity Scale", 
+           scale_var = "sec_scale1", scale_name = "scale") %>% 
+  regtab_style_fun(row_emph = 2)
+```
+
+```{r}
+regtab_ran_fun(r3_por) %>% regtab_style_fun()
+```
+
+### Table S43 (Absorption)
+
+```{r}
+r3_abs <- lmer(sec_score ~ abs_score * sec_scale  
+               # + (abs_score || country/subject_id),
+               + (1 | country/subject_id), # parallel to primary analysis
+               control = lmerControl(optimizer = "bobyqa"),
+               data = d4_long_sec) # note: already standardized
+```
+
+```{r}
+rsquared(r3_abs)
+```
+
+```{r}
+regtab_fun(r3_abs, scale_var = "sec_scale1", scale_name = "scale") %>% 
+  regtab_style_fun(row_emph = 2)
+```
+
+```{r}
+regtab_ran_fun(r3_abs) %>% regtab_style_fun()
+```
+
+
+## Predictors of interest vs. control measures
+
+```{r}
+d4_interest <- d4 %>%
+  # NOTE: standardized here instead of in regressions (to implement orthogonal contrasts)
+  mutate_at(vars(ends_with("_score")), scale) %>%
+  gather(predictor, predictor_score, 
+         c(pv_score, por_score, abs_score, cog_score, ctl_score)) %>%
+  mutate(predictor = factor(predictor,
+                            levels = c("pv_score", "por_score", "abs_score",
+                                       "cog_score", "ctl_score")))
+
+contrasts(d4_interest$predictor) <- cbind("_a" = c(2, 2, 2, -3, -3),
+                                          "_b" = c(1, 1, -2, 0, 0),
+                                          "_c" = c(-1, 1, 0, 0, 0),
+                                          "_d" = c(0, 0, 0, 1, -1)) 
+contrasts(d4_interest$predictor)
+```
+
+### Table S44 (Spiritual Events, country as fixed effect)
+
+```{r}
+r4_spev <- lm(spev_score ~ predictor_score * predictor * country,
+              data = d4_interest)
+```
+
+```{r}
+rsquared(r4_spev)
+```
+
+```{r}
+regtab_fun(r4_spev, std_beta = T, 
+           scale_var = "predictor_score", scale_name = "Predictor Score",
+           predictor_name1 = "Predictor A", predictor_name2 = "Predictor B",
+           predictor_name3 = "Predictor C", predictor_name4 = "Predictor D") %>% 
+  regtab_style_fun(row_emph = 11)
+```
+
+### Table S45 (Daily Spiritual Experiences, country as fixed effect)
+
+```{r}
+r4_dse <- lm(dse_score ~ predictor_score * predictor * country,
+             data = d4_interest)
+```
+
+```{r}
+rsquared(r4_dse)
+```
+
+```{r}
+regtab_fun(r4_dse, std_beta = T, 
+           scale_var = "predictor_score", scale_name = "Predictor Score",
+           predictor_name1 = "Predictor A", predictor_name2 = "Predictor B",
+           predictor_name3 = "Predictor C", predictor_name4 = "Predictor D") %>% 
+  regtab_style_fun(row_emph = 11)
+```
+
+
+### Table S46 (Spiritual Events, country as random effect)
+
+```{r}
+# r5_spev <- lmer(spev_score ~ predictor_score * predictor 
+#                 + (predictor_score * predictor | country),
+#                 # + (1 | country),
+#                 data = d4_interest)
+# saveRDS(r5_spev, "./models/r5_spev.RDS")
+
+r5_spev <- readRDS("./models/r5_spev.RDS")
+```
+
+```{r}
+rsquared(r5_spev)
+```
+
+```{r}
+regtab_fun(r5_spev, std_beta = T, 
+           scale_var = "predictor_score", scale_name = "Predictor score") %>% 
+  regtab_style_fun(row_emph = 7)
+```
+
+```{r}
+regtab_ran_fun(r5_spev)
+```
+
+### Table S47 (Daily Spiritual Experiences, country as random effect)
+
+```{r}
+# r5_dse <- lmer(dse_score ~ predictor_score * predictor 
+#                 + (predictor_score * predictor | country),
+#                 # + (1 | country),
+#                 data = d4_interest)
+# saveRDS(r5_dse, "./models/r5_dse.RDS")
+
+r5_dse <- readRDS("./models/r5_dse.RDS")
+```
+
+```{r}
+rsquared(r5_dse)
+```
+
+```{r}
+regtab_fun(r5_dse, std_beta = T, 
+           scale_var = "predictor_score", scale_name = "Predictor score") %>% 
+  regtab_style_fun(row_emph = 7)
+```
+
+```{r}
+regtab_ran_fun(r5_dse) %>% regtab_style_fun()
+```
+
+
+## Interactive model
+
+### Table S48 (Porosity Vignettes * Absorption)
+
+```{r}
+r6_pv <- lmer(spirit_score ~ pv_score * abs_score * spirit_scale
+              + (1 | country/subject_id),
+              data = d4_long)
+```
+
+```{r}
+rsquared(r6_pv)
+```
+
+```{r}
+regtab_fun(r6_pv, 
+           por_var = "pv_score", por_name = "Porosity Vignettes", 
+           scale_var = "spirit_scale1", scale_name = "Spirit scale") %>%
+  regtab_style_fun(row_emph = 2:3)
+```
+
+```{r}
+regtab_ran_fun(r6_pv) %>% regtab_style_fun()
+```
+
+### Table S49 (Porosity Scale * Absorption)
+
+```{r}
+r6_por <- lmer(spirit_score ~ por_score * abs_score * spirit_scale
+              + (1 | country/subject_id),
+              data = d4_long)
+```
+
+```{r}
+rsquared(r6_por)
+```
+
+```{r}
+regtab_fun(r6_por, 
+           por_var = "por_score", por_name = "Porosity Scale", 
+           scale_var = "spirit_scale1", scale_name = "Spirit scale") %>%
+  regtab_style_fun(row_emph = 2:3)
+```
+
+```{r}
+regtab_ran_fun(r6_por) %>% regtab_style_fun()
+```
+
+
+## Interactive model (country as fixed effect)
+
+### Table S50 (Porosity Vignettes * Absorption)
+
+```{r}
+r7_pv <- lmer(spirit_score ~ pv_score * abs_score * spirit_scale * country
+              + (1 | subject_id),
+              data = d4_long)
+```
+
+```{r}
+rsquared(r7_pv)
+```
+
+```{r}
+regtab_fun(r7_pv, std_beta = T, 
+           por_var = "pv_score", por_name = "Porosity Vignettes", 
+           scale_var = "spirit_scale1", scale_name = "Spirit scale") %>%
+  regtab_style_fun(row_emph = 2:3)
+```
+
+```{r}
+regtab_ran_fun(r7_pv) %>% regtab_style_fun()
+```
+
+### Table S51 (Porosity Scale * Absorption)
+
+```{r}
+r7_por <- lmer(spirit_score ~ por_score * abs_score * spirit_scale * country
+              + (1 | subject_id),
+              data = d4_long)
+```
+
+```{r}
+rsquared(r7_por)
+```
+
+```{r}
+regtab_fun(r7_por, std_beta = T, 
+           por_var = "por_score", por_name = "Porosity Scale", 
+           scale_var = "spirit_scale1", scale_name = "Spirit scale") %>%
+  regtab_style_fun(row_emph = 2:3)
+```
+
+```{r}
+regtab_ran_fun(r7_por) %>% regtab_style_fun()
+```
+
+
+## Amount of variance explained by site
+
+```{r}
+r8_pv <- lm(scale(pv_score) ~ country, d4)
+rsquared(r8_pv)
+```
+
+```{r}
+r8_por <- lm(scale(por_score) ~ country, d4)
+rsquared(r8_por)
+```
+
+```{r}
+r8_abs <- lm(scale(abs_score) ~ country, d4)
+rsquared(r8_abs)
+```
+
