@@ -6,7 +6,9 @@ Why do some people experience extraordinary spiritual events while others do not
 
 This repo includes analyses of the quantitative data from these four studies, which took place in five international field sites as part of the [Mind and Spirit Project](https://themindandspiritproject.stanford.edu/#Home).
 
-Analysis scripts are organized by study. To view the results of an analysis in an HTML file, download the R Notebook (extension: .nb.html) to a folder on your computer and re-open it (from that folder) in a web browser -- or use the [htmlpreview.github.com](htmlpreview.github.com) links provided below. To view and manipulate the code, download the R Markdown file (extension: .Rmd) and open it in RStudio.
+**Analysis scripts** are organized by study. To view the results of an analysis in an HTML file, download the R Notebook (extension: .nb.html) to a folder on your computer and re-open it (from that folder) in a web browser -- or use the [htmlpreview.github.com](htmlpreview.github.com) links provided below. To view and manipulate the code, download the R Markdown file (extension: .Rmd) and open it in RStudio.
+
+**Figures** are available [here](https://github.com/kgweisman/sense_spirit/tree/master/figures) -- HTML preview: [figures](http://htmlpreview.github.io/?https://github.com/kgweisman/sense_spirit/blob/master/figures/figures.nb.html#figure_1)
 
 ## Study 1
 
