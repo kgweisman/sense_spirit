@@ -19,13 +19,13 @@ regtab_fun <- function(reg,
                        site_name = "Site (rural)",
                        scale_var = "spirit_scale_spev",
                        scale_name = "Scale (Sp. Ev.)",
-                       predictor_var1 = "predictor_intVctl",
+                       predictor_var1 = "predictor_a",
                        predictor_name1 = "Predictor (A)",
-                       predictor_var2 = "predictor_porVabs",
+                       predictor_var2 = "predictor_b",
                        predictor_name2 = "Predictor (B)",
-                       predictor_var3 = "predictor_porVpv",
+                       predictor_var3 = "predictor_c",
                        predictor_name3 = "Predictor (C)",
-                       predictor_var4 = "predictor_cogVctl",
+                       predictor_var4 = "predictor_d",
                        predictor_name4 = "Predictor (D)"){
   
   var_key <- c(por_name, abs_name, 
@@ -76,10 +76,13 @@ regtab_fun <- function(reg,
   if (std_beta) {
     beta_std <- std_beta(reg, type = "std")
     beta_std2 <- std_beta(reg, type = "std2") %>%
+      # correct inconsistencies in naming between std and std2
       mutate(term = gsub("site_rural", "site", term),
              term = gsub("religion_char", "religion", term),
+             term = gsub("spirit_scale1", "spirit_scale", term),
              term = gsub("site", "site_rural", term),
-             term = gsub("religion", "religion_char", term))
+             term = gsub("religion", "religion_char", term),
+             term = gsub("spirit_scale", "spirit_scale1", term))
     
     beta_df <- beta_std %>% select(term, std.estimate) %>%
       rename("β'" = std.estimate) %>%
