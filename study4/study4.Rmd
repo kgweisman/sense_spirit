@@ -66,12 +66,15 @@ d4_demo <- d4 %>% select(-contains("score")) %>%
                tolower(subject_religion) %in% 
                c("n/a", "no", "no religion", 
                  "no religion, finding one", "not really") ~ "Agnostic/Atheist",
+           subject_religion %in% c("missing data", "mdata", "NA") |
+             is.na(subject_religion) ~ "Missing data",
              TRUE ~ "Other"),
            agnostic_atheist = (subject_religion == "Agnostic/Atheist"),
            buddhist = (subject_religion == "Buddhist"),
            christian = (subject_religion == "Christian"),
            muslim = (subject_religion == "Muslim"),
-           other = (subject_religion == "Other"))
+           other = (subject_religion == "Other"),
+         missing = (subject_religion == "Missing data"))
 ```
 
 ```{r}
@@ -91,7 +94,8 @@ d4_demo %>%
             percent_agnostic_atheist = mean(agnostic_atheist, na.rm = T),
             percent_buddhist = mean(buddhist, na.rm = T),
             percent_muslim = mean(muslim, na.rm = T),
-            percent_other = mean(other, na.rm = T)) %>%
+            percent_other = mean(other, na.rm = T),
+            percent_missing = mean(missing, na.rm = T)) %>%
   ungroup() %>%
   # mutate_at(vars(starts_with("mean_")), funs(format(round(., 2), nsmall = 2))) %>%
   mutate_at(vars(starts_with("percent_")),
@@ -105,12 +109,15 @@ d4_demo %>%
          `% Agnostic/Atheist` = percent_agnostic_atheist, 
          `% Buddhist` = percent_buddhist, 
          `% Muslim` = percent_muslim, 
-         `% Other` = percent_other) %>%
+         `% Other` = percent_other,
+         `[% Missing data]` = percent_missing) %>%
   mutate(Country = factor(Country, levels = levels_country)) %>%
   arrange(Country) %>%
   select(Country, n, `Age range`, `Mean age`, `% male`, `% female`,
+         `Mean religiosity`,
          `% Christian`, `% Buddhist`, `% Muslim`, `% Other`, `% Agnostic/Atheist`,
-         `% urban`, `% can afford`, `Mean SES`, `Mean religiosity`) %>%
+         `[% Missing data]`,
+         `% urban`, `% can afford`, `Mean SES`) %>%
   kable(digits = 2, align = c(rep("l", 2), rep("r", ncol(.) - 2))) %>%
   kable_styling(font_size = 16) # %>%
 # collapse_rows(1:2)

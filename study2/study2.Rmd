@@ -104,6 +104,8 @@ d2_demo <- d2 %>% select(-contains("score")) %>%
                tolower("No (ex - JW) Partner Christian - Possibly Korean Baptist"), 
                "no religion", "no religion, finding one", "not really",
                tolower("Religion is a choice; I'm not interested in it.")) ~ "Agnostic/Atheist",
+           subject_religion %in% c("missing data", "mdata", "NA") |
+             is.na(subject_religion) ~ "Missing data",
            TRUE ~ "Other"),
          subject_urban_rural = recode(subject_urban_rural,
                                       "Urban" = 1, "Rural" = 0),
@@ -114,7 +116,8 @@ d2_demo <- d2 %>% select(-contains("score")) %>%
          buddhist = (subject_religion == "Buddhist"),
          christian = (subject_religion == "Christian"),
          muslim = (subject_religion == "Muslim"),
-         other = (subject_religion == "Other"))
+         other = (subject_religion == "Other"),
+         missing = (subject_religion == "Missing data"))
 ```
 
 ```{r}
@@ -134,7 +137,8 @@ d2_demo %>%
             percent_agnostic_atheist = mean(agnostic_atheist, na.rm = T),
             percent_buddhist = mean(buddhist, na.rm = T),
             percent_muslim = mean(muslim, na.rm = T),
-            percent_other = mean(other, na.rm = T)) %>%
+            percent_other = mean(other, na.rm = T),
+            percent_missing = mean(missing, na.rm = T)) %>%
   ungroup() %>%
   # mutate_at(vars(starts_with("mean_")), funs(format(round(., 2), nsmall = 2))) %>%
   mutate_at(vars(starts_with("percent_")),
@@ -148,15 +152,18 @@ d2_demo %>%
          `% Agnostic/Atheist` = percent_agnostic_atheist, 
          `% Buddhist` = percent_buddhist, 
          `% Muslim` = percent_muslim, 
-         `% Other` = percent_other) %>%
+         `% Other` = percent_other,
+         `[% Missing data]` = percent_missing) %>%
   mutate(Country = factor(Country, levels = levels_country),
          Sample = factor(Sample, 
                          levels = c("general population", "charismatic"),
                          labels = c("gen. pop.", "char. ev. Chr."))) %>%
   arrange(Country, Sample) %>%
   select(Country, Sample, n, `Age range`, `Mean age`, `% male`, `% female`,
+         `Mean religiosity`,
          `% Christian`, `% Buddhist`, `% Muslim`, `% Other`, `% Agnostic/Atheist`,
-         `% urban`, `% can afford`, `Mean SES`, `Mean religiosity`) %>%
+         `[% Missing data]`,
+         `% urban`, `% can afford`, `Mean SES`) %>%
   kable(digits = 2, align = c(rep("l", 2), rep("r", ncol(.) - 2))) %>%
   kable_styling(font_size = 16) # %>%
   # collapse_rows(1:2)
