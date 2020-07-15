@@ -1,0 +1,374 @@
+---
+title: "Study 4: Exploratory factor analyses"
+subtitle: "Luhrmann, Weisman, et al."
+output: 
+  html_notebook:
+    theme: flatly
+    toc: true
+    toc_float: true
+---
+
+In Study 4, college undergraduates completed a survey consisting of nine measures, including two indices of porosity, the Absorption scale, two indices of spiritual experience, two indices of more secular extraordinary experience, and two control measures.
+
+This notebook contains exploratory factor analyses of item-wise data from this study.
+
+```{r, message = F}
+source("../scripts_general/dependencies.R")
+source("../scripts_general/custom_funs.R")
+source("../scripts_general/var_recode_contrast.R")
+source("../scripts_general/data_load.R")
+```
+
+```{r}
+require(readxl)
+```
+
+```{r}
+d4_key <- read_excel("./data_by_question/Packet 7_CODED_March 18, 2019.xlsx", 
+                     sheet = "Key") %>%
+  rename(question = VARIABLE,
+         question_text = QUESTION, 
+         response_options = RESPONSES,
+         coding = CODING) %>%
+  mutate(question_text = gsub("[[:space:]]+", " ", question_text),
+         question_text = gsub("‚Äô", "'", question_text),
+         question_text = gsub("‚Äú", "'", question_text),
+         question_text = gsub("‚Äù", "'", question_text),
+         question_text = gsub("‚Äî", " - ", question_text),
+         question_text = gsub("\\[ESP", "\\(ESP", question_text),
+         question_text = gsub("psychic ability\\]", "psychic ability\\)", 
+                              question_text),
+         question_text = gsub(" \\[.*\\]", "", question_text),
+         question_text = gsub("^[[:space:]]+", "", question_text))
+```
+
+```{r more custom funs}
+nfact_fun <- function(df, which_rotate = "none") {
+  
+  res_par <- fa.parallel(df, plot = F)
+  
+  res_VSS <- VSS(df, n = 20, rotate = which_rotate, plot = F)
+  
+  res <- bind_rows(c(protocol = "Parallel analysis", 
+                     nfact = res_par$nfact),
+                   c(protocol = "Minimizing BIC", 
+                     nfact = which.min(res_VSS$vss.stats$BIC)),
+                   c(protocol = "Velicer's MAP",
+                     nfact = which.min(res_VSS$map))) %>%
+    mutate(nfact = as.numeric(nfact)) %>%
+    arrange(nfact)
+  
+  return(res)
+}
+
+loadings_fun <- function(efa, key = d4_key) {
+  res <- efa$loadings[] %>%
+    data.frame() %>%
+    rownames_to_column("question") %>%
+    mutate(order = 1:nrow(.)) %>%
+    gather(factor, loading, -c(question, order)) %>%
+    left_join(key %>% select(question, question_text)) %>%
+    mutate(scale = gsub("p7_", "", question),
+           scale = gsub("_.*$", "", scale),
+           scale = factor(scale,
+                          levels = c("se", "dse", "por", "mm", "abs",
+                                     "unev", "exsen", "hthk", "wob"),
+                          labels = c("Spiritual Events", 
+                                     "Daily Spiritual Experiences",
+                                     "Porosity Scale", "Porosity Vignettes",
+                                     "Absorption", "Hallucinations", "Paranormal",
+                                     "Need for Cognition", 
+                                     "Sense of Control: Mastery")))
+  
+  return(res)
+}
+
+heatmap_fun <- function(df, wrap_width = 100, facet = F, legend = F) {
+  
+  if (!facet) {
+    df <- df %>%
+      unite(question_text, scale, question_text, sep = ": ")
+  }
+  
+  
+  plot <- ggplot(df,
+                 aes(x = factor, 
+                     y = reorder(str_wrap(question_text, wrap_width), desc(order)), 
+                     fill = loading)) +
+    geom_tile(color = "black", size = 0.1) +
+    geom_text(aes(label = format(round(loading, 2), nsmall = 2)), size = 2) +
+    scale_fill_viridis_c(guide = guide_colorbar(barwidth = 6, barheight = 0.5)) +
+    scale_x_discrete(position = "top") +
+    scale_y_discrete(position = "right") +
+    theme_minimal() +
+    theme(legend.position = "top") +
+    labs(x = "Factor", y = "Question")
+  
+  if (facet) {
+    plot <- plot + 
+      facet_grid(rows = vars(scale), space = "free", scales = "free", switch = "y")
+  }
+  
+  if (!legend) {
+    plot <- plot + theme(legend.position = "none")
+  }
+  
+  return(plot)
+} 
+
+topfact_fun <- function(df) {
+  res <- df %>%
+    group_by(question) %>%
+    top_n(1, abs(loading)) %>%
+    ungroup() %>%
+    distinct(question, factor) %>%
+    rename(topfact = factor)
+  
+  return(res)
+}
+```
+
+
+# All items, standardized collapsing across sites
+
+```{r}
+d4_items_all <- read_csv("./data_by_question/study4_byquestion.csv") %>%
+  select(-X1, -ends_with("_cat"), -contains("_dem_"), 
+         -contains("_total"), -contains("_check"),
+         -ends_with("_physical"), # omit "physically" items from porosity vignettes
+         -ends_with("_a"), -ends_with("_b"), -ends_with("_c")) %>%
+  filter(p7_subj %in% d4$subject_id) %>%
+  unite(ctry_subj, p7_ctry, p7_subj) %>%
+  column_to_rownames("ctry_subj") %>%
+  mutate_all(~ scale(.))
+```
+
+## Factor retention
+
+```{r}
+nfact_all <- nfact_fun(d4_items_all)
+```
+
+```{r}
+nfact_all
+```
+
+## 6-factor solution
+
+```{r}
+efa_all_6 <- fa(d4_items_all, nfactors = 6, rotate = "oblimin") %>% fa.sort()
+colnames(efa_all_6$loadings) <- paste0("F", str_pad(1:6, width = 2, pad = "0"))
+```
+
+```{r}
+efa_all_6_loadings <- loadings_fun(efa_all_6)
+```
+
+```{r, fig.width = 4, fig.asp = 6}
+heatmap_fun(efa_all_6_loadings)
+```
+```{r}
+efa_all_6_topfact <- topfact_fun(efa_all_6_loadings)
+```
+
+```{r}
+efa_all_6_topfact %>%
+  left_join(efa_all_6_loadings %>% distinct(question, scale)) %>%
+  count(topfact, scale) %>%
+  spread(topfact, n)
+```
+
+## 12-factor solution
+
+```{r}
+efa_all_12 <- fa(d4_items_all, nfactors = 12, rotate = "oblimin") %>% fa.sort()
+colnames(efa_all_12$loadings) <- paste0("F", str_pad(1:12, width = 2, pad = "0"))
+```
+
+```{r}
+efa_all_12_loadings <- loadings_fun(efa_all_12)
+```
+
+```{r, fig.width = 4, fig.asp = 6}
+heatmap_fun(efa_all_12_loadings %>%
+              mutate(question_text = ifelse(nchar(question_text) <= 100,
+                                            question_text,
+                                            paste0(substr(question_text, 1, 100), 
+                                                   "..."))), 
+            wrap_width = 60)
+```
+```{r}
+efa_all_12_topfact <- topfact_fun(efa_all_12_loadings)
+```
+
+```{r}
+efa_all_12_topfact %>%
+  left_join(efa_all_12_loadings %>% distinct(question, scale)) %>%
+  count(topfact, scale) %>%
+  spread(topfact, n)
+```
+
+
+## 15-factor solution
+
+```{r}
+efa_all_15 <- fa(d4_items_all, nfactors = 15, rotate = "oblimin") %>% fa.sort()
+colnames(efa_all_15$loadings) <- paste0("F", str_pad(1:15, width = 2, pad = "0"))
+```
+
+```{r}
+efa_all_15_loadings <- loadings_fun(efa_all_15)
+```
+
+```{r, fig.width = 4, fig.asp = 6}
+heatmap_fun(efa_all_15_loadings %>%
+              mutate(question_text = ifelse(nchar(question_text) <= 100,
+                                            question_text,
+                                            paste0(substr(question_text, 1, 100), 
+                                                   "..."))), 
+            wrap_width = 80)
+```
+```{r}
+efa_all_15_topfact <- topfact_fun(efa_all_15_loadings)
+```
+
+```{r}
+efa_all_15_topfact %>%
+  left_join(efa_all_15_loadings %>% distinct(question, scale)) %>%
+  count(topfact, scale) %>%
+  spread(topfact, n)
+```
+
+
+# All items, standardized by site
+
+```{r}
+d4_items_all_std <- read_csv("./data_by_question/study4_byquestion.csv") %>%
+  select(-X1, -ends_with("_cat"), -contains("_dem_"), 
+         -contains("_total"), -contains("_check"),
+         -ends_with("_physical"), # omit "physically" items from porosity vignettes
+         -ends_with("_a"), -ends_with("_b"), -ends_with("_c")) %>%
+  filter(p7_subj %in% d4$subject_id) %>%
+  group_by(p7_ctry) %>%
+  mutate_at(vars(-p7_ctry, -p7_subj), ~ scale(.)) %>%
+  ungroup() %>%
+  unite(ctry_subj, p7_ctry, p7_subj) %>%
+  column_to_rownames("ctry_subj")
+```
+
+## Factor retention
+
+```{r}
+nfact_all_std <- nfact_fun(d4_items_all_std)
+```
+
+```{r}
+nfact_all_std
+```
+
+## 5-factor solution
+
+```{r}
+efa_all_std_5 <- fa(d4_items_all_std, nfactors = 5, rotate = "varimax") %>% fa.sort()
+colnames(efa_all_std_5$loadings) <- paste0("F", str_pad(1:5, width = 2, pad = "0"))
+colnames(efa_all_std_5$Vaccounted) <- paste0("F", str_pad(1:5, width = 2, pad = "0"))
+```
+
+```{r}
+efa_all_std_5_loadings <- loadings_fun(efa_all_std_5)
+```
+
+```{r}
+efa_all_std_5$Vaccounted
+```
+
+```{r, fig.width = 4, fig.asp = 6}
+heatmap_fun(efa_all_std_5_loadings)
+```
+
+```{r}
+efa_all_std_5_topfact <- topfact_fun(efa_all_std_5_loadings)
+```
+
+```{r}
+efa_all_std_5_topfact %>%
+  left_join(efa_all_std_5_loadings %>% distinct(question, scale)) %>%
+  count(topfact, scale) %>%
+  spread(topfact, n)
+```
+
+```{r}
+efa_all_std_5_topfact %>% count(topfact)
+```
+
+```{r}
+efa_all_std_5_loadings %>%
+  select(scale, question_text, factor, loading, order) %>%
+  mutate(factor = gsub("F0", "Factor ", factor),
+         loading = format(round(loading, 2), nsmall = 2)) %>%
+  spread(factor, loading) %>%
+  arrange(order) %>%
+  select(-order) %>%
+  # mutate("Factor 1" = cell_spec(`Factor 1`, "html",
+  #                               bold = c(rep(T, 35), 
+  #                                        rep(F, nrow(.) - 35))),
+  #        "Factor 2" = cell_spec(`Factor 2`, "html",
+  #                               bold = c(rep(F, 35), 
+  #                                        rep(T, 17), 
+  #                                        rep(F, nrow(.) - (35 + 17)))),
+  #        "Factor 3" = cell_spec(`Factor 3`, "html",
+  #                               bold = c(rep(F, 35 + 17), 
+  #                                        rep(T, 21),
+  #                                        rep(F, nrow(.) - (35 + 17 + 21)))),
+  #        "Factor 4" = cell_spec(`Factor 4`, "html",
+  #                               bold = c(rep(F, 35 + 17 + 21), 
+  #                                        rep(T, 45),
+  #                                        rep(F, nrow(.) - (35 + 17 + 21 + 45)))),
+  #        "Factor 5" = cell_spec(`Factor 5`, "html",
+  #                               bold = c(rep(F, 35 + 17 + 21 + 45), 
+  #                                        rep(T, 25)))) %>%
+  kable(format = "html", escape = F) %>%
+  kable_styling()
+  
+```
+
+
+
+
+
+
+## 15-factor solution
+
+```{r}
+efa_all_std_15 <- fa(d4_items_all_std, nfactors = 15, rotate = "varimax") %>% fa.sort()
+colnames(efa_all_std_15$loadings) <- paste0("F", str_pad(1:15, width = 2, pad = "0"))
+colnames(efa_all_std_15$Vaccounted) <- paste0("F", str_pad(1:15, width = 2, pad = "0"))
+```
+
+```{r}
+efa_all_std_15_loadings <- loadings_fun(efa_all_std_15)
+```
+
+```{r}
+efa_all_std_15$Vaccounted
+```
+
+```{r, fig.width = 4, fig.asp = 6}
+heatmap_fun(efa_all_std_15_loadings)
+```
+
+```{r}
+efa_all_std_15_topfact <- topfact_fun(efa_all_std_15_loadings)
+```
+
+```{r}
+efa_all_std_15_topfact %>%
+  left_join(efa_all_std_15_loadings %>% distinct(question, scale)) %>%
+  count(topfact, scale) %>%
+  spread(topfact, n) %>%
+  janitor::adorn_totals(where = "col")
+```
+
+
+
+
