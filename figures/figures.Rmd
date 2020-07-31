@@ -258,7 +258,7 @@ ggsave("./png_files/fig2.png", plot = fig2, device = "png", width = 6, height = 
 fig2
 ```
 
-Relationships between Spiritual Events scores and scores on measures of porosity (left) and absorption (right), by study and country, rescaled to range from 0-1. Small colored points correspond to individual participants, dotted colored lines correspond to the trend within each country, and solid black lines correspond to the overall trend collapsing across countries. See Fig. S1 for a parallel visualization of Daily Spiritual Experiences scores in Studies 3-4.
+Relationships between Spiritual Events scores and scores on measures of porosity (left) and absorption (right), by study and country, rescaled to range from 0-1. Small colored points correspond to individual participants, dotted colored lines correspond to the trend within each country, and solid black lines correspond to the overall trend collapsing across countries. See Fig. S1 for a parallel visualization of Daily Spiritual Experience scores in Studies 3-4.
 
 
 # Figure 3
@@ -318,7 +318,7 @@ fig3_dse <- d4_fig %>%
               mutate_at(vars(-country), funs(format(round(., 2), nsmall = 2))),
             aes(y = 1, label = paste0(dse_score_mean, "\n(", dse_score_sd, ")")),
             color = "black", size = 2.5, vjust = 1) +
-  labs(x = "Country", y = "Daily Spiritual Experiences")
+  labs(x = "Country", y = "Daily Spiritual Experience")
 ```
 
 ```{r}
@@ -409,7 +409,7 @@ figs1_study3_abs <- d3_fig %>%
   ggplot(aes(x = abs_score, y = dse_score)) %>%
   fig2_fun() +
   labs(x = "Absorption",
-       y = "Daily Spiritual Experiences",
+       y = "Daily Spiritual Experience",
        color = "Country")
 
 figs1_study4_pv <- d4_fig %>%
@@ -417,7 +417,7 @@ figs1_study4_pv <- d4_fig %>%
   ggplot(aes(x = pv_score, y = dse_score)) %>%
   fig2_fun() +
   labs(x = "Porosity Vignettes",
-       y = "Daily Spiritual Experiences",
+       y = "Daily Spiritual Experience",
        color = "Country")
 
 figs1_study4_por <- d4_fig %>%
@@ -425,7 +425,7 @@ figs1_study4_por <- d4_fig %>%
   ggplot(aes(x = por_score, y = dse_score)) %>%
   fig2_fun() +
   labs(x = "Porosity Scale",
-       y = "Daily Spiritual Experiences",
+       y = "Daily Spiritual Experience",
        color = "Country")
 
 figs1_study4_abs <- d4_fig %>%
@@ -433,7 +433,7 @@ figs1_study4_abs <- d4_fig %>%
   ggplot(aes(x = abs_score, y = dse_score)) %>%
   fig2_fun() +
   labs(x = "Absorption",
-       y = "Daily Spiritual Experiences",
+       y = "Daily Spiritual Experience",
        color = "Country")
 ```
 
@@ -469,7 +469,92 @@ ggsave("./png_files/figs1.png", plot = figs1, device = "png", width = 6, height 
 figs1
 ```
 
-Relationships between Daily Spiritual Experiences scores and scores on our measures of porosity (left side) and absorption (right side), by study and country, rescaled to range from 0-1. Small colored points correspond to individual participants, dotted colored lines correspond to the trend within each country, and solid black lines correspond to the overall trend, collapsing across countries.
+Relationships between Daily Spiritual Experience scores and scores on our measures of porosity (left side) and absorption (right side), by study and country, rescaled to range from 0-1. Small colored points correspond to individual participants, dotted colored lines correspond to the trend within each country, and solid black lines correspond to the overall trend, collapsing across countries.
+
+
+# Figure S2
+
+```{r}
+figs2_study4_pv_hall <- d4_fig %>%
+  # mutate_at(vars(ends_with("_score")), scale) %>%
+  ggplot(aes(x = pv_score, y = hall_score)) %>%
+  fig2_fun() +
+  labs(x = "Porosity Vignettes",
+       y = "Hallucinations",
+       color = "Country")
+
+figs2_study4_por_hall <- d4_fig %>%
+  # mutate_at(vars(ends_with("_score")), scale) %>%
+  ggplot(aes(x = por_score, y = hall_score)) %>%
+  fig2_fun() +
+  labs(x = "Porosity Scale",
+       y = "Hallucinations",
+       color = "Country")
+
+figs2_study4_abs_hall <- d4_fig %>%
+  # mutate_at(vars(ends_with("_score")), scale) %>%
+  ggplot(aes(x = abs_score, y = hall_score)) %>%
+  fig2_fun() +
+  labs(x = "Absorption",
+       y = "Hallucinations",
+       color = "Country")
+
+figs2_study4_pv_para <- d4_fig %>%
+  # mutate_at(vars(ends_with("_score")), scale) %>%
+  ggplot(aes(x = pv_score, y = para_score)) %>%
+  fig2_fun() +
+  labs(x = "Porosity Vignettes",
+       y = "Paranormal",
+       color = "Country")
+
+figs2_study4_por_para <- d4_fig %>%
+  # mutate_at(vars(ends_with("_score")), scale) %>%
+  ggplot(aes(x = por_score, y = para_score)) %>%
+  fig2_fun() +
+  labs(x = "Porosity Scale",
+       y = "Paranormal",
+       color = "Country")
+
+figs2_study4_abs_para <- d4_fig %>%
+  # mutate_at(vars(ends_with("_score")), scale) %>%
+  ggplot(aes(x = abs_score, y = para_score)) %>%
+  fig2_fun() +
+  labs(x = "Absorption",
+       y = "Paranormal",
+       color = "Country")
+```
+
+```{r}
+figs2_study4_title <- ggdraw() + 
+  draw_label("STUDY 4", fontface = 'bold', x = 0, hjust = 0) +
+  theme(plot.margin = margin(0, 0, 0, 7))
+
+figs2_row1 <- plot_grid(
+  plot_grid(figs2_study4_title),
+  plot_grid(figs2_study4_pv_hall, figs2_study4_por_hall, figs2_study4_abs_hall,
+            ncol = 3, labels = c("A", "B", "C")),
+  plot_grid(figs2_study4_pv_para, figs2_study4_por_para, figs2_study4_abs_para,
+            ncol = 3, labels = c("D", "E", "F")),
+  ncol = 1, rel_heights = c(1, 10, 10))
+```
+
+```{r}
+fig_legend <- get_legend(figs2_study4_pv_para + theme(legend.position = "bottom"))
+```
+
+```{r}
+figs2 <- plot_grid(figs2_row1, fig_legend,
+                   ncol = 1, rel_heights = c(3, 0.2))
+
+ggsave("./png_files/figs2.png", plot = figs2, device = "png", width = 9, height = 9 * 0.7)
+```
+
+```{r, fig.width = 4, fig.asp = 0.7}
+figs2
+```
+
+Relationships between Paranormal scores and scores on our measures of porosity (left side) and absorption (right side), by study and country, rescaled to range from 0-1. Small colored points correspond to individual participants, dotted colored lines correspond to the trend within each country, and solid black lines correspond to the overall trend, collapsing across countries.
+
 
 
 

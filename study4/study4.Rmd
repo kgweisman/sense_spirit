@@ -175,8 +175,8 @@ rsquared(r1_por)
 ```
 
 ```{r}
-regtab_fun(r1_por, por_var = "por_score", por_name = "Porosity Scale", 
-           scale_var = "spirit_scale1", scale_name = "scale") %>% 
+regtab_fun(r1_por, por_var = "por_score", por_name = "Porosity Scale",
+           scale_var = "spirit_scale1", scale_name = "scale", std_beta = F) %>%
   regtab_style_fun(row_emph = 2)
 ```
 
@@ -199,7 +199,8 @@ rsquared(r1_abs)
 ```
 
 ```{r}
-regtab_fun(r1_abs, scale_var = "spirit_scale1", scale_name = "scale") %>% 
+regtab_fun(r1_abs, scale_var = "spirit_scale1", scale_name = "scale", 
+           std_beta = F) %>%
   regtab_style_fun(row_emph = 2)
 ```
 
@@ -230,7 +231,7 @@ bayes_R2(r1_pv_bayes)
 ```{r}
 regtab_fun(r1_pv_bayes, 
            por_var = "pv_score", por_name = "Porosity Vignettes", 
-           scale_var = "spirit_scale1") %>% 
+           scale_var = "spirit_scale1", std_beta = F) %>% 
   regtab_style_fun(row_emph = 2)
 ```
 
@@ -258,7 +259,7 @@ bayes_R2(r1_por_bayes)
 ```{r}
 regtab_fun(r1_por_bayes, 
            por_var = "por_score", por_name = "Porosity Scale", 
-           scale_var = "spirit_scale1") %>% 
+           scale_var = "spirit_scale1", std_beta = F) %>% 
   regtab_style_fun(row_emph = 2)
 ```
 
@@ -285,7 +286,7 @@ bayes_R2(r1_abs_bayes)
 
 ```{r}
 regtab_fun(r1_abs_bayes, 
-           scale_var = "spirit_scale1") %>% 
+           scale_var = "spirit_scale1", std_beta = F) %>% 
   regtab_style_fun(row_emph = 2)
 ```
 
@@ -309,7 +310,7 @@ rsquared(r2_pv)
 ```
 
 ```{r}
-regtab_fun(r2_pv, std_beta = T, 
+regtab_fun(r2_pv, std_beta = F, 
            por_var = "pv_score", por_name = "Porosity Vignettes", 
            scale_var = "spirit_scale1") %>% 
   regtab_style_fun(row_emph = 2)
@@ -332,7 +333,7 @@ rsquared(r2_por)
 ```
 
 ```{r}
-regtab_fun(r2_por, std_beta = T, 
+regtab_fun(r2_por, std_beta = F, 
            por_var = "por_score", por_name = "Porosity Scale", 
            scale_var = "spirit_scale1") %>% 
   regtab_style_fun(row_emph = 2)
@@ -355,7 +356,7 @@ rsquared(r2_abs)
 ```
 
 ```{r}
-regtab_fun(r2_abs, std_beta = T, 
+regtab_fun(r2_abs, std_beta = F, 
            scale_var = "spirit_scale1") %>% 
   regtab_style_fun(row_emph = 2)
 ```
@@ -745,7 +746,7 @@ rsquared(r4_spev)
 ```
 
 ```{r}
-regtab_fun(r4_spev, std_beta = T, 
+regtab_fun(r4_spev, std_beta = F, 
            scale_var = "predictor_score", scale_name = "Predictor Score",
            predictor_name1 = "Predictor A", predictor_name2 = "Predictor B",
            predictor_name3 = "Predictor C", predictor_name4 = "Predictor D") %>% 
@@ -764,7 +765,7 @@ rsquared(r4_dse)
 ```
 
 ```{r}
-regtab_fun(r4_dse, std_beta = T, 
+regtab_fun(r4_dse, std_beta = F, 
            scale_var = "predictor_score", scale_name = "Predictor Score",
            predictor_name1 = "Predictor A", predictor_name2 = "Predictor B",
            predictor_name3 = "Predictor C", predictor_name4 = "Predictor D") %>% 
@@ -789,7 +790,7 @@ rsquared(r5_spev)
 ```
 
 ```{r}
-regtab_fun(r5_spev, std_beta = T, 
+regtab_fun(r5_spev, std_beta = F, 
            scale_var = "predictor_score", scale_name = "Predictor score") %>% 
   regtab_style_fun(row_emph = 7)
 ```
@@ -815,7 +816,7 @@ rsquared(r5_dse)
 ```
 
 ```{r}
-regtab_fun(r5_dse, std_beta = T, 
+regtab_fun(r5_dse, std_beta = F, 
            scale_var = "predictor_score", scale_name = "Predictor score") %>% 
   regtab_style_fun(row_emph = 7)
 ```
@@ -889,7 +890,7 @@ rsquared(r7_pv)
 ```
 
 ```{r}
-regtab_fun(r7_pv, std_beta = T, 
+regtab_fun(r7_pv, std_beta = F, 
            por_var = "pv_score", por_name = "Porosity Vignettes", 
            scale_var = "spirit_scale1", scale_name = "Spirit scale") %>%
   regtab_style_fun(row_emph = 2:3)
@@ -912,7 +913,7 @@ rsquared(r7_por)
 ```
 
 ```{r}
-regtab_fun(r7_por, std_beta = T, 
+regtab_fun(r7_por, std_beta = F, 
            por_var = "por_score", por_name = "Porosity Scale", 
            scale_var = "spirit_scale1", scale_name = "Spirit scale") %>%
   regtab_style_fun(row_emph = 2:3)

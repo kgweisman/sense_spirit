@@ -10,6 +10,7 @@ require(langcog) # available from: https://github.com/langcog/langcog-package
 require(tidyverse)
 require(cowplot)
 require(sjstats)
+require(effectsize)
 
 # set ggplot theme
 theme_set(theme_bw())

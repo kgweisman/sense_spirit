@@ -1,0 +1,581 @@
+---
+title: "Study 3 (revised analysis July 2020)"
+subtitle: "Luhrmann, Weisman, et al."
+output: 
+  html_notebook:
+    theme: flatly
+    toc: true
+    toc_float: true
+---
+
+In Study 3, college undergraduates completed a survey consisting of one measure of absorption (the Absorption scale) and two measures of spiritual experience (a “Spiritual Events” inventory based on Studies 1 and 2; and a modified version of the Daily Spiritual Experiences scale). 
+
+This notebook contains all of the analyses for Study 3 (revised July 2020).
+
+```{r, message = F}
+source("../scripts_general/dependencies.R")
+source("../scripts_general/custom_funs.R")
+source("../scripts_general/var_recode_contrast.R")
+source("../scripts_general/data_load.R")
+```
+
+```{r}
+require(stargazer)
+detach("package:lmerTest")
+```
+
+```{r}
+# custom function for substituting interaction symbol
+sub_interact_fun <- function(str) {
+  str <- gsub("\\`", "", str) # for `Porosity Vignettes`, etc.
+  str <- gsub("\\.\\:", "\\. × ", str) # for country
+  str <- gsub("\\:Sit", " × Sit", str)
+  str <- gsub("\\:Rel", " × Rel", str)
+  str <- gsub("\\:Pop", " × Pop", str)
+  str <- gsub("\\:Por", " × Por", str)
+  str <- gsub("\\:Abs", " × Abs", str)
+  str <- gsub("\\:Gen", " × Gen", str)
+  str <- gsub("\\:Age", " × Age", str)
+  str <- gsub("\\:Edu", " × Edu", str)
+  return(str)
+}
+```
+
+```{r}
+# show contrasts
+contrasts(d3$country)
+```
+
+# Demographics
+
+```{r}
+d3_demo <- d3 %>% select(-contains("score")) %>% 
+  mutate(male = ifelse(grepl("male", tolower(subject_gender)) &
+                         !grepl("female", tolower(subject_gender)), 1, 0),
+         female = ifelse(grepl("female", tolower(subject_gender)), 1, 0),
+         subject_age = ifelse(subject_age > 120, NA_real_, subject_age),
+         subject_religion = case_when(
+           subject_religion %in% 
+             c("christian", "(seventh day adventist) youth", "a.o.g.", "anglican",
+               "anglicanism", "aog", "aog assemblies of god", 
+               "agos, assemblies of god", "assemblies of god",
+               "c.m.c presbyterian", "christian - ame (google it!)",
+               "christian: anglican", "christian: catholic", 
+               "christian: non specific", "christian: non-specific",
+               "christian: protestant mainline", "christianity",
+               "christianity: non specific", "church of christ",
+               "coptic orthodox christian",
+               "family worship ark healing ministry",
+               "kingdom citizenship of god", "living water", "ntm",
+               "pentecostal", "presbyterian", "presbyterian (illegible)",
+               "protestant", "s.d.a.", "sda", "sda (seventh day adventist)",
+               "seven day adventist", "seventh day adventist", 
+               "seventh day adventist church", "sunday keeper",
+               "word christian fellowship") ~ "Christian",
+           subject_religion %in% 
+             c("buddhist", "dge-lugs-pa (buddhist sect)", "sanqi buddhism",
+               "some values of buddhism", "buddha temple", "buddha temples",
+               "buddha temples & ancestral hall", "buddhist temples") ~ "Buddhist",
+           # subject_religion %in% 
+           #   c("Family - Orthodox Jew / Jewish",
+           #     "Judaism", "Orthodox Jewish") ~ "Jewish",
+           subject_religion %in%
+             c("muslim") ~ "Muslim",
+           # subject_religion %in% 
+           #   c("Hinduism") ~ "Hindu",
+           grepl("agnost", tolower(subject_religion)) |
+             grepl("atheis", tolower(subject_religion)) |
+             grepl("don't", tolower(subject_religion)) |
+             grepl("none", tolower(subject_religion)) |
+             tolower(subject_religion) %in% 
+             c("n/a", "no", "no religion", "not really") ~ "Agnostic/Atheist",
+           subject_religion %in% c("missing data", "mdata", "NA") |
+             is.na(subject_religion) ~ "Missing data",
+           TRUE ~ "Other"),
+         agnostic_atheist = (subject_religion == "Agnostic/Atheist"),
+           buddhist = (subject_religion == "Buddhist"),
+           christian = (subject_religion == "Christian"),
+           muslim = (subject_religion == "Muslim"),
+           other = (subject_religion == "Other"),
+         missing = (subject_religion == "Missing data"))
+```
+
+```{r}
+d3_demo %>%
+  group_by(country) %>%
+  summarise(n = n(),
+            age_range = paste0(min(subject_age, na.rm = T), "-",
+                               max(subject_age, na.rm = T)),
+            mean_age = mean(subject_age, na.rm = T),
+            percent_male = mean(male, na.rm = T),
+            percent_female = mean(female, na.rm = T),
+            percent_affr = mean(subject_afford, na.rm = T),
+            mean_ses = mean(subject_ses, na.rm = T),
+            mean_religiosity = mean(subject_religiosity, na.rm = T),
+            percent_christian = mean(christian, na.rm = T),
+            percent_agnostic_atheist = mean(agnostic_atheist, na.rm = T),
+            percent_buddhist = mean(buddhist, na.rm = T),
+            percent_muslim = mean(muslim, na.rm = T),
+            percent_other = mean(other, na.rm = T),
+            percent_missing = mean(missing, na.rm = T)) %>%
+  ungroup() %>%
+  # mutate_at(vars(starts_with("mean_")), funs(format(round(., 2), nsmall = 2))) %>%
+  mutate_at(vars(starts_with("percent_")),
+            funs(paste0(round(. * 100), "%"))) %>%
+  rename(Country = country, 
+         `Age range` = age_range, `Mean age` = mean_age,
+         `% male` = percent_male, `% female` = percent_female,
+         `% can afford` = percent_affr,
+         `% Christian` = percent_christian, 
+         `% Agnostic/Atheist` = percent_agnostic_atheist, 
+         `% Buddhist` = percent_buddhist, 
+         `% Muslim` = percent_muslim, 
+         `% Other` = percent_other,
+         `[% Missing data]` = percent_missing,
+         `Mean SES` = mean_ses, `Mean religiosity` = mean_religiosity) %>%
+  mutate(Country = factor(Country, levels = levels_country)) %>%
+  arrange(Country) %>%
+  select(Country, n, `Age range`, `Mean age`, `% male`, `% female`,
+         `Mean religiosity`,
+         `% Christian`, `% Buddhist`, `% Muslim`, `% Other`, `% Agnostic/Atheist`,
+         `[% Missing data]`,
+         `% can afford`, `Mean SES`) %>%
+  kable(digits = 2, align = c(rep("l", 2), rep("r", ncol(.) - 2))) %>%
+  kable_styling(font_size = 16) # %>%
+# collapse_rows(1:2)
+```
+
+
+# Revised analyses (July 2020)
+
+```{r}
+d3_fortab <- d3 %>%
+  mutate_at(vars(ends_with("_score"), subject_age), scale) %>%
+  mutate(subject_gender = factor(subject_gender, 
+                                 levels = c("female", "male"))) %>%
+  rename("Spiritual Events" = "spev_score",
+         "Daily Spiritual Experiences" = "dse_score",
+         "Absorption" = "abs_score",
+         "Country" = "country",
+         "Gender" = "subject_gender",
+         "Age" = "subject_age")
+
+contrasts(d3_fortab$Country) <- cbind(": Gh." = c(-1, 1, 0, 0, 0),
+                                      ": Th." = c(-1, 0, 1, 0, 0),
+                                      ": Ch." = c(-1, 0, 0, 1, 0),
+                                      ": Va." = c(-1, 0, 0, 0, 1))
+contrasts(d3_fortab$Gender) <- cbind(": male" = c(-1, 1))
+```
+
+## Group differences
+
+### Spiritual Events
+
+```{r}
+r01_spev <- lm(`Spiritual Events` ~ Country,
+               data = d3_fortab)
+r02_spev <- lm(`Spiritual Events` ~ Country 
+               + Gender + Age, 
+               data = d3_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r01_spev)
+# summary(r02_spev)
+```
+
+```{r, include=F}
+table_s3_diff_spev <- stargazer(r01_spev, r02_spev, type = "html",
+                                ci = T,
+                                report = c("vcsp"),
+                                digits = 2,
+                                digits.extra = 1000,
+                                omit.table.layout = "n",
+                                # order = c("^Country: ...$",
+                                #           "Country"),
+                                dep.var.labels.include = F,
+                                dep.var.caption = "",
+                                single.row = T)
+
+cat(sub_interact_fun(table_s3_diff_spev),
+    file = "./stargazer_tables/table_s3_diff_spev.html")
+```
+
+### Daily Spiritual Experiences
+
+```{r}
+r01_dse <- lm(`Daily Spiritual Experiences` ~ Country,
+               data = d3_fortab)
+r02_dse <- lm(`Daily Spiritual Experiences` ~ Country 
+               + Gender + Age, 
+               data = d3_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r01_dse)
+# summary(r02_dse)
+```
+
+```{r, include=F}
+table_s3_diff_dse <- stargazer(r01_dse, r02_dse, type = "html",
+                                ci = T,
+                                report = c("vcsp"),
+                                digits = 2,
+                                digits.extra = 1000,
+                                omit.table.layout = "n",
+                                # order = c("^Country: ...$",
+                                #           "Country"),
+                                dep.var.labels.include = F,
+                                dep.var.caption = "",
+                                single.row = T)
+
+cat(sub_interact_fun(table_s3_diff_dse),
+    file = "./stargazer_tables/table_s3_diff_dse.html")
+```
+
+### Absorption
+
+```{r}
+r01_abs <- lm(`Absorption` ~ Country,
+               data = d3_fortab)
+r02_abs <- lm(`Absorption` ~ Country 
+               + Gender + Age, 
+               data = d3_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r01_abs)
+# summary(r02_abs)
+```
+
+```{r, include=F}
+table_s3_diff_abs <- stargazer(r01_abs, r02_abs, type = "html",
+                                ci = T,
+                                report = c("vcsp"),
+                                digits = 2,
+                                digits.extra = 1000,
+                                omit.table.layout = "n",
+                                # order = c("^Country: ...$",
+                                #           "Country"),
+                                dep.var.labels.include = F,
+                                dep.var.caption = "",
+                                single.row = T)
+
+cat(sub_interact_fun(table_s3_diff_abs),
+    file = "./stargazer_tables/table_s3_diff_abs.html")
+```
+
+## Relationships
+
+### Spiritual Events
+
+#### Sample as fixed effect
+
+```{r}
+r03_spev <- lm(`Spiritual Events` ~ `Absorption`,
+               data = d3_fortab)
+
+r04_spev <- lm(`Spiritual Events` ~ Country * `Absorption`,
+               data = d3_fortab)
+
+r05_spev <- lm(`Spiritual Events` ~ Country * `Absorption`
+               + Gender + Age,  
+               data = d3_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r03_spev)
+# summary(r04_spev)
+# summary(r05_spev)
+```
+
+```{r, include=F}
+table_s3_rel_spev_fixfx <- stargazer(r03_spev, r04_spev, r05_spev,
+                                     type = "html",
+                                     ci = T,
+                                     report = c("vcsp"),
+                                     digits = 2,
+                                     digits.extra = 1000,
+                                     omit.table.layout = "n",
+                                     order = c("^Absorption$"),
+                                     dep.var.labels.include = F,
+                                     dep.var.caption = "",
+                                     single.row = T)
+
+cat(sub_interact_fun(table_s3_rel_spev_fixfx), 
+    file = "./stargazer_tables/table_s3_rel_spev_fixfx.html")
+```
+
+
+#### Sample as random effect
+
+```{r}
+r06_spev <- lmer(`Spiritual Events` ~ 1 
+                 + (1 | Country),
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d3_fortab)
+
+r07_spev <- lmer(`Spiritual Events` ~ `Absorption` 
+                 # + (1 + `Absorption` | Country), # perfectly correlated ranfx
+                 + (1 | Country),
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d3_fortab)
+
+r08_spev <- lmer(`Spiritual Events` ~ `Absorption`
+                 + Gender + Age 
+                 # + (1 + `Absorption` + Gender + Age | Country), # perfectly correlated ranfx
+                 # + (1 + `Absorption` | Country), # perfectly correlated ranfx
+                 + (1 | Country),
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d3_fortab)
+```
+
+```{r, include = F}
+# run manually to check convergence
+summary(r06_spev)
+summary(r07_spev)
+summary(r08_spev)
+```
+
+```{r, include=F}
+table_s3_rel_spev_ranfx <- stargazer(r06_spev, r07_spev, r08_spev,
+                                     type = "html",
+                                     ci = T,
+                                     report = c("vcsp"),
+                                     digits = 2,
+                                     digits.extra = 0800,
+                                     omit.table.layout = "n",
+                                     # order = c("^`Absorption`$"),
+                                     dep.var.labels.include = F,
+                                     dep.var.caption = "",
+                                     single.row = T)
+
+cat(sub_interact_fun(table_s3_rel_spev_ranfx), 
+    file = "./stargazer_tables/table_s3_rel_spev_ranfx.html")
+```
+
+```{r}
+rsquared(modelList = list(r06_spev, r07_spev, r08_spev)) %>%
+  mutate_at(vars(Marginal, Conditional), ~ round(., 2))
+```
+
+#### By country
+
+```{r}
+r09_us_spev <- lm(`Spiritual Events` ~ `Absorption`,
+                  data = d3_fortab %>% 
+                    filter(Country == "US") %>%
+                    mutate_at(vars(`Spiritual Events`, `Absorption`),
+                              ~ scale(.)))
+
+r09_gh_spev <- lm(`Spiritual Events` ~ `Absorption`,
+                  data = d3_fortab %>% 
+                    filter(Country == "Ghana") %>%
+                    mutate_at(vars(`Spiritual Events`, `Absorption`),
+                              ~ scale(.)))
+
+r09_th_spev <- lm(`Spiritual Events` ~ `Absorption`,
+                  data = d3_fortab %>% 
+                    filter(Country == "Thailand") %>%
+                    mutate_at(vars(`Spiritual Events`, `Absorption`),
+                              ~ scale(.)))
+
+r09_ch_spev <- lm(`Spiritual Events` ~ `Absorption`,
+                  data = d3_fortab %>% 
+                    filter(Country == "China") %>%
+                    mutate_at(vars(`Spiritual Events`, `Absorption`),
+                              ~ scale(.)))
+
+r09_vt_spev <- lm(`Spiritual Events` ~ `Absorption`,
+                  data = d3_fortab %>% 
+                    filter(Country == "Vanuatu") %>%
+                    mutate_at(vars(`Spiritual Events`, `Absorption`),
+                              ~ scale(.)))
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r09_us_spev)
+# summary(r09_gh_spev)
+# summary(r09_th_spev)
+# summary(r09_ch_spev)
+# summary(r09_vt_spev)
+```
+
+```{r, include=F}
+table_s3_rel_bycountry_spev <- stargazer(r09_us_spev, r09_gh_spev,
+                                         r09_th_spev, r09_ch_spev,
+                                         r09_vt_spev, type = "html",
+                                         ci = T,
+                                         report = c("vcsp"),
+                                         digits = 2,
+                                         digits.extra = 1000,
+                                         omit.table.layout = "n",
+                                         # order = c("^`Absorption`$"),
+                                         dep.var.labels.include = F,
+                                         dep.var.caption = "",
+                                         single.row = T)
+
+cat(sub_interact_fun(table_s3_rel_bycountry_spev), 
+    file = "./stargazer_tables/table_s3_rel_bycountry_spev.html")
+```
+
+
+### Daily Spiritual Experiences
+
+#### Sample as fixed effect
+
+```{r}
+r03_dse <- lm(`Daily Spiritual Experiences` ~ `Absorption`,
+               data = d3_fortab)
+
+r04_dse <- lm(`Daily Spiritual Experiences` ~ Country * `Absorption`,
+               data = d3_fortab)
+
+r05_dse <- lm(`Daily Spiritual Experiences` ~ Country * `Absorption`
+               + Gender + Age,  
+               data = d3_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r03_dse)
+# summary(r04_dse)
+# summary(r05_dse)
+```
+
+```{r, include=F}
+table_s3_rel_dse_fixfx <- stargazer(r03_dse, r04_dse, r05_dse,
+                                     type = "html",
+                                     ci = T,
+                                     report = c("vcsp"),
+                                     digits = 2,
+                                     digits.extra = 1000,
+                                     omit.table.layout = "n",
+                                     order = c("^Absorption$"),
+                                     dep.var.labels.include = F,
+                                     dep.var.caption = "",
+                                     single.row = T)
+
+cat(sub_interact_fun(table_s3_rel_dse_fixfx), 
+    file = "./stargazer_tables/table_s3_rel_dse_fixfx.html")
+```
+
+
+#### Sample as random effect
+
+```{r}
+r06_dse <- lmer(`Daily Spiritual Experiences` ~ 1 
+                 + (1 | Country),
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d3_fortab)
+
+r07_dse <- lmer(`Daily Spiritual Experiences` ~ `Absorption` 
+                 # + (1 + `Absorption` | Country), # perfectly correlated ranfx
+                 + (1 | Country),
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d3_fortab)
+
+r08_dse <- lmer(`Daily Spiritual Experiences` ~ `Absorption`
+                 + Gender + Age 
+                 # + (1 + `Absorption` + Gender + Age | Country), 
+                 # + (1 + `Absorption` | Country),
+                 + (1 | Country), # use this for comparsion with spev
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d3_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r06_dse)
+# summary(r07_dse)
+# summary(r08_dse)
+```
+
+```{r, include=F}
+table_s3_rel_dse_ranfx <- stargazer(r06_dse, r07_dse, r08_dse,
+                                     type = "html",
+                                     ci = T,
+                                     report = c("vcsp"),
+                                     digits = 2,
+                                     digits.extra = 0800,
+                                     omit.table.layout = "n",
+                                     # order = c("^`Absorption`$"),
+                                     dep.var.labels.include = F,
+                                     dep.var.caption = "",
+                                     single.row = T)
+
+cat(sub_interact_fun(table_s3_rel_dse_ranfx), 
+    file = "./stargazer_tables/table_s3_rel_dse_ranfx.html")
+```
+
+```{r}
+rsquared(modelList = list(r06_dse, r07_dse, r08_dse)) %>%
+  mutate_at(vars(Marginal, Conditional), ~ round(., 2))
+```
+
+#### By country
+
+```{r}
+r09_us_dse <- lm(`Daily Spiritual Experiences` ~ `Absorption`,
+                  data = d3_fortab %>% 
+                    filter(Country == "US") %>%
+                    mutate_at(vars(`Daily Spiritual Experiences`, `Absorption`),
+                              ~ scale(.)))
+
+r09_gh_dse <- lm(`Daily Spiritual Experiences` ~ `Absorption`,
+                  data = d3_fortab %>% 
+                    filter(Country == "Ghana") %>%
+                    mutate_at(vars(`Daily Spiritual Experiences`, `Absorption`),
+                              ~ scale(.)))
+
+r09_th_dse <- lm(`Daily Spiritual Experiences` ~ `Absorption`,
+                  data = d3_fortab %>% 
+                    filter(Country == "Thailand") %>%
+                    mutate_at(vars(`Daily Spiritual Experiences`, `Absorption`),
+                              ~ scale(.)))
+
+r09_ch_dse <- lm(`Daily Spiritual Experiences` ~ `Absorption`,
+                  data = d3_fortab %>% 
+                    filter(Country == "China") %>%
+                    mutate_at(vars(`Daily Spiritual Experiences`, `Absorption`),
+                              ~ scale(.)))
+
+r09_vt_dse <- lm(`Daily Spiritual Experiences` ~ `Absorption`,
+                  data = d3_fortab %>% 
+                    filter(Country == "Vanuatu") %>%
+                    mutate_at(vars(`Daily Spiritual Experiences`, `Absorption`),
+                              ~ scale(.)))
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r09_us_dse)
+# summary(r09_gh_dse)
+# summary(r09_th_dse)
+# summary(r09_ch_dse)
+# summary(r09_vt_dse)
+```
+
+```{r, include=F}
+table_s3_rel_bycountry_dse <- stargazer(r09_us_dse, r09_gh_dse,
+                                         r09_th_dse, r09_ch_dse,
+                                         r09_vt_dse, type = "html",
+                                         ci = T,
+                                         report = c("vcsp"),
+                                         digits = 2,
+                                         digits.extra = 1000,
+                                         omit.table.layout = "n",
+                                         # order = c("^`Absorption`$"),
+                                         dep.var.labels.include = F,
+                                         dep.var.caption = "",
+                                         single.row = T)
+
+cat(sub_interact_fun(table_s3_rel_bycountry_dse), 
+    file = "./stargazer_tables/table_s3_rel_bycountry_dse.html")
+```
+

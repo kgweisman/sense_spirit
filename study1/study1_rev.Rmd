@@ -1,0 +1,776 @@
+---
+title: "Study 1 (revised analysis July 2020)"
+subtitle: "Luhrmann, Weisman, et al."
+output: 
+  html_notebook:
+    theme: flatly
+    toc: true
+    toc_float: true
+---
+
+In Study 1, adults with strong religious commitments and faith practices were interviewed in depth about their spiritual experiences and their understanding of the mind by experienced ethnographers. These interviews yielded one measure of porosity (“Porosity Vignettes”), one measure of absorption (the Absorption scale), and one measure of spiritual experience (“Spiritual Events” scale).
+
+This notebook contains all of the analyses for Study 1 (revised July 2020).
+
+```{r, message = F}
+source("../scripts_general/dependencies.R")
+source("../scripts_general/custom_funs.R")
+source("../scripts_general/var_recode_contrast.R")
+source("../scripts_general/data_load.R")
+```
+
+```{r}
+detach("package:lmerTest")
+require(stargazer)
+```
+
+```{r}
+# custom function for substituting interaction symbol
+sub_interact_fun <- function(str) {
+  str <- gsub("\\`", "", str) # for `Porosity Vignettes`, etc.
+  str <- gsub("\\.\\:", "\\. × ", str) # for country
+  str <- gsub("\\:Sit", " × Sit", str)
+  str <- gsub("\\:Rel", " × Rel", str)
+  str <- gsub("\\:Pop", " × Pop", str)
+  str <- gsub("\\:Por", " × Por", str)
+  str <- gsub("\\:Abs", " × Abs", str)
+  str <- gsub("\\:Gen", " × Gen", str)
+  str <- gsub("\\:Age", " × Age", str)
+  str <- gsub("\\:Edu", " × Edu", str)
+  return(str)
+}
+```
+
+```{r}
+# show contrasts
+contrasts(d1$country)
+contrasts(d1$site)
+contrasts(d1$religion)
+```
+
+# Demographics
+
+```{r}
+d1_demo <- d1 %>% select(-contains("score")) %>% 
+  mutate(male = ifelse(grepl("male", tolower(subject_gender)) &
+                         !grepl("female", tolower(subject_gender)), 1, 0),
+         female = ifelse(grepl("female", tolower(subject_gender)), 1, 0),
+         subject_age = ifelse(subject_age > 120, NA_real_, subject_age),
+         subject_hs = ifelse(grepl("yes", tolower(subject_hs)), 1, 0))
+```
+
+```{r}
+d1_demo %>%
+  mutate(site = factor(site, levels = c("urban", "rural"))) %>%
+  group_by(country, site, religion) %>%
+  summarise(n = n(),
+            age_range = paste0(min(subject_age, na.rm = T), "-",
+                               max(subject_age, na.rm = T)),
+            mean_age = mean(subject_age, na.rm = T),
+            percent_male = mean(male, na.rm = T),
+            percent_female = mean(female, na.rm = T),
+            percent_hs = mean(subject_hs, na.rm = T),
+            percent_special = mean(subject_specialrole, na.rm = T)) %>%
+  ungroup() %>%
+  # mutate_at(vars(starts_with("mean_")), funs(format(round(., 2), nsmall = 2))) %>%
+  mutate_at(vars(starts_with("percent_")),
+            funs(paste0(round(. * 100), "%"))) %>%
+  rename(Country = country, Site = site, Religion = religion,
+         `Age range` = age_range, `Mean age` = mean_age,
+         `% male` = percent_male, `% female` = percent_female,
+         `% attended high school` = percent_hs,
+         `% serving a 'special role'` = percent_special) %>%
+  kable(digits = 2, align = c(rep("l", 3), rep("r", 4))) %>%
+  kable_styling(font_size = 16) # %>%
+  # collapse_rows(1:2)
+```
+
+# Revised analyses (July 2020)
+
+```{r}
+d1_fortab <- d1 %>%
+  mutate_at(vars(ends_with("_score"), subject_age), scale) %>%
+  mutate(subject_hs = case_when(is.na(subject_hs) ~ NA_character_,
+                                grepl("yes", tolower(subject_hs)) ~ "yes",
+                                TRUE ~ "no"),
+         subject_hs = factor(subject_hs, 
+                             levels = c("no", "yes")),
+         subject_gender = factor(subject_gender, 
+                                 levels = c("Female", "Male"))) %>%
+  rename("Spiritual Events" = "spev_score",
+         "Spiritual Events, recoded" = "spev_recoded_score",
+         "Porosity Vignettes" = "pv_score",
+         "Absorption" = "abs_score",
+         "Country" = "country",
+         "Site" = "site",
+         "Religion" = "religion",
+         "Gender" = "subject_gender",
+         "Age" = "subject_age",
+         "Education" = "subject_hs")
+
+contrasts(d1_fortab$Country) <- cbind(": Gh." = c(-1, 1, 0, 0, 0),
+                                      ": Th." = c(-1, 0, 1, 0, 0),
+                                      ": Ch." = c(-1, 0, 0, 1, 0),
+                                      ": Va." = c(-1, 0, 0, 0, 1))
+contrasts(d1_fortab$Site) <- cbind(": rural" = c(-1, 1))
+contrasts(d1_fortab$Religion) <- cbind(": CC" = c(1, -1))
+contrasts(d1_fortab$Education) <- cbind(": at least HS" = c(-1, 1))
+contrasts(d1_fortab$Gender) <- cbind(": male" = c(-1, 1))
+```
+
+## Group differences
+
+### Spiritual Events
+
+```{r}
+r01_spev <- lm(`Spiritual Events` ~ Country,
+              data = d1_fortab)
+r02_spev <- lm(`Spiritual Events` ~ Country * Site * Religion, 
+              data = d1_fortab)
+r03_spev <- lm(`Spiritual Events` ~ Country * Site * Religion +
+                Gender + Age + Education,
+              data = d1_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r01_spev)
+# summary(r02_spev)
+# summary(r03_spev)
+```
+
+```{r, include=F}
+table_s1_diff_spev <- stargazer(r01_spev, r02_spev, 
+                                r03_spev, type = "html",
+                                ci = T,
+                                report = c("vcsp"),
+                                digits = 2,
+                                digits.extra = 1000,
+                                omit.table.layout = "n",
+                                # order = c("^Country: ...$", 
+                                #           "^Site: rural$", 
+                                #           "^Religion: CC$", 
+                                #           "Country", 
+                                #           "Site"),
+                                dep.var.labels.include = F,
+                                dep.var.caption = "",
+                                single.row = T)
+
+cat(sub_interact_fun(table_s1_diff_spev), 
+    file = "./stargazer_tables/table_s1_diff_spev.html")
+```
+
+
+### Spiritual Events, recoded
+
+```{r}
+r01_spev_recoded <- lm(`Spiritual Events, recoded` ~ Country,
+                       data = d1_fortab)
+r02_spev_recoded <- lm(`Spiritual Events, recoded` ~ Country * Site * Religion, 
+                       data = d1_fortab)
+r03_spev_recoded <- lm(`Spiritual Events, recoded` ~ Country * Site * Religion +
+                         Gender + Age + Education,
+                       data = d1_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r01_spev_recoded)
+# summary(r02_spev_recoded)
+# summary(r03_spev_recoded)
+```
+
+```{r, include=F}
+table_s1_diff_spev_recoded <- stargazer(r01_spev_recoded, r02_spev_recoded, 
+                                        r03_spev_recoded, type = "html",
+                                        ci = T,
+                                        report = c("vcsp"),
+                                        digits = 2,
+                                        digits.extra = 1000,
+                                        omit.table.layout = "n",
+                                        # order = c("^Country: ...$", 
+                                        #           "^Site: rural$", 
+                                        #           "^Religion: CC$", 
+                                        #           "Country", 
+                                        #           "Site"),
+                                        dep.var.labels.include = F,
+                                        dep.var.caption = "",
+                                        single.row = T)
+
+cat(sub_interact_fun(table_s1_diff_spev_recoded), 
+    file = "./stargazer_tables/table_s1_diff_spev_recoded.html")
+```
+
+
+### Porosity Vignettes
+
+```{r}
+r01_pv <- lm(`Porosity Vignettes` ~ Country,
+              data = d1_fortab)
+r02_pv <- lm(`Porosity Vignettes` ~ Country * Site * Religion, 
+              data = d1_fortab)
+r03_pv <- lm(`Porosity Vignettes` ~ Country * Site * Religion +
+                Gender + Age + Education,
+              data = d1_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r01_pv)
+# summary(r02_pv)
+# summary(r03_pv)
+```
+
+```{r, include=F}
+table_s1_diff_pv <- stargazer(r01_pv, r02_pv, 
+                              r03_pv, type = "html",
+                              ci = T,
+                              report = c("vcsp"),
+                              digits = 2,
+                              digits.extra = 1000,
+                              omit.table.layout = "n",
+                              # order = c("^Country: ...$", 
+                              #           "^Site: rural$", 
+                              #           "^Religion: CC$", 
+                              #           "Country", 
+                              #           "Site"),
+                              dep.var.labels.include = F,
+                              dep.var.caption = "",
+                              single.row = T)
+
+cat(sub_interact_fun(table_s1_diff_pv), 
+    file = "./stargazer_tables/table_s1_diff_pv.html")
+```
+
+
+### Absorption
+
+```{r}
+r01_abs <- lm(`Absorption` ~ Country,
+              data = d1_fortab)
+r02_abs <- lm(`Absorption` ~ Country * Site * Religion, 
+              data = d1_fortab)
+r03_abs <- lm(`Absorption` ~ Country * Site * Religion +
+                Gender + Age + Education,
+              data = d1_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r01_abs)
+# summary(r02_abs)
+# summary(r03_abs)
+```
+
+```{r, include=F}
+table_s1_diff_abs <- stargazer(r01_abs, r02_abs, 
+                               r03_abs, type = "html",
+                               ci = T,
+                               report = c("vcsp"),
+                               digits = 2,
+                               digits.extra = 1000,
+                               omit.table.layout = "n",
+                               # order = c("^Country: ...$", 
+                               #           "^Site: rural$", 
+                               #           "^Religion: CC$", 
+                               #           "Country", 
+                               #           "Site"),
+                               dep.var.labels.include = F,
+                               dep.var.caption = "",
+                               single.row = T)
+
+cat(sub_interact_fun(table_s1_diff_abs), 
+    file = "./stargazer_tables/table_s1_diff_abs.html")
+```
+
+
+## Relationships
+
+### Spiritual Events
+
+#### Sample as fixed effect
+
+```{r}
+r04_spev <- lm(`Spiritual Events` ~ `Porosity Vignettes`,
+               data = d1_fortab)
+
+r05_spev <- lm(`Spiritual Events` ~ Absorption,
+               data = d1_fortab)
+
+r06_spev <- lm(`Spiritual Events` ~ `Porosity Vignettes` * Absorption,
+               data = d1_fortab)
+
+r07_spev <- lm(`Spiritual Events` ~ Country * Site * Religion 
+               + `Porosity Vignettes` + Country:`Porosity Vignettes`,
+               data = d1_fortab)
+
+r08_spev <- lm(`Spiritual Events` ~ Country * Site * Religion 
+               + Absorption + Country:Absorption,
+               data = d1_fortab)
+
+r09_spev <- lm(`Spiritual Events` ~ Country * Site * Religion 
+               + `Porosity Vignettes` + Country:`Porosity Vignettes`
+               + Absorption + Country:Absorption
+               + `Porosity Vignettes`:Absorption 
+               + Country:`Porosity Vignettes`:Absorption,
+               data = d1_fortab)
+
+r10_spev <- lm(`Spiritual Events` ~ Country * Site * Religion 
+               + `Porosity Vignettes` + Country:`Porosity Vignettes`
+               + Absorption + Country:Absorption
+               + `Porosity Vignettes`:Absorption
+               + Country:`Porosity Vignettes`:Absorption
+               + Gender + Age + Education,
+               data = d1_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r04_spev)
+# summary(r05_spev)
+# summary(r06_spev)
+# summary(r07_spev)
+# summary(r08_spev)
+# summary(r09_spev)
+# summary(r10_spev)
+```
+
+```{r, include=F}
+table_s1_rel_spev_fixfx <- stargazer(r04_spev, r05_spev, r06_spev, 
+                                     r07_spev, r08_spev, r09_spev, r10_spev,
+                                     type = "html",
+                                     ci = T,
+                                     report = c("vcsp"),
+                                     digits = 2,
+                                     digits.extra = 1000,
+                                     omit.table.layout = "n",
+                                     order = c("^`Porosity Vignettes`$",
+                                               "^Absorption$",
+                                               "^`Porosity Vignettes`:Absorption$"),
+                                     dep.var.labels.include = F,
+                                     dep.var.caption = "",
+                                     single.row = T)
+
+cat(sub_interact_fun(table_s1_rel_spev_fixfx), 
+    file = "./stargazer_tables/table_s1_rel_spev_fixfx.html")
+```
+
+#### Sample as random effect
+
+```{r}
+# r04_spev <- lm(`Spiritual Events` ~ `Porosity Vignettes`,
+#                data = d1_fortab)
+# 
+# r05_spev <- lm(`Spiritual Events` ~ Absorption,
+#                data = d1_fortab)
+# 
+# r06_spev <- lm(`Spiritual Events` ~ `Porosity Vignettes` * Absorption,
+#                data = d1_fortab)
+
+r11_spev <- lmer(`Spiritual Events` ~ 1 
+                 + (1 | Country/Site/Religion),
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d1_fortab)
+
+r12_spev <- lmer(`Spiritual Events` ~ `Porosity Vignettes` 
+                 # + (1 + `Porosity Vignettes` | Country/Site/Religion),
+                 + (1 | Country/Site/Religion),
+                 data = d1_fortab)
+
+r13_spev <- lmer(`Spiritual Events` ~ Absorption
+                 # + (1 + Absorption | Country/Site/Religion),
+                 + (1 | Country/Site/Religion),
+                 data = d1_fortab)
+
+r14_spev <- lmer(`Spiritual Events` ~ `Porosity Vignettes` * Absorption 
+                 # + (1 + `Porosity Vignettes` * Absorption | Country/Site/Religion),
+                 # + (1 + `Porosity Vignettes` + Absorption | Country/Site/Religion),
+                 + (1 | Country/Site/Religion),
+                 data = d1_fortab)
+
+r15_spev <- lmer(`Spiritual Events` ~ `Porosity Vignettes` * Absorption
+                 + Gender + Age + Education
+                 # + (1 + `Porosity Vignettes` * Absorption | Country/Site/Religion),
+                 # + (1 + `Porosity Vignettes` + Absorption | Country/Site/Religion),
+                 + (1 | Country/Site/Religion),
+                 data = d1_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r04_spev)
+# summary(r05_spev)
+# summary(r06_spev)
+# summary(r11_spev)
+# summary(r12_spev)
+# summary(r13_spev)
+# summary(r14_spev)
+# summary(r15_spev)
+```
+
+```{r, include=F}
+table_s1_rel_spev_ranfx <- stargazer(#r04_spev, r05_spev, r06_spev, 
+                                     r11_spev, r12_spev, r13_spev, 
+                                     r14_spev, r15_spev,
+                                     type = "html",
+                                     ci = T,
+                                     report = c("vcsp"),
+                                     digits = 2,
+                                     digits.extra = 1000,
+                                     omit.table.layout = "n",
+                                     order = c("^`Porosity Vignettes`$",
+                                               "^Absorption$",
+                                               "^`Porosity Vignettes`:Absorption$"),
+                                     dep.var.labels.include = F,
+                                     dep.var.caption = "",
+                                     single.row = T)
+
+cat(sub_interact_fun(table_s1_rel_spev_ranfx), 
+    file = "./stargazer_tables/table_s1_rel_spev_ranfx.html")
+```
+
+```{r}
+rsquared(modelList = list(r11_spev, r12_spev, r13_spev, r14_spev, r15_spev)) %>%
+  mutate_at(vars(Marginal, Conditional), ~ round(., 2))
+```
+
+
+### Spiritual Events, recoded
+
+#### Sample as fixed effect
+
+```{r}
+r04_spev_recoded <- lm(`Spiritual Events, recoded` ~ `Porosity Vignettes`,
+               data = d1_fortab)
+
+r05_spev_recoded <- lm(`Spiritual Events, recoded` ~ Absorption,
+                       data = d1_fortab)
+
+r06_spev_recoded <- lm(`Spiritual Events, recoded` ~ `Porosity Vignettes` * Absorption,
+                       data = d1_fortab)
+
+r07_spev_recoded <- lm(`Spiritual Events, recoded` ~ Country * Site * Religion 
+                       + `Porosity Vignettes` + Country:`Porosity Vignettes`,
+                       data = d1_fortab)
+
+r08_spev_recoded <- lm(`Spiritual Events, recoded` ~ Country * Site * Religion 
+                       + Absorption + Country:Absorption,
+                       data = d1_fortab)
+
+r09_spev_recoded <- lm(`Spiritual Events, recoded` ~ Country * Site * Religion 
+                       + `Porosity Vignettes` + Country:`Porosity Vignettes`
+                       + Absorption + Country:Absorption
+                       + `Porosity Vignettes`:Absorption 
+                       + Country:`Porosity Vignettes`:Absorption,
+                       data = d1_fortab)
+
+r10_spev_recoded <- lm(`Spiritual Events, recoded` ~ Country * Site * Religion 
+                       + `Porosity Vignettes` + Country:`Porosity Vignettes`
+                       + Absorption + Country:Absorption
+                       + `Porosity Vignettes`:Absorption
+                       + Country:`Porosity Vignettes`:Absorption
+                       + Gender + Age + Education,
+                       data = d1_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r04_spev_recoded)
+# summary(r05_spev_recoded)
+# summary(r06_spev_recoded)
+# summary(r07_spev_recoded)
+# summary(r08_spev_recoded)
+# summary(r09_spev_recoded)
+# summary(r10_spev_recoded)
+```
+
+```{r, include=F}
+table_s1_rel_spev_recoded_fixfx <- stargazer(r04_spev_recoded, 
+                                             r05_spev_recoded, 
+                                             r06_spev_recoded, 
+                                             r07_spev_recoded, 
+                                             r08_spev_recoded, 
+                                             r09_spev_recoded, r10_spev_recoded,
+                                             type = "html",
+                                             ci = T,
+                                             report = c("vcsp"),
+                                             digits = 2,
+                                             digits.extra = 1000,
+                                             omit.table.layout = "n",
+                                             order = c("^`Porosity Vignettes`$",
+                                                       "^Absorption$",
+                                                       "^`Porosity Vignettes`:Absorption$"),
+                                             dep.var.labels.include = F,
+                                             dep.var.caption = "",
+                                             single.row = T)
+
+cat(sub_interact_fun(table_s1_rel_spev_recoded_fixfx), 
+    file = "./stargazer_tables/table_s1_rel_spev_recoded_fixfx.html")
+```
+
+#### Sample as random effect
+
+```{r}
+# r04_spev_recoded <- lm(`Spiritual Events, recoded` ~ `Porosity Vignettes`,
+#                data = d1_fortab)
+# 
+# r05_spev_recoded <- lm(`Spiritual Events, recoded` ~ Absorption,
+#                data = d1_fortab)
+# 
+# r06_spev_recoded <- lm(`Spiritual Events, recoded` ~ `Porosity Vignettes` * Absorption,
+#                data = d1_fortab)
+
+r11_spev_recoded <- lmer(`Spiritual Events, recoded` ~ 1 
+                         + (1 | Country/Site/Religion),
+                         control = lmerControl(optimizer = "bobyqa"),
+                         data = d1_fortab)
+
+r12_spev_recoded <- lmer(`Spiritual Events, recoded` ~ `Porosity Vignettes` 
+                         # + (1 + `Porosity Vignettes` | Country/Site/Religion),
+                         + (1 | Country/Site/Religion),
+                         data = d1_fortab)
+
+r13_spev_recoded <- lmer(`Spiritual Events, recoded` ~ Absorption
+                         # + (1 + Absorption | Country/Site/Religion),
+                         + (1 | Country/Site/Religion),
+                         data = d1_fortab)
+
+r14_spev_recoded <- lmer(`Spiritual Events, recoded` ~ `Porosity Vignettes` * Absorption 
+                         # + (1 + `Porosity Vignettes` * Absorption | Country/Site/Religion),
+                         # + (1 + `Porosity Vignettes` + Absorption | Country/Site/Religion),
+                         + (1 | Country/Site/Religion),
+                         data = d1_fortab)
+
+r15_spev_recoded <- lmer(`Spiritual Events, recoded` ~ `Porosity Vignettes` * Absorption
+                         + Gender + Age + Education
+                         # + (1 + `Porosity Vignettes` * Absorption | Country/Site/Religion),
+                         # + (1 + `Porosity Vignettes` + Absorption | Country/Site/Religion),
+                         + (1 | Country/Site/Religion),
+                         data = d1_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r04_spev_recoded)
+# summary(r05_spev_recoded)
+# summary(r06_spev_recoded)
+# summary(r11_spev_recoded)
+# summary(r12_spev_recoded)
+# summary(r13_spev_recoded)
+# summary(r14_spev_recoded)
+# summary(r15_spev_recoded)
+```
+
+```{r, include=F}
+table_s1_rel_spev_recoded_ranfx <- stargazer(#r04_spev_recoded, r05_spev_recoded, r06_spev_recoded, 
+                                     r11_spev_recoded, r12_spev_recoded, r13_spev_recoded, 
+                                     r14_spev_recoded, r15_spev_recoded,
+                                     type = "html",
+                                     ci = T,
+                                     report = c("vcsp"),
+                                     digits = 2,
+                                     digits.extra = 1000,
+                                     omit.table.layout = "n",
+                                     order = c("^`Porosity Vignettes`$",
+                                               "^Absorption$",
+                                               "^`Porosity Vignettes`:Absorption$"),
+                                     dep.var.labels.include = F,
+                                     dep.var.caption = "",
+                                     single.row = T)
+
+cat(sub_interact_fun(table_s1_rel_spev_recoded_ranfx), 
+    file = "./stargazer_tables/table_s1_rel_spev_recoded_ranfx.html")
+```
+
+```{r}
+rsquared(modelList = list(r11_spev_recoded, r12_spev_recoded, r13_spev_recoded, r14_spev_recoded, r15_spev_recoded)) %>%
+  mutate_at(vars(Marginal, Conditional), ~ round(., 2))
+```
+
+
+# Other analyses
+
+## Simple correlations (Supplemental Information, p. 6)
+
+```{r}
+d1 %>% 
+  mutate_at(vars(ends_with("_score")), scale) %>%
+  select(pv_score, abs_score, spev_score) %>% 
+  cor(use = "pairwise.complete")
+```
+
+```{r}
+cor.test(scale(d1$pv_score), scale(d1$spev_score)) # standardizing unnecessary
+```
+
+```{r}
+cor.test(scale(d1$abs_score), scale(d1$spev_score)) # standardizing unnecessary
+```
+
+```{r}
+cor.test(scale(d1$pv_score), scale(d1$abs_score)) # standardizing unnecessary
+```
+
+## Charismatics alone
+
+#### Sample as fixed effect
+
+```{r}
+r101_spev <- lm(`Spiritual Events` ~ Country * Site,
+                data = d1_fortab %>%
+                  filter(Religion == "charismatic") %>%
+                  mutate_at(vars(`Spiritual Events`, `Porosity Vignettes`,
+                                 Absorption, Age), ~ scale(.)))
+
+r102_spev <- lm(`Spiritual Events` ~ Country * Site 
+                + `Porosity Vignettes` + Country:`Porosity Vignettes`,
+                data = d1_fortab %>%
+                  filter(Religion == "charismatic") %>%
+                  mutate_at(vars(`Spiritual Events`, `Porosity Vignettes`,
+                                 Absorption, Age), ~ scale(.)))
+
+r103_spev <- lm(`Spiritual Events` ~ Country * Site 
+                + Absorption + Country:Absorption,
+                data = d1_fortab %>%
+                  filter(Religion == "charismatic") %>%
+                  mutate_at(vars(`Spiritual Events`, `Porosity Vignettes`,
+                                 Absorption, Age), ~ scale(.)))
+
+r104_spev <- lm(`Spiritual Events` ~ Country * Site 
+                + `Porosity Vignettes` + Country:`Porosity Vignettes`
+                + Absorption + Country:Absorption
+                + `Porosity Vignettes`:Absorption 
+                + Country:`Porosity Vignettes`:Absorption,
+                data = d1_fortab %>%
+                  filter(Religion == "charismatic") %>%
+                  mutate_at(vars(`Spiritual Events`, `Porosity Vignettes`,
+                                 Absorption, Age), ~ scale(.)))
+
+r105_spev <- lm(`Spiritual Events` ~ Country * Site 
+                + `Porosity Vignettes` + Country:`Porosity Vignettes`
+                + Absorption + Country:Absorption
+                + `Porosity Vignettes`:Absorption 
+                + Country:`Porosity Vignettes`:Absorption
+                + Gender + Age + Education,
+                data = d1_fortab %>%
+                  filter(Religion == "charismatic") %>%
+                  mutate_at(vars(`Spiritual Events`, `Porosity Vignettes`,
+                                 Absorption, Age), ~ scale(.)))
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r101_spev)
+# summary(r102_spev)
+# summary(r103_spev)
+# summary(r104_spev)
+# summary(r105_spev)
+```
+
+```{r, include=F}
+table_s1_rel_cc_spev_fixfx <- stargazer(r101_spev, r102_spev,
+                                        r103_spev, r104_spev,
+                                        r105_spev, type = "html",
+                                        ci = T,
+                                        report = c("vcsp"),
+                                        digits = 2,
+                                        digits.extra = 1000,
+                                        omit.table.layout = "n",
+                                        # order = c("^`Porosity Vignettes`$", 
+                                        #           "^Absorption$", 
+                                        #           "^`Porosity Vignettes`:Absorption$"),
+                                        dep.var.labels.include = F,
+                                        dep.var.caption = "",
+                                        single.row = T)
+
+cat(sub_interact_fun(table_s1_rel_cc_spev_fixfx), 
+    file = "./stargazer_tables/table_s1_rel_cc_spev_fixfx.html")
+```
+
+#### Sample as random effect
+
+```{r}
+r106_spev <- lmer(`Spiritual Events` ~ 1 
+                  + (1 | Country/Site),
+                  control = lmerControl(optimizer = "bobyqa"),
+                  data = d1_fortab %>%
+                    filter(Religion == "charismatic") %>%
+                    mutate_at(vars(`Spiritual Events`, `Porosity Vignettes`,
+                                   Absorption, Age), ~ scale(.)))
+
+r107_spev <- lmer(`Spiritual Events` ~ `Porosity Vignettes` 
+                  # + (1 + `Porosity Vignettes` | Country/Site), 
+                  + (1 | Country/Site), 
+                  control = lmerControl(optimizer = "bobyqa"),
+                  data = d1_fortab %>%
+                    filter(Religion == "charismatic") %>%
+                    mutate_at(vars(`Spiritual Events`, `Porosity Vignettes`,
+                                   Absorption, Age), ~ scale(.)))
+
+r108_spev <- lmer(`Spiritual Events` ~ Absorption
+                  # + (1 + Absorption | Country/Site), 
+                  + (1 | Country/Site), 
+                  control = lmerControl(optimizer = "bobyqa"),
+                  data = d1_fortab %>%
+                    filter(Religion == "charismatic") %>%
+                    mutate_at(vars(`Spiritual Events`, `Porosity Vignettes`,
+                                   Absorption, Age), ~ scale(.)))
+
+r109_spev <- lmer(`Spiritual Events` ~ `Porosity Vignettes` * Absorption
+                  # + (1 + `Porosity Vignettes` * Absorption | Country/Site), 
+                  + (1 | Country/Site), 
+                  control = lmerControl(optimizer = "bobyqa"),
+                  data = d1_fortab %>%
+                    filter(Religion == "charismatic") %>%
+                    mutate_at(vars(`Spiritual Events`, `Porosity Vignettes`,
+                                   Absorption, Age), ~ scale(.)))
+
+r110_spev <- lmer(`Spiritual Events` ~ `Porosity Vignettes` * Absorption 
+                  + Gender + Age + Education
+                  # + (1 + `Porosity Vignettes` * Absorption + Gender + Age + Education | Country/Site), 
+                  # + (1 + `Porosity Vignettes` * Absorption | Country/Site), 
+                  + (1 | Country/Site), 
+                  control = lmerControl(optimizer = "bobyqa"),
+                  data = d1_fortab %>%
+                    filter(Religion == "charismatic") %>%
+                    mutate_at(vars(`Spiritual Events`, `Porosity Vignettes`,
+                                   Absorption, Age), ~ scale(.)))
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r106_spev)
+# summary(r107_spev)
+# summary(r108_spev)
+# summary(r109_spev)
+# summary(r110_spev)
+```
+
+```{r, include=F}
+table_s1_rel_cc_spev_ranfx <- stargazer(r106_spev, r107_spev,
+                                     r108_spev, r109_spev,
+                                     r110_spev, type = "html",
+                                     ci = T,
+                                     report = c("vcsp"),
+                                     digits = 2,
+                                     digits.extra = 1000,
+                                     omit.table.layout = "n",
+                                     # order = c("^`Porosity Vignettes`$", 
+                                     #           "^Absorption$", 
+                                     #           "^`Porosity Vignettes`:Absorption$"),
+                                     dep.var.labels.include = F,
+                                     dep.var.caption = "",
+                                     single.row = T)
+
+cat(sub_interact_fun(table_s1_rel_cc_spev_ranfx), 
+    file = "./stargazer_tables/table_s1_rel_cc_spev_ranfx.html")
+```
+
+```{r}
+rsquared(modelList = list(r106_spev, r107_spev, r108_spev, 
+                          r109_spev, r110_spev)) %>%
+  mutate_at(vars(Marginal, Conditional), ~ round(., 2))
+```
+
+
+

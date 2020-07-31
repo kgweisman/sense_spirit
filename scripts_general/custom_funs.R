@@ -74,10 +74,10 @@ regtab_fun <- function(reg,
   }
   
   if (std_beta) {
-    beta_std <- std_beta(reg, type = "std")
-    beta_std2 <- std_beta(reg, type = "std2") %>%
+    beta_std <- standardize_parameters(reg, type = "std")
+    beta_std2 <- standardize_parameters(reg, type = "std2") %>%
       # correct inconsistencies in naming between std and std2
-      mutate(term = gsub("site_rural", "site", term),
+      mutate(term = gsub("site_rural", "site", Parameter),
              term = gsub("religion_char", "religion", term),
              term = gsub("spirit_scale1", "spirit_scale", term),
              term = gsub("site", "site_rural", term),
@@ -299,12 +299,14 @@ beta_fun <- function(reg, find_name = " ", replace_name = " "){
     data.frame() %>%
     rename(β = ".") %>%
     rownames_to_column("term") %>%
-    full_join(std_beta(reg, type = "std") %>%
-                select(term, std.estimate) %>%
-                rename("β'" = std.estimate)) %>%
-    full_join(std_beta(reg, type = "std2") %>% 
-                select(term, std.estimate) %>%
-                rename("β''" = std.estimate) %>%
+    full_join(standardize_parameters(reg, type = "std") %>%
+                select(Parameter, std.estimate) %>%
+                rename(term = Parameter,
+                       "β'" = std.estimate)) %>%
+    full_join(standardize_parameters(reg, type = "std2") %>% 
+                select(Parameter, std.estimate) %>%
+                rename(term = Parameter,
+                       "β''" = std.estimate) %>%
                 mutate(term = gsub(find_name, replace_name, term))) 
   
   return(res_tab)
