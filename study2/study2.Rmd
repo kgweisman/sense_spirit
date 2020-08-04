@@ -1,9 +1,8 @@
 ---
-title: "Study 2 (revised analysis July 2020)"
+title: "Study 2"
 subtitle: "Luhrmann, Weisman, et al."
 output: 
   html_notebook:
-    theme: flatly
     toc: true
     toc_float: true
 ---
@@ -19,35 +18,8 @@ source("../scripts_general/var_recode_contrast.R")
 source("../scripts_general/data_load.R")
 ```
 
-```{r}
-require(stargazer)
-detach("package:lmerTest")
-```
 
-```{r}
-# custom function for substituting interaction symbol
-sub_interact_fun <- function(str) {
-  str <- gsub("\\`", "", str) # for `Porosity Vignettes`, etc.
-  str <- gsub("\\.\\:", "\\. × ", str) # for country
-  str <- gsub("\\:Sit", " × Sit", str)
-  str <- gsub("\\:Rel", " × Rel", str)
-  str <- gsub("\\:Pop", " × Pop", str)
-  str <- gsub("\\:Por", " × Por", str)
-  str <- gsub("\\:Abs", " × Abs", str)
-  str <- gsub("\\:Gen", " × Gen", str)
-  str <- gsub("\\:Age", " × Age", str)
-  str <- gsub("\\:Edu", " × Edu", str)
-  return(str)
-}
-```
-
-```{r}
-# show contrasts
-contrasts(d2$country)
-contrasts(d2$religion)
-```
-
-# Demographics
+# Demographics (Table S15)
 
 ```{r}
 d2_demo <- d2 %>% select(-contains("score")) %>% 
@@ -190,9 +162,12 @@ d2_demo %>%
 ```
 
 
-# Revised analyses (July 2020)
+# Regression analyses (Tables S24-S30)
+
+## Setup
 
 ```{r}
+# dataframe with variable names optimized for stargazer tables
 d2_fortab <- d2 %>%
   mutate_at(vars(ends_with("_score"), subject_age), scale) %>%
   mutate(subject_hs = case_when(is.na(subject_education) ~ NA_character_,
@@ -209,7 +184,10 @@ d2_fortab <- d2 %>%
          "Gender" = "subject_gender",
          "Age" = "subject_age",
          "Education" = "subject_hs")
+```
 
+```{r}
+# set contrasts
 contrasts(d2_fortab$Country) <- cbind(": Gh." = c(-1, 1, 0, 0, 0),
                                       ": Th." = c(-1, 0, 1, 0, 0),
                                       ": Ch." = c(-1, 0, 0, 1, 0),
@@ -219,48 +197,34 @@ contrasts(d2_fortab$Education) <- cbind(": at least HS" = c(-1, 1))
 contrasts(d2_fortab$Gender) <- cbind(": male" = c(-1, 1))
 ```
 
+```{r}
+# show contrasts
+cat("Country\n"); contrasts(d2_fortab$Country)
+cat("Population\n"); contrasts(d2_fortab$Population)
+cat("Education\n"); contrasts(d2_fortab$Education)
+cat("Gender\n"); contrasts(d2_fortab$Gender)
+```
+
 ## Group differences
 
-### Spiritual Events
+### Table S24. Study 2, Spiritual Events and Porosity Scale: group differences
 
 ```{r}
 r01_spev <- lm(`Spiritual Events` ~ Country,
-              data = d2_fortab)
+               data = d2_fortab)
 r02_spev <- lm(`Spiritual Events` ~ Country * Population, 
-              data = d2_fortab)
+               data = d2_fortab)
 r03_spev <- lm(`Spiritual Events` ~ Country * Population +
-                Gender + Age, # + Education, # missing data for ~50% of participants
-              data = d2_fortab)
+                 Gender + Age, # + Education, # missing data for ~50% of participants
+               data = d2_fortab)
 ```
 
 ```{r, include = F}
-# # run manually to check convergence
-# summary(r01_spev)
-# summary(r02_spev)
-# summary(r03_spev)
+# run manually to check convergence
+summary(r01_spev)
+summary(r02_spev)
+summary(r03_spev)
 ```
-
-```{r, include=F}
-table_s2_diff_spev <- stargazer(r01_spev, r02_spev, 
-                                r03_spev, type = "html",
-                                ci = T,
-                                report = c("vcsp"),
-                                digits = 2,
-                                digits.extra = 1000,
-                                omit.table.layout = "n",
-                                # order = c("^Country: ...$", 
-                                #           "^Population: CC$", 
-                                #           "Country", 
-                                #           "Site"),
-                                dep.var.labels.include = F,
-                                dep.var.caption = "",
-                                single.row = T)
-
-cat(sub_interact_fun(table_s2_diff_spev), 
-    file = "./stargazer_tables/table_s2_diff_spev.html")
-```
-
-### Porosity Scale
 
 ```{r}
 r01_por <- lm(`Porosity Scale` ~ Country,
@@ -273,37 +237,36 @@ r03_por <- lm(`Porosity Scale` ~ Country * Population +
 ```
 
 ```{r, include = F}
-# # run manually to check convergence
-# summary(r01_por)
-# summary(r02_por)
-# summary(r03_por)
+# run manually to check convergence
+summary(r01_por)
+summary(r02_por)
+summary(r03_por)
 ```
 
-```{r, include=F}
-table_s2_diff_por <- stargazer(r01_por, r02_por, 
-                               r03_por, type = "html",
-                               ci = T,
-                               report = c("vcsp"),
-                               digits = 2,
-                               digits.extra = 1000,
-                               omit.table.layout = "n",
-                               # order = c("^Country: ...$", 
-                               #           "^Population: CC$", 
-                               #           "Country", 
-                               #           "Site"),
-                               dep.var.labels.include = F,
-                               dep.var.caption = "",
-                               single.row = T)
+```{r, results = "hide"}
+table_s24 <- stargazer(r01_spev, r02_spev, r03_spev,
+                       r01_por, r02_por, r03_por, 
+                       type = "html",
+                       ci = T,
+                       report = c("vcsp"),
+                       digits = 2,
+                       digits.extra = 1000,
+                       omit.table.layout = "n",
+                       # dep.var.labels.include = F,
+                       dep.var.caption = "",
+                       single.row = T)
 
-cat(sub_interact_fun(table_s2_diff_por), 
-    file = "./stargazer_tables/table_s2_diff_por.html")
+cat(sub_interact_fun(table_s24), 
+    file = "./stargazer_tables/table_s24.html")
+```
+
+```{r}
+htmltools::includeHTML("./stargazer_tables/table_s24.html")
 ```
 
 ## Relationships
 
-### Spiritual Events
-
-#### Sample as fixed effect
+### Table S25. Study 2, Spiritual Events: relationships with Porosity Scale (sample as fixed effect)
 
 ```{r}
 r04_spev <- lm(`Spiritual Events` ~ `Porosity Scale`,
@@ -318,31 +281,34 @@ r06_spev <- lm(`Spiritual Events` ~ Country * Population * `Porosity Scale`
 ```
 
 ```{r, include = F}
-# # run manually to check convergence
-# summary(r04_spev)
-# summary(r05_spev)
-# summary(r06_spev)
+# run manually to check convergence
+summary(r04_spev)
+summary(r05_spev)
+summary(r06_spev)
 ```
 
-```{r, include=F}
-table_s2_rel_spev_fixfx <- stargazer(r04_spev, r05_spev,
-                                     r06_spev, type = "html",
-                                     ci = T,
-                                     report = c("vcsp"),
-                                     digits = 2,
-                                     digits.extra = 1000,
-                                     omit.table.layout = "n",
-                                     order = c("^`Porosity Scale`$"),
-                                     dep.var.labels.include = F,
-                                     dep.var.caption = "",
-                                     single.row = T)
+```{r, results = "hide"}
+table_s25 <- stargazer(r04_spev, r05_spev, r06_spev, 
+                       type = "html",
+                       ci = T,
+                       report = c("vcsp"),
+                       digits = 2,
+                       digits.extra = 1000,
+                       omit.table.layout = "n",
+                       order = c("^`Porosity Scale`$"),
+                       # dep.var.labels.include = F,
+                       dep.var.caption = "",
+                       single.row = T)
 
-cat(sub_interact_fun(table_s2_rel_spev_fixfx), 
-    file = "./stargazer_tables/table_s2_rel_spev_fixfx.html")
+cat(sub_interact_fun(table_s25), 
+    file = "./stargazer_tables/table_s25.html")
 ```
 
+```{r}
+htmltools::includeHTML("./stargazer_tables/table_s25.html")
+```
 
-#### Sample as random effect
+### Table S26. Study 2, Spiritual Events: relationships with Porosity Scale (sample as random effect)
 
 ```{r}
 r07_spev <- lmer(`Spiritual Events` ~ 1 
@@ -366,35 +332,38 @@ r09_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
 ```
 
 ```{r, include = F}
-# # run manually to check convergence
-# summary(r07_spev)
-# summary(r08_spev)
-# summary(r09_spev)
+# run manually to check convergence
+summary(r07_spev)
+summary(r08_spev)
+summary(r09_spev)
 ```
 
-```{r, include=F}
-table_s2_rel_spev_ranfx <- stargazer(r07_spev, r08_spev,
-                                     r09_spev, type = "html",
-                                     ci = T,
-                                     report = c("vcsp"),
-                                     digits = 2,
-                                     digits.extra = 0800,
-                                     omit.table.layout = "n",
-                                     order = c("^`Porosity Scale`$"),
-                                     dep.var.labels.include = F,
-                                     dep.var.caption = "",
-                                     single.row = T)
+```{r, results = "hide"}
+table_s26 <- stargazer(r07_spev, r08_spev, r09_spev, 
+                       type = "html",
+                       ci = T,
+                       report = c("vcsp"),
+                       digits = 2,
+                       digits.extra = 1000,
+                       omit.table.layout = "n",
+                       order = c("^`Porosity Scale`$"),
+                       # dep.var.labels.include = F,
+                       dep.var.caption = "",
+                       single.row = T)
 
-cat(sub_interact_fun(table_s2_rel_spev_ranfx), 
-    file = "./stargazer_tables/table_s2_rel_spev_ranfx.html")
+cat(sub_interact_fun(table_s26), 
+    file = "./stargazer_tables/table_s26.html")
 ```
 
 ```{r}
-rsquared(modelList = list(r07_spev, r08_spev, r09_spev)) %>%
-  mutate_at(vars(Marginal, Conditional), ~ round(., 2))
+htmltools::includeHTML("./stargazer_tables/table_s26.html")
 ```
 
-#### By country, sample as fixed effect
+```{r}
+rsq_table_fun(list(r07_spev, r08_spev, r09_spev))
+```
+
+### Table S27. Study 2, Spiritual Events: relationships with Porosity Scale by country (sample as fixed effect)
 
 ```{r}
 r10_us_spev <- lm(`Spiritual Events` ~ Population * `Porosity Scale`,
@@ -429,33 +398,36 @@ r10_vt_spev <- lm(`Spiritual Events` ~ Population * `Porosity Scale`,
 ```
 
 ```{r, include = F}
-# # run manually to check convergence
-# summary(r10_us_spev)
-# summary(r10_gh_spev)
-# summary(r10_th_spev)
-# summary(r10_ch_spev)
-# summary(r10_vt_spev)
+# run manually to check convergence
+summary(r10_us_spev)
+summary(r10_gh_spev)
+summary(r10_th_spev)
+summary(r10_ch_spev)
+summary(r10_vt_spev)
 ```
 
-```{r, include=F}
-table_s2_rel_bycountry_spev_fixfx <- stargazer(r10_us_spev, r10_gh_spev,
-                                               r10_th_spev, r10_ch_spev,
-                                               r10_vt_spev, type = "html",
-                                               ci = T,
-                                               report = c("vcsp"),
-                                               digits = 2,
-                                               digits.extra = 1000,
-                                               omit.table.layout = "n",
-                                               # order = c("^`Porosity Scale`$"),
-                                               dep.var.labels.include = F,
-                                               dep.var.caption = "",
-                                               single.row = T)
+```{r, results = "hide"}
+table_s27 <- stargazer(r10_us_spev, r10_gh_spev, r10_th_spev, r10_ch_spev, r10_vt_spev,
+                       type = "html",
+                       ci = T,
+                       report = c("vcsp"),
+                       digits = 2,
+                       digits.extra = 1000,
+                       omit.table.layout = "n",
+                       order = c("^`Porosity Scale`$"),
+                       # dep.var.labels.include = F,
+                       dep.var.caption = "",
+                       single.row = T)
 
-cat(sub_interact_fun(table_s2_rel_bycountry_spev_fixfx), 
-    file = "./stargazer_tables/table_s2_rel_bycountry_spev_fixfx.html")
+cat(sub_interact_fun(table_s27), 
+    file = "./stargazer_tables/table_s27.html")
 ```
 
-#### By country, sample as random effect
+```{r}
+htmltools::includeHTML("./stargazer_tables/table_s27.html")
+```
+
+### Table S28. Study 2, Spiritual Events: relationships with Porosity Scale by country (sample as random effect)
 
 ```{r}
 r11_us_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
@@ -508,32 +480,32 @@ summary(r11_ch_spev)
 summary(r11_vt_spev)
 ```
 
-```{r, include=F}
-table_s2_rel_bycountry_spev_ranfx <- stargazer(r11_us_spev, r11_gh_spev,
-                                               r11_th_spev, r11_ch_spev,
-                                               r11_vt_spev, type = "html",
-                                               ci = T,
-                                               report = c("vcsp"),
-                                               digits = 2,
-                                               digits.extra = 1000,
-                                               omit.table.layout = "n",
-                                               # order = c("^`Porosity Scale`$"),
-                                               dep.var.labels.include = F,
-                                               dep.var.caption = "",
-                                               single.row = T)
+```{r, results = "hide"}
+table_s28 <- stargazer(r11_us_spev, r11_gh_spev, r11_th_spev, r11_ch_spev, r11_vt_spev,
+                       type = "html",
+                       ci = T,
+                       report = c("vcsp"),
+                       digits = 2,
+                       digits.extra = 1000,
+                       omit.table.layout = "n",
+                       order = c("^`Porosity Scale`$"),
+                       # dep.var.labels.include = F,
+                       dep.var.caption = "",
+                       single.row = T)
 
-cat(sub_interact_fun(table_s2_rel_bycountry_spev_ranfx), 
-    file = "./stargazer_tables/table_s2_rel_bycountry_spev_ranfx.html")
+cat(sub_interact_fun(table_s28), 
+    file = "./stargazer_tables/table_s28.html")
 ```
 
 ```{r}
-rsquared(modelList = list(r11_us_spev, r11_gh_spev, r11_th_spev, 
-                          r11_ch_spev, r11_vt_spev)) %>%
-  mutate_at(vars(Marginal, Conditional), ~ round(., 2))
+htmltools::includeHTML("./stargazer_tables/table_s28.html")
 ```
 
+```{r}
+rsq_table_fun(list(r11_us_spev, r11_gh_spev, r11_th_spev, r11_ch_spev, r11_vt_spev))
+```
 
-#### By population, sample as fixed effect
+### Table S29. Study 2, Spiritual Events: relationships with Porosity Scale by population (sample as fixed effect)
 
 ```{r}
 r12_gp_spev <- lm(`Spiritual Events` ~ Country * `Porosity Scale`,
@@ -550,29 +522,33 @@ r12_cc_spev <- lm(`Spiritual Events` ~ Country * `Porosity Scale`,
 ```
 
 ```{r, include = F}
-# # run manually to check convergence
-# summary(r12_gp_spev)
-# summary(r12_cc_spev)
+# run manually to check convergence
+summary(r12_gp_spev)
+summary(r12_cc_spev)
 ```
 
-```{r, include=F}
-table_s2_rel_bypop_spev_fixfx <- stargazer(r12_gp_spev, r12_cc_spev,
-                                               type = "html",
-                                               ci = T,
-                                               report = c("vcsp"),
-                                               digits = 2,
-                                               digits.extra = 1000,
-                                               omit.table.layout = "n",
-                                               # order = c("^`Porosity Scale`$"),
-                                               dep.var.labels.include = F,
-                                               dep.var.caption = "",
-                                               single.row = T)
+```{r, results = "hide"}
+table_s29 <- stargazer(r12_gp_spev, r12_cc_spev, 
+                       type = "html",
+                       ci = T,
+                       report = c("vcsp"),
+                       digits = 2,
+                       digits.extra = 1000,
+                       omit.table.layout = "n",
+                       order = c("^`Porosity Scale`$"),
+                       # dep.var.labels.include = F,
+                       dep.var.caption = "",
+                       single.row = T)
 
-cat(sub_interact_fun(table_s2_rel_bypop_spev_fixfx), 
-    file = "./stargazer_tables/table_s2_rel_bypop_spev_fixfx.html")
+cat(sub_interact_fun(table_s29), 
+    file = "./stargazer_tables/table_s29.html")
 ```
 
-#### By population, sample as random effect
+```{r}
+htmltools::includeHTML("./stargazer_tables/table_s29.html")
+```
+
+### Table S30. Study 2, Spiritual Events: relationships with Porosity Scale by population (sample as random effect)
 
 ```{r}
 r13_gp_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
@@ -596,25 +572,28 @@ summary(r13_gp_spev)
 summary(r13_cc_spev)
 ```
 
-```{r, include=F}
-table_s2_rel_bypop_spev_ranfx <- stargazer(r13_gp_spev, r13_cc_spev,
-                                               type = "html",
-                                               ci = T,
-                                               report = c("vcsp"),
-                                               digits = 2,
-                                               digits.extra = 1000,
-                                               omit.table.layout = "n",
-                                               # order = c("^`Porosity Scale`$"),
-                                               dep.var.labels.include = F,
-                                               dep.var.caption = "",
-                                               single.row = T)
+```{r, results = "hide"}
+table_s30 <- stargazer(r13_gp_spev, r13_cc_spev,
+                       type = "html",
+                       ci = T,
+                       report = c("vcsp"),
+                       digits = 2,
+                       digits.extra = 1000,
+                       omit.table.layout = "n",
+                       order = c("^`Porosity Scale`$"),
+                       # dep.var.labels.include = F,
+                       dep.var.caption = "",
+                       single.row = T)
 
-cat(sub_interact_fun(table_s2_rel_bypop_spev_ranfx), 
-    file = "./stargazer_tables/table_s2_rel_bypop_spev_ranfx.html")
+cat(sub_interact_fun(table_s30), 
+    file = "./stargazer_tables/table_s30.html")
 ```
 
 ```{r}
-rsquared(modelList = list(r13_gp_spev, r13_cc_spev)) %>%
-  mutate_at(vars(Marginal, Conditional), ~ round(., 2))
+htmltools::includeHTML("./stargazer_tables/table_s30.html")
+```
+
+```{r}
+rsq_table_fun(list(r13_gp_spev, r13_cc_spev))
 ```
 

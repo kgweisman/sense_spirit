@@ -3,7 +3,6 @@ title: "Study 1"
 subtitle: "Luhrmann, Weisman, et al."
 output: 
   html_notebook:
-    # theme: flatly
     toc: true
     toc_float: true
 ---
@@ -57,6 +56,7 @@ d1_demo %>%
   kable_styling(font_size = 16) # %>%
   # collapse_rows(1:2)
 ```
+
 
 # Regression analyses (Tables S18-S23)
 
