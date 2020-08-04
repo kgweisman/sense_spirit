@@ -58,7 +58,7 @@ d1_demo %>%
   # collapse_rows(1:2)
 ```
 
-# Regression analyses
+# Regression analyses (Tables S18-S23)
 
 ## Setup
 
