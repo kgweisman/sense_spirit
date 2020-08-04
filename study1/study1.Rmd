@@ -54,7 +54,7 @@ d1_demo %>%
          `% serving a 'special role'` = percent_special) %>%
   kable(digits = 2, align = c(rep("l", 3), rep("r", 4))) %>%
   kable_styling(font_size = 16) # %>%
-  # collapse_rows(1:2)
+# collapse_rows(1:2)
 ```
 
 
@@ -308,17 +308,20 @@ r11_spev <- lmer(`Spiritual Events` ~ 1
 r12_spev <- lmer(`Spiritual Events` ~ `Porosity Vignettes` 
                  # + (1 + `Porosity Vignettes` | Country/Site/Religion),
                  + (1 | Country/Site/Religion),
+                 control = lmerControl(optimizer = "bobyqa"),
                  data = d1_fortab)
 
 r13_spev <- lmer(`Spiritual Events` ~ Absorption
                  # + (1 + Absorption | Country/Site/Religion),
                  + (1 | Country/Site/Religion),
+                 control = lmerControl(optimizer = "bobyqa"),
                  data = d1_fortab)
 
 r14_spev <- lmer(`Spiritual Events` ~ `Porosity Vignettes` * Absorption 
                  # + (1 + `Porosity Vignettes` * Absorption | Country/Site/Religion),
                  # + (1 + `Porosity Vignettes` + Absorption | Country/Site/Religion),
                  + (1 | Country/Site/Religion),
+                 control = lmerControl(optimizer = "bobyqa"),
                  data = d1_fortab)
 
 r15_spev <- lmer(`Spiritual Events` ~ `Porosity Vignettes` * Absorption
@@ -326,6 +329,7 @@ r15_spev <- lmer(`Spiritual Events` ~ `Porosity Vignettes` * Absorption
                  # + (1 + `Porosity Vignettes` * Absorption | Country/Site/Religion),
                  # + (1 + `Porosity Vignettes` + Absorption | Country/Site/Religion),
                  + (1 | Country/Site/Religion),
+                 control = lmerControl(optimizer = "bobyqa"),
                  data = d1_fortab)
 ```
 
@@ -340,19 +344,19 @@ summary(r15_spev)
 
 ```{r, include=F}
 table_s21 <- stargazer(#r04_spev, r05_spev, r06_spev, 
-                       r11_spev, r12_spev, r13_spev, r14_spev, r15_spev,
-                       type = "html",
-                       ci = T,
-                       report = c("vcsp"),
-                       digits = 2,
-                       digits.extra = 1000,
-                       omit.table.layout = "n",
-                       order = c("^`Porosity Vignettes`$",
-                                 "^Absorption$",
-                                 "^`Porosity Vignettes`:Absorption$"),
-                       # dep.var.labels.include = F,
-                       dep.var.caption = "",
-                       single.row = T)
+  r11_spev, r12_spev, r13_spev, r14_spev, r15_spev,
+  type = "html",
+  ci = T,
+  report = c("vcsp"),
+  digits = 2,
+  digits.extra = 1000,
+  omit.table.layout = "n",
+  order = c("^`Porosity Vignettes`$",
+            "^Absorption$",
+            "^`Porosity Vignettes`:Absorption$"),
+  # dep.var.labels.include = F,
+  dep.var.caption = "",
+  single.row = T)
 
 cat(sub_interact_fun(table_s21), 
     file = "./stargazer_tables/table_s21.html")
@@ -448,17 +452,20 @@ r11_spev_recoded <- lmer(`Spiritual Events, recoded` ~ 1
 r12_spev_recoded <- lmer(`Spiritual Events, recoded` ~ `Porosity Vignettes` 
                          # + (1 + `Porosity Vignettes` | Country/Site/Religion),
                          + (1 | Country/Site/Religion),
+                         control = lmerControl(optimizer = "bobyqa"),
                          data = d1_fortab)
 
 r13_spev_recoded <- lmer(`Spiritual Events, recoded` ~ Absorption
                          # + (1 + Absorption | Country/Site/Religion),
                          + (1 | Country/Site/Religion),
+                         control = lmerControl(optimizer = "bobyqa"),
                          data = d1_fortab)
 
 r14_spev_recoded <- lmer(`Spiritual Events, recoded` ~ `Porosity Vignettes` * Absorption 
                          # + (1 + `Porosity Vignettes` * Absorption | Country/Site/Religion),
                          # + (1 + `Porosity Vignettes` + Absorption | Country/Site/Religion),
                          + (1 | Country/Site/Religion),
+                         control = lmerControl(optimizer = "bobyqa"),
                          data = d1_fortab)
 
 r15_spev_recoded <- lmer(`Spiritual Events, recoded` ~ `Porosity Vignettes` * Absorption
@@ -466,6 +473,7 @@ r15_spev_recoded <- lmer(`Spiritual Events, recoded` ~ `Porosity Vignettes` * Ab
                          # + (1 + `Porosity Vignettes` * Absorption | Country/Site/Religion),
                          # + (1 + `Porosity Vignettes` + Absorption | Country/Site/Religion),
                          + (1 | Country/Site/Religion),
+                         control = lmerControl(optimizer = "bobyqa"),
                          data = d1_fortab)
 ```
 
@@ -480,20 +488,20 @@ summary(r15_spev_recoded)
 
 ```{r, include=F}
 table_s23 <- stargazer(#r04_spev_recoded, r05_spev_recoded, r06_spev_recoded, 
-                       r11_spev_recoded, r12_spev_recoded, r13_spev_recoded, 
-                       r14_spev_recoded, r15_spev_recoded,
-                       type = "html",
-                       ci = T,
-                       report = c("vcsp"),
-                       digits = 2,
-                       digits.extra = 1000,
-                       omit.table.layout = "n",
-                       order = c("^`Porosity Vignettes`$",
-                                 "^Absorption$",
-                                 "^`Porosity Vignettes`:Absorption$"),
-                       # dep.var.labels.include = F,
-                       dep.var.caption = "",
-                       single.row = T)
+  r11_spev_recoded, r12_spev_recoded, r13_spev_recoded, 
+  r14_spev_recoded, r15_spev_recoded,
+  type = "html",
+  ci = T,
+  report = c("vcsp"),
+  digits = 2,
+  digits.extra = 1000,
+  omit.table.layout = "n",
+  order = c("^`Porosity Vignettes`$",
+            "^Absorption$",
+            "^`Porosity Vignettes`:Absorption$"),
+  # dep.var.labels.include = F,
+  dep.var.caption = "",
+  single.row = T)
 
 cat(sub_interact_fun(table_s23), 
     file = "./stargazer_tables/table_s23.html")
@@ -504,7 +512,8 @@ htmltools::includeHTML("./stargazer_tables/table_s23.html")
 ```
 
 ```{r}
-rsq_table_fun(list(r11_spev_recoded, r12_spev_recoded, r13_spev_recoded, r14_spev_recoded, r15_spev_recoded))
+rsq_table_fun(list(r11_spev_recoded, r12_spev_recoded, r13_spev_recoded, 
+                   r14_spev_recoded, r15_spev_recoded))
 ```
 
 

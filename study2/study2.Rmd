@@ -158,7 +158,7 @@ d2_demo %>%
          `% urban`, `% can afford`, `Mean SES`) %>%
   kable(digits = 2, align = c(rep("l", 2), rep("r", ncol(.) - 2))) %>%
   kable_styling(font_size = 16) # %>%
-  # collapse_rows(1:2)
+# collapse_rows(1:2)
 ```
 
 
@@ -433,6 +433,7 @@ htmltools::includeHTML("./stargazer_tables/table_s27.html")
 r11_us_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
                     # + (1 + `Porosity Scale` | Population), # perfectly correlated ranfx
                     + (1 | Population), 
+                    control = lmerControl(optimizer = "bobyqa"),
                     data = d2_fortab %>% 
                       filter(Country == "US") %>%
                       mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
@@ -441,6 +442,7 @@ r11_us_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
 r11_gh_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
                     # + (1 + `Porosity Scale` | Population), # perfectly correlated ranfx
                     + (1 | Population), 
+                    control = lmerControl(optimizer = "bobyqa"),
                     data = d2_fortab %>% 
                       filter(Country == "Ghana") %>%
                       mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
@@ -449,6 +451,7 @@ r11_gh_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
 r11_th_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
                     # + (1 + `Porosity Scale` | Population), # perfectly correlated ranfx
                     + (1 | Population), 
+                    control = lmerControl(optimizer = "bobyqa"),
                     data = d2_fortab %>% 
                       filter(Country == "Thailand") %>%
                       mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
@@ -457,6 +460,7 @@ r11_th_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
 r11_ch_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
                     # + (1 + `Porosity Scale` | Population), # perfectly correlated ranfx
                     + (1 | Population), 
+                    control = lmerControl(optimizer = "bobyqa"),
                     data = d2_fortab %>% 
                       filter(Country == "China") %>%
                       mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
@@ -465,6 +469,7 @@ r11_ch_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
 r11_vt_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
                     # + (1 + `Porosity Scale` | Population), # perfectly correlated ranfx
                     + (1 | Population), 
+                    control = lmerControl(optimizer = "bobyqa"),
                     data = d2_fortab %>% 
                       filter(Country == "Vanuatu") %>%
                       mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
@@ -553,6 +558,7 @@ htmltools::includeHTML("./stargazer_tables/table_s29.html")
 ```{r}
 r13_gp_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
                     + (1 + `Porosity Scale` | Country), 
+                    control = lmerControl(optimizer = "bobyqa"),
                     data = d2_fortab %>% 
                       filter(Population == "general population") %>%
                       mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
@@ -560,6 +566,7 @@ r13_gp_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
 
 r13_cc_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
                     + (1 + `Porosity Scale` | Country), 
+                    control = lmerControl(optimizer = "bobyqa"),
                     data = d2_fortab %>% 
                       filter(Population == "charismatic") %>%
                       mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
