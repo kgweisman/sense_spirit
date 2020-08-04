@@ -1,0 +1,130 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+temp <- d4_fortab %>%
+  mutate_at(vars(`Spiritual Events`, `Daily Spiritual Experience`,
+                 Hallucinations, Paranormal),
+            ~ scale(.)) %>%
+  gather(Measure, Score, c(`Spiritual Events`, `Daily Spiritual Experience`,
+                           Hallucinations, Paranormal)) %>%
+  mutate(`Measure Type` = factor(case_when(grepl("Spiritual", Measure) ~ "Spiritual",
+                                           TRUE ~ "Secular")))
+
+contrasts(temp$`Measure Type`) <- cbind(": Spiritual" = c(-1, 1))
+```
+
+# Porosity Vignettes
+
+## Sample as random effect
+
+```{r}
+r_comp_pv <- lmer(Score ~ `Porosity Vignettes` * `Measure Type`
+                  + (1 | Country/subject_id) + (1 | Measure),
+                  data = temp)
+```
+
+```{r, }
+summary(r_comp_pv)
+```
+
+## By country
+
+```{r}
+r_comp_pv_us <- lmer(Score ~ `Porosity Vignettes` * `Measure Type`
+                     + (1 | subject_id) + (1 | Measure),
+                     data = temp %>% filter(Country == "US") %>%
+                       group_by(Country, `Measure Type`, Measure) %>%
+                       mutate_at(vars(`Porosity Vignettes`, `Porosity Scale`,
+                                      Absorption, Score),
+                                 ~ scale(.)) %>%
+                       ungroup())
+r_comp_pv_gh <- lmer(Score ~ `Porosity Vignettes` * `Measure Type`
+                     + (1 | subject_id) + (1 | Measure),
+                     data = temp %>% filter(Country == "Ghana") %>%
+                       group_by(Country, `Measure Type`, Measure) %>%
+                       mutate_at(vars(`Porosity Vignettes`, `Porosity Scale`,
+                                      Absorption, Score),
+                                 ~ scale(.)) %>%
+                       ungroup())
+r_comp_pv_th <- lmer(Score ~ `Porosity Vignettes` * `Measure Type`
+                     + (1 | subject_id) + (1 | Measure),
+                     data = temp %>% filter(Country == "Thailand") %>%
+                       group_by(Country, `Measure Type`, Measure) %>%
+                       mutate_at(vars(`Porosity Vignettes`, `Porosity Scale`,
+                                      Absorption, Score),
+                                 ~ scale(.)) %>%
+                       ungroup())
+r_comp_pv_ch <- lmer(Score ~ `Porosity Vignettes` * `Measure Type`
+                     + (1 | subject_id) + (1 | Measure),
+                     data = temp %>% filter(Country == "China") %>%
+                       group_by(Country, `Measure Type`, Measure) %>%
+                       mutate_at(vars(`Porosity Vignettes`, `Porosity Scale`,
+                                      Absorption, Score),
+                                 ~ scale(.)) %>%
+                       ungroup())
+r_comp_pv_vt <- lmer(Score ~ `Porosity Vignettes` * `Measure Type`
+                     + (1 | subject_id) + (1 | Measure),
+                     data = temp %>% filter(Country == "Vanuatu") %>%
+                       group_by(Country, `Measure Type`, Measure) %>%
+                       mutate_at(vars(`Porosity Vignettes`, `Porosity Scale`,
+                                      Absorption, Score),
+                                 ~ scale(.)) %>%
+                       ungroup())
+```
+
+```{r}
+summary(r_comp_pv_us)
+summary(r_comp_pv_gh)
+summary(r_comp_pv_th)
+summary(r_comp_pv_ch)
+summary(r_comp_pv_vt)
+```
+
+# Porosity Scale
+
+```{r}
+r_comp_por <- lmer(Score ~ `Porosity Scale` * `Measure Type`
+                  + (1 | Country/subject_id) + (1 | Measure),
+                  data = temp)
+```
+
+```{r, }
+summary(r_comp_por)
+```
+
+# Absorption
+
+```{r}
+r_comp_abs <- lmer(Score ~ Absorption * `Measure Type`
+                  + (1 | Country/subject_id) + (1 | Measure),
+                  data = temp)
+```
+
+```{r, }
+summary(r_comp_abs)
+```
+
+# Interactive models
+
+```{r}
+r_comp_pv_abs <- lmer(Score ~ `Porosity Vignettes` * Absorption * `Measure Type`
+                      + (1 | Country/subject_id) + (1 | Measure),
+                      data = temp)
+```
+
+```{r, }
+summary(r_comp_pv_abs)
+```
+
+```{r}
+r_comp_por_abs <- lmer(Score ~ `Porosity Scale` * Absorption * `Measure Type`
+                       + (1 | Country/subject_id) + (1 | Measure),
+                       data = temp)
+```
+
+```{r, }
+summary(r_comp_por_abs)
+```

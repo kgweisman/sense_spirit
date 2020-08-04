@@ -1,5 +1,5 @@
 ---
-title: "Study 2"
+title: "Study 2 (revised analysis July 2020)"
 subtitle: "Luhrmann, Weisman, et al."
 output: 
   html_notebook:
@@ -10,7 +10,7 @@ output:
 
 In Study 2, adults from the general population, as well as a smaller sample of charismatic evangelical Christians, were interviewed briefly about their spiritual experiences and their understanding of the mind. These interviews yielded one measure of porosity (“Porosity Scale”) and one measure of spiritual experience (“Spiritual Events” scale).
 
-This notebook contains all of the analyses for Study 2.
+This notebook contains all of the analyses for Study 2 (revised July 2020).
 
 ```{r, message = F}
 source("../scripts_general/dependencies.R")
@@ -20,14 +20,34 @@ source("../scripts_general/data_load.R")
 ```
 
 ```{r}
+require(stargazer)
+detach("package:lmerTest")
+```
+
+```{r}
+# custom function for substituting interaction symbol
+sub_interact_fun <- function(str) {
+  str <- gsub("\\`", "", str) # for `Porosity Vignettes`, etc.
+  str <- gsub("\\.\\:", "\\. × ", str) # for country
+  str <- gsub("\\:Sit", " × Sit", str)
+  str <- gsub("\\:Rel", " × Rel", str)
+  str <- gsub("\\:Pop", " × Pop", str)
+  str <- gsub("\\:Por", " × Por", str)
+  str <- gsub("\\:Abs", " × Abs", str)
+  str <- gsub("\\:Gen", " × Gen", str)
+  str <- gsub("\\:Age", " × Age", str)
+  str <- gsub("\\:Edu", " × Edu", str)
+  return(str)
+}
+```
+
+```{r}
 # show contrasts
 contrasts(d2$country)
 contrasts(d2$religion)
 ```
 
 # Demographics
-
-## Table S19
 
 ```{r}
 d2_demo <- d2 %>% select(-contains("score")) %>% 
@@ -169,162 +189,432 @@ d2_demo %>%
   # collapse_rows(1:2)
 ```
 
-# Primary analysis
 
-## Table S20
+# Revised analyses (July 2020)
 
 ```{r}
-r1 <- lmer(spev_score ~ por_score 
-           + (por_score | country/religion),
-           # + (1 | country/religion),
-           control = lmerControl(optimizer = "bobyqa"),
-           data = d2 %>% mutate_at(vars(ends_with("_score")), scale))
+d2_fortab <- d2 %>%
+  mutate_at(vars(ends_with("_score"), subject_age), scale) %>%
+  mutate(subject_hs = case_when(is.na(subject_education) ~ NA_character_,
+                                subject_education == "No HS degree" ~ "no",
+                                TRUE ~ "yes"),
+         subject_hs = factor(subject_hs, 
+                             levels = c("no", "yes")),
+         subject_gender = factor(subject_gender, 
+                                 levels = c("Female", "Male"))) %>%
+  rename("Spiritual Events" = "spev_score",
+         "Porosity Scale" = "por_score",
+         "Country" = "country",
+         "Population" = "religion",
+         "Gender" = "subject_gender",
+         "Age" = "subject_age",
+         "Education" = "subject_hs")
+
+contrasts(d2_fortab$Country) <- cbind(": Gh." = c(-1, 1, 0, 0, 0),
+                                      ": Th." = c(-1, 0, 1, 0, 0),
+                                      ": Ch." = c(-1, 0, 0, 1, 0),
+                                      ": Va." = c(-1, 0, 0, 0, 1))
+contrasts(d2_fortab$Population) <- cbind(": CC" = c(1, -1))
+contrasts(d2_fortab$Education) <- cbind(": at least HS" = c(-1, 1))
+contrasts(d2_fortab$Gender) <- cbind(": male" = c(-1, 1))
 ```
 
+## Group differences
+
+### Spiritual Events
+
 ```{r}
-rsquared(r1)
+r01_spev <- lm(`Spiritual Events` ~ Country,
+              data = d2_fortab)
+r02_spev <- lm(`Spiritual Events` ~ Country * Population, 
+              data = d2_fortab)
+r03_spev <- lm(`Spiritual Events` ~ Country * Population +
+                Gender + Age, # + Education, # missing data for ~50% of participants
+              data = d2_fortab)
 ```
 
-```{r}
-regtab_fun(r1, por_name = "Porosity Scale") %>% 
-  regtab_style_fun(row_emph = 2)
+```{r, include = F}
+# # run manually to check convergence
+# summary(r01_spev)
+# summary(r02_spev)
+# summary(r03_spev)
 ```
 
-```{r}
-regtab_ran_fun(r1) %>% regtab_style_fun()
+```{r, include=F}
+table_s2_diff_spev <- stargazer(r01_spev, r02_spev, 
+                                r03_spev, type = "html",
+                                ci = T,
+                                report = c("vcsp"),
+                                digits = 2,
+                                digits.extra = 1000,
+                                omit.table.layout = "n",
+                                # order = c("^Country: ...$", 
+                                #           "^Population: CC$", 
+                                #           "Country", 
+                                #           "Site"),
+                                dep.var.labels.include = F,
+                                dep.var.caption = "",
+                                single.row = T)
+
+cat(sub_interact_fun(table_s2_diff_spev), 
+    file = "./stargazer_tables/table_s2_diff_spev.html")
 ```
 
-
-# Bayesian version
-
-## Table S21
+### Porosity Scale
 
 ```{r}
-# r1_bayes <- brm(spev_score ~ por_score
-#                 + (por_score | country/religion),
-#                 data = d2 %>% mutate_at(vars(ends_with("_score")), scale),
-#                 control = list(adapt_delta = 0.999, max_treedepth = 12),
-#                 seed = 1234, cores = 4, chains = 4)
-# saveRDS(r1_bayes, "./models/r1_bayes.RDS")
-
-r1_bayes <- readRDS("./models/r1_bayes.RDS")
+r01_por <- lm(`Porosity Scale` ~ Country,
+              data = d2_fortab)
+r02_por <- lm(`Porosity Scale` ~ Country * Population, 
+              data = d2_fortab)
+r03_por <- lm(`Porosity Scale` ~ Country * Population +
+                Gender + Age, # + Education,
+              data = d2_fortab)
 ```
 
-```{r}
-bayes_R2(r1_bayes)
+```{r, include = F}
+# # run manually to check convergence
+# summary(r01_por)
+# summary(r02_por)
+# summary(r03_por)
 ```
 
-```{r}
-regtab_fun(r1_bayes, por_name = "Porosity Scale") %>% 
-  regtab_style_fun(row_emph = 2)
+```{r, include=F}
+table_s2_diff_por <- stargazer(r01_por, r02_por, 
+                               r03_por, type = "html",
+                               ci = T,
+                               report = c("vcsp"),
+                               digits = 2,
+                               digits.extra = 1000,
+                               omit.table.layout = "n",
+                               # order = c("^Country: ...$", 
+                               #           "^Population: CC$", 
+                               #           "Country", 
+                               #           "Site"),
+                               dep.var.labels.include = F,
+                               dep.var.caption = "",
+                               single.row = T)
+
+cat(sub_interact_fun(table_s2_diff_por), 
+    file = "./stargazer_tables/table_s2_diff_por.html")
 ```
 
+## Relationships
+
+### Spiritual Events
+
+#### Sample as fixed effect
+
 ```{r}
-regtab_ran_fun(r1_bayes) %>% regtab_style_fun()
+r04_spev <- lm(`Spiritual Events` ~ `Porosity Scale`,
+               data = d2_fortab)
+
+r05_spev <- lm(`Spiritual Events` ~ Country * Population * `Porosity Scale`,
+               data = d2_fortab)
+
+r06_spev <- lm(`Spiritual Events` ~ Country * Population * `Porosity Scale`
+               + Gender + Age, # + Education, 
+               data = d2_fortab)
 ```
 
-
-# Country as fixed effect
-
-## Table S22
-
-```{r}
-r2 <- lm(spev_score ~ por_score * country * religion,
-         data = d2 %>% mutate_at(vars(ends_with("_score")), scale))
+```{r, include = F}
+# # run manually to check convergence
+# summary(r04_spev)
+# summary(r05_spev)
+# summary(r06_spev)
 ```
 
-```{r}
-rsquared(r2)
-```
+```{r, include=F}
+table_s2_rel_spev_fixfx <- stargazer(r04_spev, r05_spev,
+                                     r06_spev, type = "html",
+                                     ci = T,
+                                     report = c("vcsp"),
+                                     digits = 2,
+                                     digits.extra = 1000,
+                                     omit.table.layout = "n",
+                                     order = c("^`Porosity Scale`$"),
+                                     dep.var.labels.include = F,
+                                     dep.var.caption = "",
+                                     single.row = T)
 
-```{r}
-regtab_fun(r2, std_beta = T, por_name = "Porosity Scale") %>% 
-  regtab_style_fun(row_emph = 2)
-```
-
-
-# Other analyses
-
-## Primary analysis, by country (Supplemental Information, p. 9)
-
-```{r}
-r1_us <- lmer(spev_score ~ por_score 
-              + (1 | religion), 
-              # + (por_score | religion), # singular
-              control = lmerControl(optimizer = "bobyqa"),
-              data = d2 %>% 
-                filter(country == "US") %>%
-                mutate_at(vars(ends_with("_score")), scale))
-
-r1_gh <- lmer(spev_score ~ por_score 
-              + (1 | religion),
-              # + (por_score | religion), # singular
-              control = lmerControl(optimizer = "bobyqa"),
-              data = d2 %>% 
-                filter(country == "Ghana") %>%
-                mutate_at(vars(ends_with("_score")), scale))
-
-r1_th <- lmer(spev_score ~ por_score 
-              + (1 | religion),
-              # + (por_score | religion), # singular
-              control = lmerControl(optimizer = "bobyqa"),
-              data = d2 %>% 
-                filter(country == "Thailand") %>%
-                mutate_at(vars(ends_with("_score")), scale))
-
-r1_ch <- lmer(spev_score ~ por_score 
-              + (1 | religion), # still singular, but using anyway
-              # + (por_score | religion), # singular
-              control = lmerControl(optimizer = "bobyqa"),
-              data = d2 %>% 
-                filter(country == "China") %>%
-                mutate_at(vars(ends_with("_score")), scale))
-
-r1_vt <- lmer(spev_score ~ por_score 
-              + (1 | religion), # still singular, but using anyway
-              # + (por_score | religion), # singular
-              control = lmerControl(optimizer = "bobyqa"),
-              data = d2 %>% 
-                filter(country == "Vanuatu") %>%
-                mutate_at(vars(ends_with("_score")), scale))
-```
-
-```{r}
-bind_rows(regtab_fun(r1_us) %>% mutate(Country = "US"),
-          regtab_fun(r1_gh) %>% mutate(Country = "Ghana"),
-          regtab_fun(r1_th) %>% mutate(Country = "Thailand"),
-          regtab_fun(r1_ch) %>% mutate(Country = "China"),
-          regtab_fun(r1_vt) %>% mutate(Country = "Vanuatu")) %>%
-  select(Country, everything()) %>%
-  regtab_style_fun(row_emph = seq(2, 10, 2)) %>%
-  collapse_rows(1)
-```
-
-
-## Primary analysis, evangelical charismatic Christians alone (Table S23)
-
-```{r}
-r3 <- lmer(spev_score ~ por_score 
-           + (por_score | country),
-           # + (1 | country),
-           control = lmerControl(optimizer = "bobyqa"),
-           data = d2 %>%
-             filter(religion == "charismatic") %>%
-             mutate_at(vars(ends_with("_score")), scale))
-```
-
-```{r}
-rsquared(r3)
-```
-
-```{r}
-regtab_fun(r3, por_name = "Porosity Scale") %>% 
-  regtab_style_fun(row_emph = 2)
-```
-
-```{r}
-regtab_ran_fun(r3) %>% regtab_style_fun()
+cat(sub_interact_fun(table_s2_rel_spev_fixfx), 
+    file = "./stargazer_tables/table_s2_rel_spev_fixfx.html")
 ```
 
 
+#### Sample as random effect
+
+```{r}
+r07_spev <- lmer(`Spiritual Events` ~ 1 
+                 + (1 | Country/Population),
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d2_fortab)
+
+r08_spev <- lmer(`Spiritual Events` ~ `Porosity Scale` 
+                 + (1 + `Porosity Scale` | Country/Population), 
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d2_fortab)
+
+r09_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
+                 + Gender + Age # + Education
+                 # + (1 + `Porosity Scale` + Gender + Age | Country/Population), # NaN ranfx
+                 # + (1 + `Porosity Scale` + Gender + Age || Country/Population), # perfectly correlated ranfx
+                 # + (1 + `Porosity Scale` | Country/Population), # NaN ranfx
+                 + (1 + `Porosity Scale` || Country/Population),
+                 control = lmerControl(optimizer = "bobyqa"),
+                 data = d2_fortab)
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r07_spev)
+# summary(r08_spev)
+# summary(r09_spev)
+```
+
+```{r, include=F}
+table_s2_rel_spev_ranfx <- stargazer(r07_spev, r08_spev,
+                                     r09_spev, type = "html",
+                                     ci = T,
+                                     report = c("vcsp"),
+                                     digits = 2,
+                                     digits.extra = 0800,
+                                     omit.table.layout = "n",
+                                     order = c("^`Porosity Scale`$"),
+                                     dep.var.labels.include = F,
+                                     dep.var.caption = "",
+                                     single.row = T)
+
+cat(sub_interact_fun(table_s2_rel_spev_ranfx), 
+    file = "./stargazer_tables/table_s2_rel_spev_ranfx.html")
+```
+
+```{r}
+rsquared(modelList = list(r07_spev, r08_spev, r09_spev)) %>%
+  mutate_at(vars(Marginal, Conditional), ~ round(., 2))
+```
+
+#### By country, sample as fixed effect
+
+```{r}
+r10_us_spev <- lm(`Spiritual Events` ~ Population * `Porosity Scale`,
+                  data = d2_fortab %>% 
+                    filter(Country == "US") %>%
+                    mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
+                              ~ scale(.)))
+
+r10_gh_spev <- lm(`Spiritual Events` ~ Population * `Porosity Scale`,
+                  data = d2_fortab %>% 
+                    filter(Country == "Ghana") %>%
+                    mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
+                              ~ scale(.)))
+
+r10_th_spev <- lm(`Spiritual Events` ~ Population * `Porosity Scale`,
+                  data = d2_fortab %>% 
+                    filter(Country == "Thailand") %>%
+                    mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
+                              ~ scale(.)))
+
+r10_ch_spev <- lm(`Spiritual Events` ~ Population * `Porosity Scale`,
+                  data = d2_fortab %>% 
+                    filter(Country == "China") %>%
+                    mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
+                              ~ scale(.)))
+
+r10_vt_spev <- lm(`Spiritual Events` ~ Population * `Porosity Scale`,
+                  data = d2_fortab %>% 
+                    filter(Country == "Vanuatu") %>%
+                    mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
+                              ~ scale(.)))
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r10_us_spev)
+# summary(r10_gh_spev)
+# summary(r10_th_spev)
+# summary(r10_ch_spev)
+# summary(r10_vt_spev)
+```
+
+```{r, include=F}
+table_s2_rel_bycountry_spev_fixfx <- stargazer(r10_us_spev, r10_gh_spev,
+                                               r10_th_spev, r10_ch_spev,
+                                               r10_vt_spev, type = "html",
+                                               ci = T,
+                                               report = c("vcsp"),
+                                               digits = 2,
+                                               digits.extra = 1000,
+                                               omit.table.layout = "n",
+                                               # order = c("^`Porosity Scale`$"),
+                                               dep.var.labels.include = F,
+                                               dep.var.caption = "",
+                                               single.row = T)
+
+cat(sub_interact_fun(table_s2_rel_bycountry_spev_fixfx), 
+    file = "./stargazer_tables/table_s2_rel_bycountry_spev_fixfx.html")
+```
+
+#### By country, sample as random effect
+
+```{r}
+r11_us_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
+                    # + (1 + `Porosity Scale` | Population), # perfectly correlated ranfx
+                    + (1 | Population), 
+                    data = d2_fortab %>% 
+                      filter(Country == "US") %>%
+                      mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
+                                ~ scale(.)))
+
+r11_gh_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
+                    # + (1 + `Porosity Scale` | Population), # perfectly correlated ranfx
+                    + (1 | Population), 
+                    data = d2_fortab %>% 
+                      filter(Country == "Ghana") %>%
+                      mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
+                                ~ scale(.)))
+
+r11_th_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
+                    # + (1 + `Porosity Scale` | Population), # perfectly correlated ranfx
+                    + (1 | Population), 
+                    data = d2_fortab %>% 
+                      filter(Country == "Thailand") %>%
+                      mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
+                                ~ scale(.)))
+
+r11_ch_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
+                    # + (1 + `Porosity Scale` | Population), # perfectly correlated ranfx
+                    + (1 | Population), 
+                    data = d2_fortab %>% 
+                      filter(Country == "China") %>%
+                      mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
+                                ~ scale(.)))
+
+r11_vt_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
+                    # + (1 + `Porosity Scale` | Population), # perfectly correlated ranfx
+                    + (1 | Population), 
+                    data = d2_fortab %>% 
+                      filter(Country == "Vanuatu") %>%
+                      mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
+                                ~ scale(.)))
+```
+
+```{r, include = F}
+# run manually to check convergence
+summary(r11_us_spev)
+summary(r11_gh_spev)
+summary(r11_th_spev)
+summary(r11_ch_spev)
+summary(r11_vt_spev)
+```
+
+```{r, include=F}
+table_s2_rel_bycountry_spev_ranfx <- stargazer(r11_us_spev, r11_gh_spev,
+                                               r11_th_spev, r11_ch_spev,
+                                               r11_vt_spev, type = "html",
+                                               ci = T,
+                                               report = c("vcsp"),
+                                               digits = 2,
+                                               digits.extra = 1000,
+                                               omit.table.layout = "n",
+                                               # order = c("^`Porosity Scale`$"),
+                                               dep.var.labels.include = F,
+                                               dep.var.caption = "",
+                                               single.row = T)
+
+cat(sub_interact_fun(table_s2_rel_bycountry_spev_ranfx), 
+    file = "./stargazer_tables/table_s2_rel_bycountry_spev_ranfx.html")
+```
+
+```{r}
+rsquared(modelList = list(r11_us_spev, r11_gh_spev, r11_th_spev, 
+                          r11_ch_spev, r11_vt_spev)) %>%
+  mutate_at(vars(Marginal, Conditional), ~ round(., 2))
+```
+
+
+#### By population, sample as fixed effect
+
+```{r}
+r12_gp_spev <- lm(`Spiritual Events` ~ Country * `Porosity Scale`,
+                  data = d2_fortab %>% 
+                    filter(Population == "general population") %>%
+                    mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
+                              ~ scale(.)))
+
+r12_cc_spev <- lm(`Spiritual Events` ~ Country * `Porosity Scale`,
+                  data = d2_fortab %>% 
+                    filter(Population == "charismatic") %>%
+                    mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
+                              ~ scale(.)))
+```
+
+```{r, include = F}
+# # run manually to check convergence
+# summary(r12_gp_spev)
+# summary(r12_cc_spev)
+```
+
+```{r, include=F}
+table_s2_rel_bypop_spev_fixfx <- stargazer(r12_gp_spev, r12_cc_spev,
+                                               type = "html",
+                                               ci = T,
+                                               report = c("vcsp"),
+                                               digits = 2,
+                                               digits.extra = 1000,
+                                               omit.table.layout = "n",
+                                               # order = c("^`Porosity Scale`$"),
+                                               dep.var.labels.include = F,
+                                               dep.var.caption = "",
+                                               single.row = T)
+
+cat(sub_interact_fun(table_s2_rel_bypop_spev_fixfx), 
+    file = "./stargazer_tables/table_s2_rel_bypop_spev_fixfx.html")
+```
+
+#### By population, sample as random effect
+
+```{r}
+r13_gp_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
+                    + (1 + `Porosity Scale` | Country), 
+                    data = d2_fortab %>% 
+                      filter(Population == "general population") %>%
+                      mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
+                                ~ scale(.)))
+
+r13_cc_spev <- lmer(`Spiritual Events` ~ `Porosity Scale`
+                    + (1 + `Porosity Scale` | Country), 
+                    data = d2_fortab %>% 
+                      filter(Population == "charismatic") %>%
+                      mutate_at(vars(`Spiritual Events`, `Porosity Scale`),
+                                ~ scale(.)))
+```
+
+```{r, include = F}
+# run manually to check convergence
+summary(r13_gp_spev)
+summary(r13_cc_spev)
+```
+
+```{r, include=F}
+table_s2_rel_bypop_spev_ranfx <- stargazer(r13_gp_spev, r13_cc_spev,
+                                               type = "html",
+                                               ci = T,
+                                               report = c("vcsp"),
+                                               digits = 2,
+                                               digits.extra = 1000,
+                                               omit.table.layout = "n",
+                                               # order = c("^`Porosity Scale`$"),
+                                               dep.var.labels.include = F,
+                                               dep.var.caption = "",
+                                               single.row = T)
+
+cat(sub_interact_fun(table_s2_rel_bypop_spev_ranfx), 
+    file = "./stargazer_tables/table_s2_rel_bypop_spev_ranfx.html")
+```
+
+```{r}
+rsquared(modelList = list(r13_gp_spev, r13_cc_spev)) %>%
+  mutate_at(vars(Marginal, Conditional), ~ round(., 2))
+```
 

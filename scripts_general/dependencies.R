@@ -1,16 +1,14 @@
 # load libraries
 
-require(piecewiseSEM)
-require(lme4)
-require(lmerTest)
-require(brms)
-require(psych)
-require(kableExtra)
-require(langcog) # available from: https://github.com/langcog/langcog-package
 require(tidyverse)
+require(stargazer)
+require(kableExtra)
+require(lme4)
+require(piecewiseSEM)
+require(psych)
+require(langcog) # available from: https://github.com/langcog/langcog-package
 require(cowplot)
-require(sjstats)
-require(effectsize)
+require(htmltools)
 
 # set ggplot theme
 theme_set(theme_bw())
