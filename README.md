@@ -2,7 +2,7 @@
 
 Authors: Tanya M. Luhrmann, Kara Weisman, Felicity Aulino, Joshua D. Brahinsky, John C. Dulin, Vivian A. Dzokoto, Cristine H. Legare, Michael Lifshitz, Emily Ng, Nicole Ross-Zehnder, Rachel E. Smith.
 
-Why do some people experience extraordinary spiritual events while others do not? In four studies, we investigated two factors that might facilitate the anomalous, often sensory events that people attribute to gods, spirits, or supernatural forces: cultural models that represent the mind as “porous,” permeable to the world (_porosity_; see Taylor, 2007) and a person’s tendency to become “absorbed” in experiences (_absorption_; see Tellegen & Atkinson, 1974).
+Why do some people experience extraordinary spiritual events while others do not? In four studies, we investigated two factors that might facilitate the anomalous, often sensory events that people attribute to gods, spirits, or supernatural forces, which we term “spiritual presence events”: (1) cultural models or folk theories that represent the mind as “porous,” permeable to the world (_porosity_; see Taylor, 2007); and (2) an individual’s personal orientation toward their inner life that makes it easy for them to become “absorbed” in experiences (_absorption_; see Tellegen & Atkinson, 1974).
 
 This repo includes analyses of the quantitative data from these four studies, which took place in five international field sites as part of the [Mind and Spirit Project](https://themindandspiritproject.stanford.edu/#Home).
 
