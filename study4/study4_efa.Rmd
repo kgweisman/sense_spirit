@@ -5,6 +5,7 @@ output:
   html_notebook:
     toc: true
     toc_float: true
+    code_folding: hide
 ---
 
 In Study 4, college undergraduates completed a survey consisting of nine measures, including two indices of porosity, the Absorption scale, two indices of spiritual experience, two indices of more secular extraordinary experience, and two control measures.

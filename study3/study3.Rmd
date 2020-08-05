@@ -5,6 +5,7 @@ output:
   html_notebook:
     toc: true
     toc_float: true
+    code_folding: hide
 ---
 
 In Study 3, college undergraduates completed a survey consisting of one measure of absorption (the Absorption scale) and two measures of spiritual experience (a “Spiritual Events” inventory based on Studies 1 and 2; and a modified version of the Daily Spiritual Experiences scale). 

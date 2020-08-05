@@ -5,6 +5,7 @@ output:
   html_notebook:
     toc: true
     toc_float: true
+    code_folding: hide
 ---
 
 In Study 1, adults with strong religious commitments and faith practices were interviewed in depth about their spiritual experiences and their understanding of the mind by experienced ethnographers. These interviews yielded one measure of porosity (“Porosity Vignettes”), one measure of absorption (the Absorption scale), and one measure of spiritual experience (“Spiritual Events” scale).

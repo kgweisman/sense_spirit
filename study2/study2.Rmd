@@ -5,6 +5,7 @@ output:
   html_notebook:
     toc: true
     toc_float: true
+    code_folding: hide
 ---
 
 In Study 2, adults from the general population, as well as a smaller sample of charismatic evangelical Christians, were interviewed briefly about their spiritual experiences and their understanding of the mind. These interviews yielded one measure of porosity (“Porosity Scale”) and one measure of spiritual experience (“Spiritual Events” scale).
