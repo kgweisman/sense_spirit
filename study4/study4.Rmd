@@ -3,7 +3,6 @@ title: "Study 4"
 subtitle: "Luhrmann, Weisman, et al."
 output: 
   html_notebook:
-    theme: flatly
     toc: true
     toc_float: true
 ---
@@ -639,6 +638,8 @@ rsq_table_fun(list(r13_spirit, r14_spirit, #r15_spirit,
 ))
 ```
 
+### Table S43. Study 4, measures of spiritual presence events: relationships with Porosity Scale and Absorption (sample as random effect)
+
 ```{r, results = "hide"}
 table_s43 <- stargazer(r13_spirit, #r14_spirit, 
                        r15_spirit, r16_spirit, #r17_spirit, 
@@ -1150,6 +1151,8 @@ rsq_table_fun(list(r13_secular, r14_secular, #r15_secular,
 ))
 ```
 
+### Table S50. Study 4, measures of secular anomalous events: relationships with Porosity Scale and Absorption (sample as random effect)
+
 ```{r, results = "hide"}
 table_s50 <- stargazer(r13_secular, #r14_secular, 
                        r15_secular, r16_secular, #r17_secular, 
@@ -1589,7 +1592,7 @@ table_s56 <- stargazer(r24_hall, r25_hall, r26_hall, r24_para, r25_para, r26_par
                        digits = 2,
                        digits.extra = 1000,
                        omit.table.layout = "n",
-                       dep.var.labels.include = F,
+                       # dep.var.labels.include = F,
                        dep.var.caption = "",
                        single.row = T) 
 
@@ -1642,7 +1645,7 @@ table_s57 <- stargazer(r27_hall, r28_hall, r27_para, r28_para,
                        digits = 2,
                        digits.extra = 1000,
                        omit.table.layout = "n",
-                       dep.var.labels.include = F,
+                       # dep.var.labels.include = F,
                        dep.var.caption = "",
                        single.row = T)
 
