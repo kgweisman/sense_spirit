@@ -202,6 +202,10 @@ efa_all_std_5_topfact %>%
 efa_all_std_5_topfact %>% count(topfact)
 ```
 
+### Table S62. Factor loadings from of an exploratory factor analysis of item-wise data from all measures included in Study 4
+
+_Note that the version of this table included in the Supplement was lightly edited in Microsoft Word._
+
 ```{r}
 efa_all_std_5_loadings %>%
   select(scale, question_text, factor, loading, order) %>%
