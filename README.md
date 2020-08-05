@@ -32,5 +32,5 @@ HTML preview: [Study 3 analyses](http://htmlpreview.github.io/?https://github.co
 
 In [Study 4](https://github.com/kgweisman/sense_spirit/tree/master/study4), college undergraduates completed a survey consisting of nine measures, including two indices of porosity (`pv_score`, `por_score`), the Absorption scale (`abs_score`), two indices of spiritual experience (`spev_score`, `dse_score`), two indices of more secular extraordinary experience (the Hallucinations scale [Morrison et al., 2000]: `hall_score`, and the Paranormal scale [Thalbourne & Delin, 1993]: `para_scale`), and two control measures (the Need for Cognition scale [Cacioppo & Petty, 1982]: `cog_score`, and the Sense of Control, "Mastery" subscale [Lachman & Weaver, 1998]: `ctl_score`). Our analysis of Study 4 closely followed our preregistration of this study (link: https://osf.io/kmtc4). 
 
-HTML preview: [Study 4 analyses](http://htmlpreview.github.io/?https://github.com/kgweisman/sense_spirit/blob/master/study4/study4.nb.html)
+HTML preview: [Study 4 analyses](http://htmlpreview.github.io/?https://github.com/kgweisman/sense_spirit/blob/master/study4/study4.nb.html) • [Exploratory factor analyses of itemwise data](http://htmlpreview.github.io/?https://github.com/kgweisman/sense_spirit/blob/master/study4/study4_efa.nb.html)
 
