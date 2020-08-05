@@ -5,6 +5,7 @@ output:
   html_notebook:
     toc: true
     toc_float: true
+    code_folding: hide
 ---
 
 This notebook generates all plots included in the main text and supplement.

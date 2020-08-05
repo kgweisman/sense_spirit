@@ -2910,9 +2910,14 @@ div.tocify {
 <p>This notebook contains all of the analyses for Study 4, which closely follow our preregistration of this study (link: <a href="https://osf.io/kmtc4" class="uri">https://osf.io/kmtc4</a>)</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKFwiLi4vc2NyaXB0c19nZW5lcmFsL2RlcGVuZGVuY2llcy5SXCIpXG5zb3VyY2UoXCIuLi9zY3JpcHRzX2dlbmVyYWwvY3VzdG9tX2Z1bnMuUlwiKVxuc291cmNlKFwiLi4vc2NyaXB0c19nZW5lcmFsL3Zhcl9yZWNvZGVfY29udHJhc3QuUlwiKVxuc291cmNlKFwiLi4vc2NyaXB0c19nZW5lcmFsL2RhdGFfbG9hZC5SXCIpXG5gYGAifQ== -->
-<pre class="r"><code>source(&quot;../scripts_general/dependencies.R&quot;)
-source(&quot;../scripts_general/custom_funs.R&quot;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKFwiLi4vc2NyaXB0c19nZW5lcmFsL2RlcGVuZGVuY2llcy5SXCIpXG5gYGAifQ== -->
+<pre class="r"><code>source(&quot;../scripts_general/dependencies.R&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVGhlcmUgd2VyZSAyNiB3YXJuaW5ncyAodXNlIHdhcm5pbmdzKCkgdG8gc2VlIHRoZW0pXG4ifQ== -->
+<pre><code>There were 26 warnings (use warnings() to see them)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKFwiLi4vc2NyaXB0c19nZW5lcmFsL2N1c3RvbV9mdW5zLlJcIilcbnNvdXJjZShcIi4uL3NjcmlwdHNfZ2VuZXJhbC92YXJfcmVjb2RlX2NvbnRyYXN0LlJcIilcbnNvdXJjZShcIi4uL3NjcmlwdHNfZ2VuZXJhbC9kYXRhX2xvYWQuUlwiKVxuYGBgIn0= -->
+<pre class="r"><code>source(&quot;../scripts_general/custom_funs.R&quot;)
 source(&quot;../scripts_general/var_recode_contrast.R&quot;)
 source(&quot;../scripts_general/data_load.R&quot;)</code></pre>
 <!-- rnb-source-end -->
@@ -4084,10 +4089,6 @@ r21_spirit_vt &lt;- lmer(Score ~ Scale * `Porosity Vignettes`
                        dep.var.caption = &quot;&quot;,
                        single.row = T)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2F0KHN1Yl9pbnRlcmFjdF9mdW4odGFibGVfczQ0KSwgXG4gICAgZmlsZSA9IFwiLi9zdGFyZ2F6ZXJfdGFibGVzL3RhYmxlX3M0NC5odG1sXCIpXG5gYGAifQ== -->
-<pre class="r"><code>cat(sub_interact_fun(table_s44), 
-    file = &quot;./stargazer_tables/table_s44.html&quot;)</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -4275,7 +4276,7 @@ r22_spirit_vt &lt;- lmer(Score ~ Scale * `Porosity Scale`
 <h3>Table S46. Study 4, measures of spiritual presence events: relationships with Absorption by country</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucjIzX3NwaXJpdF91cyA8LSBsbWVyKFNjb3JlIH4gU2NhbGUgKiBgQWJzb3JwdGlvbmAgXG4gICAgICAgICAgICAgICAgICAgICAgKyAoMSB8IHN1YmplY3RfaWQpLFxuICAgICAgICAgICAgICAgICAgICAgIGNvbnRyb2wgPSBsbWVyQ29udHJvbChvcHRpbWl6ZXIgPSBcImJvYnlxYVwiKSxcbiAgICAgICAgICAgICAgICAgICAgICBkYXRhID0gZDRfZm9ydGFiX2xvbmdfc3Bpcml0ICU+JSBmaWx0ZXIoQ291bnRyeSA9PSBcIlVTXCIpICU+JVxuICAgICAgICAgICAgICAgICAgICAgICAgbXV0YXRlX2F0KHZhcnMoU2NvcmUsIGBBYnNvcnB0aW9uYCksIH4gc2NhbGUoLikpKVxuXG5yMjNfc3Bpcml0X2doIDwtIGxtZXIoU2NvcmUgfiBTY2FsZSAqIGBBYnNvcnB0aW9uYCBcbiAgICAgICAgICAgICAgICAgICAgICArICgxIHwgc3ViamVjdF9pZCksXG4gICAgICAgICAgICAgICAgICAgICAgY29udHJvbCA9IGxtZXJDb250cm9sKG9wdGltaXplciA9IFwiYm9ieXFhXCIpLFxuICAgICAgICAgICAgICAgICAgICAgIGRhdGEgPSBkNF9mb3J0YWJfbG9uZ19zcGlyaXQgJT4lIGZpbHRlcihDb3VudHJ5ID09IFwiR2hhbmFcIikgJT4lXG4gICAgICAgICAgICAgICAgICAgICAgICBtdXRhdGVfYXQodmFycyhTY29yZSwgYEFic29ycHRpb25gKSwgfiBzY2FsZSguKSkpXG5cbnIyM19zcGlyaXRfdGggPC0gbG1lcihTY29yZSB+IFNjYWxlICogYEFic29ycHRpb25gIFxuICAgICAgICAgICAgICAgICAgICAgICsgKDEgfCBzdWJqZWN0X2lkKSxcbiAgICAgICAgICAgICAgICAgICAgICBjb250cm9sID0gbG1lckNvbnRyb2wob3B0aW1pemVyID0gXCJib2J5cWFcIiksXG4gICAgICAgICAgICAgICAgICAgICAgZGF0YSA9IGQ0X2ZvcnRhYl9sb25nX3NwaXJpdCAlPiUgZmlsdGVyKENvdW50cnkgPT0gXCJUaGFpbGFuZFwiKSAlPiVcbiAgICAgICAgICAgICAgICAgICAgICAgIG11dGF0ZV9hdCh2YXJzKFNjb3JlLCBgQWJzb3JwdGlvbmApLCB+IHNjYWxlKC4pKSlcblxucjIzX3NwaXJpdF9jaCA8LSBsbWVyKFNjb3JlIH4gU2NhbGUgKiBgQWJzb3JwdGlvbmAgXG4gICAgICAgICAgICAgICAgICAgICAgKyAoMSB8IHN1YmplY3RfaWQpLFxuICAgICAgICAgICAgICAgICAgICAgIGNvbnRyb2wgPSBsbWVyQ29udHJvbChvcHRpbWl6ZXIgPSBcImJvYnlxYVwiKSxcbiAgICAgICAgICAgICAgICAgICAgICBkYXRhID0gZDRfZm9ydGFiX2xvbmdfc3Bpcml0ICU+JSBmaWx0ZXIoQ291bnRyeSA9PSBcIkNoaW5hXCIpICU+JVxuICAgICAgICAgICAgICAgICAgICAgICAgbXV0YXRlX2F0KHZhcnMoU2NvcmUsIGBBYnNvcnB0aW9uYCksIH4gc2NhbGUoLikpKVxuXG5yMjNfc3Bpcml0X3Z0IDwtIGxtZXIoU2NvcmUgfiBTY2FsZSAqIGBBYnNvcnB0aW9uYCBcbiAgICAgICAgICAgICAgICAgICAgICArICgxIHwgc3ViamVjdF9pZCksXG4gICAgICAgICAgICAgICAgICAgICAgY29udHJvbCA9IGxtZXJDb250cm9sKG9wdGltaXplciA9IFwiYm9ieXFhXCIpLFxuICAgICAgICAgICAgICAgICAgICAgIGRhdGEgPSBkNF9mb3J0YWJfbG9uZ19zcGlyaXQgJT4lIGZpbHRlcihDb3VudHJ5ID09IFwiVmFudWF0dVwiKSAlPiVcbiAgICAgICAgICAgICAgICAgICAgICAgIG11dGF0ZV9hdCh2YXJzKFNjb3JlLCBgQWJzb3JwdGlvbmApLCB+IHNjYWxlKC4pKSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucjIzX3NwaXJpdF91cyA8LSBsbWVyKFNjb3JlIH4gU2NhbGUgKiBgQWJzb3JwdGlvbmAgXG4gICAgICAgICAgICAgICAgICAgICAgKyAoMSB8IHN1YmplY3RfaWQpLFxuICAgICAgICAgICAgICAgICAgICAgIGNvbnRyb2wgPSBsbWVyQ29udHJvbChvcHRpbWl6ZXIgPSBcImJvYnlxYVwiKSxcbiAgICAgICAgICAgICAgICAgICAgICBkYXRhID0gZDRfZm9ydGFiX2xvbmdfc3Bpcml0ICU+JSBmaWx0ZXIoQ291bnRyeSA9PSBcIlVTXCIpICU+JVxuICAgICAgICAgICAgICAgICAgICAgICAgbXV0YXRlX2F0KHZhcnMoU2NvcmUsIGBBYnNvcnB0aW9uYCksIH4gc2NhbGUoLikpKVxuXG5yMjNfc3Bpcml0X2doIDwtIGxtZXIoU2NvcmUgfiBTY2FsZSAqIGBBYnNvcnB0aW9uYCBcbiAgICAgICAgICAgICAgICAgICAgICArICgxIHwgc3ViamVjdF9pZCksXG4gICAgICAgICAgICAgICAgICAgICAgY29udHJvbCA9IGxtZXJDb250cm9sKG9wdGltaXplciA9IFwiYm9ieXFhXCIpLFxuICAgICAgICAgICAgICAgICAgICAgIGRhdGEgPSBkNF9mb3J0YWJfbG9uZ19zcGlyaXQgJT4lIGZpbHRlcihDb3VudHJ5ID09IFwiR2hhbmFcIikgJT4lXG4gICAgICAgICAgICAgICAgICAgICAgICBtdXRhdGVfYXQodmFycyhTY29yZSwgYEFic29ycHRpb25gKSwgfiBzY2FsZSguKSkpXG5cbnIyM19zcGlyaXRfdGggPC0gbG1lcihTY29yZSB+IFNjYWxlICogYEFic29ycHRpb25gIFxuICAgICAgICAgICAgICAgICAgICAgICsgKDEgfCBzdWJqZWN0X2lkKSxcbiAgICAgICAgICAgICAgICAgICAgICBjb250cm9sID0gbG1lckNvbnRyb2wob3B0aW1pemVyID0gXCJib2J5cWFcIiksXG4gICAgICAgICAgICAgICAgICAgICAgZGF0YSA9IGQ0X2ZvcnRhYl9sb25nX3NwaXJpdCAlPiUgZmlsdGVyKENvdW50cnkgPT0gXCJUaGFpbGFuZFwiKSAlPiVcbiAgICAgICAgICAgICAgICAgICAgICAgIG11dGF0ZV9hdCh2YXJzKFNjb3JlLCBgQWJzb3JwdGlvbmApLCB+IHNjYWxlKC4pKSlcbmBgYCJ9 -->
 <pre class="r"><code>r23_spirit_us &lt;- lmer(Score ~ Scale * `Absorption` 
                       + (1 | subject_id),
                       control = lmerControl(optimizer = &quot;bobyqa&quot;),
@@ -4292,9 +4293,64 @@ r23_spirit_th &lt;- lmer(Score ~ Scale * `Absorption`
                       + (1 | subject_id),
                       control = lmerControl(optimizer = &quot;bobyqa&quot;),
                       data = d4_fortab_long_spirit %&gt;% filter(Country == &quot;Thailand&quot;) %&gt;%
-                        mutate_at(vars(Score, `Absorption`), ~ scale(.)))
-
-r23_spirit_ch &lt;- lmer(Score ~ Scale * `Absorption` 
+                        mutate_at(vars(Score, `Absorption`), ~ scale(.)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuV2FybmluZyBpbiByZWFkQ2hhcihmaWxlLCBzaXplLCBUUlVFKSA6XG4gIHRydW5jYXRpbmcgc3RyaW5nIHdpdGggZW1iZWRkZWQgbnVsc1xuIn0= -->
+<pre><code>Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls
+Warning in readChar(file, size, TRUE) :
+  truncating string with embedded nuls</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucjIzX3NwaXJpdF9jaCA8LSBsbWVyKFNjb3JlIH4gU2NhbGUgKiBgQWJzb3JwdGlvbmAgXG4gICAgICAgICAgICAgICAgICAgICAgKyAoMSB8IHN1YmplY3RfaWQpLFxuICAgICAgICAgICAgICAgICAgICAgIGNvbnRyb2wgPSBsbWVyQ29udHJvbChvcHRpbWl6ZXIgPSBcImJvYnlxYVwiKSxcbiAgICAgICAgICAgICAgICAgICAgICBkYXRhID0gZDRfZm9ydGFiX2xvbmdfc3Bpcml0ICU+JSBmaWx0ZXIoQ291bnRyeSA9PSBcIkNoaW5hXCIpICU+JVxuICAgICAgICAgICAgICAgICAgICAgICAgbXV0YXRlX2F0KHZhcnMoU2NvcmUsIGBBYnNvcnB0aW9uYCksIH4gc2NhbGUoLikpKVxuXG5yMjNfc3Bpcml0X3Z0IDwtIGxtZXIoU2NvcmUgfiBTY2FsZSAqIGBBYnNvcnB0aW9uYCBcbiAgICAgICAgICAgICAgICAgICAgICArICgxIHwgc3ViamVjdF9pZCksXG4gICAgICAgICAgICAgICAgICAgICAgY29udHJvbCA9IGxtZXJDb250cm9sKG9wdGltaXplciA9IFwiYm9ieXFhXCIpLFxuICAgICAgICAgICAgICAgICAgICAgIGRhdGEgPSBkNF9mb3J0YWJfbG9uZ19zcGlyaXQgJT4lIGZpbHRlcihDb3VudHJ5ID09IFwiVmFudWF0dVwiKSAlPiVcbiAgICAgICAgICAgICAgICAgICAgICAgIG11dGF0ZV9hdCh2YXJzKFNjb3JlLCBgQWJzb3JwdGlvbmApLCB+IHNjYWxlKC4pKSlcbmBgYCJ9 -->
+<pre class="r"><code>r23_spirit_ch &lt;- lmer(Score ~ Scale * `Absorption` 
                       + (1 | subject_id),
                       control = lmerControl(optimizer = &quot;bobyqa&quot;),
                       data = d4_fortab_long_spirit %&gt;% filter(Country == &quot;China&quot;) %&gt;%

@@ -2910,9 +2910,14 @@ div.tocify {
 <p>This notebook contains all of the analyses for Study 1 (revised July 2020).</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKFwiLi4vc2NyaXB0c19nZW5lcmFsL2RlcGVuZGVuY2llcy5SXCIpXG5zb3VyY2UoXCIuLi9zY3JpcHRzX2dlbmVyYWwvY3VzdG9tX2Z1bnMuUlwiKVxuc291cmNlKFwiLi4vc2NyaXB0c19nZW5lcmFsL3Zhcl9yZWNvZGVfY29udHJhc3QuUlwiKVxuc291cmNlKFwiLi4vc2NyaXB0c19nZW5lcmFsL2RhdGFfbG9hZC5SXCIpXG5gYGAifQ== -->
-<pre class="r"><code>source(&quot;../scripts_general/dependencies.R&quot;)
-source(&quot;../scripts_general/custom_funs.R&quot;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKFwiLi4vc2NyaXB0c19nZW5lcmFsL2RlcGVuZGVuY2llcy5SXCIpXG5gYGAifQ== -->
+<pre class="r"><code>source(&quot;../scripts_general/dependencies.R&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVGhlcmUgd2VyZSAyNiB3YXJuaW5ncyAodXNlIHdhcm5pbmdzKCkgdG8gc2VlIHRoZW0pXG4ifQ== -->
+<pre><code>There were 26 warnings (use warnings() to see them)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKFwiLi4vc2NyaXB0c19nZW5lcmFsL2N1c3RvbV9mdW5zLlJcIilcbnNvdXJjZShcIi4uL3NjcmlwdHNfZ2VuZXJhbC92YXJfcmVjb2RlX2NvbnRyYXN0LlJcIilcbnNvdXJjZShcIi4uL3NjcmlwdHNfZ2VuZXJhbC9kYXRhX2xvYWQuUlwiKVxuYGBgIn0= -->
+<pre class="r"><code>source(&quot;../scripts_general/custom_funs.R&quot;)
 source(&quot;../scripts_general/var_recode_contrast.R&quot;)
 source(&quot;../scripts_general/data_load.R&quot;)</code></pre>
 <!-- rnb-source-end -->
@@ -3809,8 +3814,9 @@ r15_spev_recoded &lt;- lmer(`Spiritual Events, recoded` ~ `Porosity Vignettes` *
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucnNxX3RhYmxlX2Z1bihsaXN0KHIxMV9zcGV2X3JlY29kZWQsIHIxMl9zcGV2X3JlY29kZWQsIHIxM19zcGV2X3JlY29kZWQsIHIxNF9zcGV2X3JlY29kZWQsIHIxNV9zcGV2X3JlY29kZWQpKVxuYGBgIn0= -->
-<pre class="r"><code>rsq_table_fun(list(r11_spev_recoded, r12_spev_recoded, r13_spev_recoded, r14_spev_recoded, r15_spev_recoded))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucnNxX3RhYmxlX2Z1bihsaXN0KHIxMV9zcGV2X3JlY29kZWQsIHIxMl9zcGV2X3JlY29kZWQsIHIxM19zcGV2X3JlY29kZWQsIFxuICAgICAgICAgICAgICAgICAgIHIxNF9zcGV2X3JlY29kZWQsIHIxNV9zcGV2X3JlY29kZWQpKVxuYGBgIn0= -->
+<pre class="r"><code>rsq_table_fun(list(r11_spev_recoded, r12_spev_recoded, r13_spev_recoded, 
+                   r14_spev_recoded, r15_spev_recoded))</code></pre>
 <!-- rnb-source-end -->
 
 <!-- rnb-htmlwidget-begin eyJkZXBlbmRlbmNpZXMiOlt7Im5hbWUiOiJqcXVlcnkiLCJ2ZXJzaW9uIjoiMS4xMS4zIiwic3JjIjp7ImZpbGUiOiIvTGlicmFyeS9GcmFtZXdvcmtzL1IuZnJhbWV3b3JrL1ZlcnNpb25zLzQuMC9SZXNvdXJjZXMvbGlicmFyeS9ybWFya2Rvd24vcm1kL2gvanF1ZXJ5In0sIm1ldGEiOltdLCJzY3JpcHQiOiJqcXVlcnkubWluLmpzIiwic3R5bGVzaGVldCI6W10sImhlYWQiOltdLCJhdHRhY2htZW50IjpbXSwicGFja2FnZSI6W10sImFsbF9maWxlcyI6dHJ1ZX0seyJuYW1lIjoiYm9vdHN0cmFwIiwidmVyc2lvbiI6IjMuMy41Iiwic3JjIjp7ImZpbGUiOiIvTGlicmFyeS9GcmFtZXdvcmtzL1IuZnJhbWV3b3JrL1ZlcnNpb25zLzQuMC9SZXNvdXJjZXMvbGlicmFyeS9ybWFya2Rvd24vcm1kL2gvYm9vdHN0cmFwIn0sIm1ldGEiOnsidmlld3BvcnQiOiJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MSJ9LCJzY3JpcHQiOlsianMvYm9vdHN0cmFwLm1pbi5qcyIsInNoaW0vaHRtbDVzaGl2Lm1pbi5qcyIsInNoaW0vcmVzcG9uZC5taW4uanMiXSwic3R5bGVzaGVldCI6ImNzcy9zaW1wbGV4Lm1pbi5jc3MiLCJoZWFkIjpbXSwiYXR0YWNobWVudCI6W10sInBhY2thZ2UiOltdLCJhbGxfZmlsZXMiOnRydWV9LHsibmFtZSI6ImtlUHJpbnQiLCJ2ZXJzaW9uIjoiMC4wLjEiLCJzcmMiOnsiZmlsZSI6Ii9MaWJyYXJ5L0ZyYW1ld29ya3MvUi5mcmFtZXdvcmsvVmVyc2lvbnMvNC4wL1Jlc291cmNlcy9saWJyYXJ5L2thYmxlRXh0cmEva2VQcmludC0wLjAuMSJ9LCJtZXRhIjpbXSwic2NyaXB0Ijoia2VQcmludC5qcyIsInN0eWxlc2hlZXQiOltdLCJoZWFkIjpbXSwiYXR0YWNobWVudCI6W10sInBhY2thZ2UiOltdLCJhbGxfZmlsZXMiOnRydWV9XSwibWV0YWRhdGEiOnsiY2xhc3NlcyI6WyJzaGlueS50YWcubGlzdCIsImxpc3QiXSwic2l6aW5nUG9saWN5IjpbXX19 -->
