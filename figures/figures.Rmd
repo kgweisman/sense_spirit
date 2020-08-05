@@ -3,12 +3,11 @@ title: "Figures"
 subtitle: "Luhrmann, Weisman, et al."
 output: 
   html_notebook:
-    theme: flatly
     toc: true
     toc_float: true
 ---
 
-This notebook generates plots for all Studies.
+This notebook generates all plots included in the main text and supplement.
 
 ```{r, message = F}
 source("../scripts_general/dependencies.R")
@@ -52,7 +51,7 @@ d4_fig <- d4 %>%
 
 # Figure 1 (main text)
 
-## Setup
+## Create figure
 
 ```{r}
 d_all_fig <- d1_fig %>% 
@@ -266,6 +265,8 @@ fig1 <- plot_grid(fig1_row1, fig1_row2, fig1_row3, fig1_row4,
 ggsave("./png_files/fig1.png", plot = fig1, device = "png", width = 12, height = 12 * 0.5)
 ```
 
+## Display figure
+
 ```{r, fig.width = 6, fig.asp = 0.5}
 fig1
 ```
@@ -274,7 +275,10 @@ Figure 1. Scores on our primary variables of interest—(A) Spiritual Events, (B
 
 _Note: the version of this figure included in the main text was edited outside of R: Information about Population (above the plot), Study (below the plot), and sample sizes (in the blank facets) were added manually._
 
+
 # Figure 2 (main text)
+
+## Create figure
 
 ```{r}
 fig2_fun <- function(g){
@@ -404,6 +408,8 @@ fig2 <- plot_grid(fig2_row1, fig2_row2, fig2_row3, fig_legend,
 ggsave("./png_files/fig2.png", plot = fig2, device = "png", width = 6, height = 6 * 2.1)
 ```
 
+## Display figure
+
 ```{r, fig.width = 3, fig.asp = 2.1}
 fig2
 ```
@@ -412,6 +418,8 @@ Figure 2. Relationships between Spiritual Events and measures of porosity (left)
 
 
 # Figure S1
+
+## Create figure
 
 ```{r}
 figs1_study3_abs <- d3_fig %>%
@@ -475,13 +483,18 @@ figs1 <- plot_grid(figs1_row1, fig_legend,
 ggsave("./png_files/figs1.png", plot = figs1, device = "png", width = 6, height = 6 * 1.2)
 ```
 
+## Display figure
+
 ```{r, fig.width = 3, fig.asp = 1.2}
 figs1
 ```
 
 Figure S1. Relationships between Daily Spiritual Experience scores and scores on our measures of porosity (left side) and absorption (right side), by study and country, rescaled to range from 0-1. Small colored points correspond to individual participants (Study 3: N=519; Study 4: N=505), dotted colored lines correspond to the trend within each country, and solid black lines correspond to the overall trend, collapsing across countries.
 
+
 # Figure S2
+
+## Create figure
 
 ```{r}
 figs2_study4_pv_hall <- d4_fig %>%
@@ -557,6 +570,8 @@ figs2 <- plot_grid(figs2_row1, fig_legend,
 
 ggsave("./png_files/figs2.png", plot = figs2, device = "png", width = 9, height = 9 * 0.7)
 ```
+
+## Display figure
 
 ```{r, fig.width = 4, fig.asp = 0.7}
 figs2
