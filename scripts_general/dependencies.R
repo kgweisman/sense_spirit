@@ -9,6 +9,7 @@ require(psych)
 require(langcog) # available from: https://github.com/langcog/langcog-package
 require(cowplot)
 require(htmltools)
+require(svglite)
 
 # set ggplot theme
 theme_set(theme_bw())

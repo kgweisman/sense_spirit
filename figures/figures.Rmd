@@ -56,7 +56,7 @@ d4_fig <- d4 %>%
 
 ```{r}
 d_all_fig <- d1_fig %>% 
-              mutate(subject_id = paste("s1", subject_id, sep = "_")) %>%
+  mutate(subject_id = paste("s1", subject_id, sep = "_")) %>%
   select(study, country, site, religion, subject_id, 
          spev_score, pv_score, abs_score) %>%
   full_join(d2_fig %>%
@@ -130,9 +130,9 @@ d_all_sum %>%
 ```
 
 ```{r}
-fig1_fun_v2_panel <- function(df = d_all_fig, df_sum = d_all_sum, 
-                              which_religion, y, include_text = F,
-                              d_width = 1, j_height = 0.02) {
+fig_1_fun_v2_panel <- function(df = d_all_fig, df_sum = d_all_sum, 
+                               which_religion, y, include_text = F,
+                               d_width = 1, j_height = 0.02) {
   plot <- df %>% 
     filter(religion == which_religion) %>%
     mutate(facet_lab = interaction(study, site, sep = ": "),
@@ -198,29 +198,29 @@ fig1_fun_v2_panel <- function(df = d_all_fig, df_sum = d_all_sum,
 ```
 
 ```{r}
-fig1_fun_v2_row <- function(which_df = d_all_fig, which_df_sum = d_all_sum,
-                            which_y, ylab, 
-                            include_xlab = F, include_title = F) {
+fig_1_fun_v2_row <- function(which_df = d_all_fig, which_df_sum = d_all_sum,
+                             which_y, ylab, 
+                             include_xlab = F, include_title = F) {
   
-  p1 <- fig1_fun_v2_panel(df = which_df,
-                          df_sum = which_df_sum,
-                          which_religion = "Faith of local salience",
-                          y = which_y) + labs(y = ylab)
+  p1 <- fig_1_fun_v2_panel(df = which_df,
+                           df_sum = which_df_sum,
+                           which_religion = "Faith of local salience",
+                           y = which_y) + labs(y = ylab)
   
-  p2 <- fig1_fun_v2_panel(df = which_df,
-                          df_sum = which_df_sum,
-                          which_religion = "Charis. evang. Christianity",
-                          y = which_y) + labs(y = ylab)
+  p2 <- fig_1_fun_v2_panel(df = which_df,
+                           df_sum = which_df_sum,
+                           which_religion = "Charis. evang. Christianity",
+                           y = which_y) + labs(y = ylab)
   
-  p3 <- fig1_fun_v2_panel(df = which_df,
-                          df_sum = which_df_sum,
-                          which_religion = "General population",
-                          y = which_y) + labs(y = ylab)
+  p3 <- fig_1_fun_v2_panel(df = which_df,
+                           df_sum = which_df_sum,
+                           which_religion = "General population",
+                           y = which_y) + labs(y = ylab)
   
-  p4 <- fig1_fun_v2_panel(df = which_df,
-                          df_sum = which_df_sum,
-                          which_religion = "Undergraduates",
-                          y = which_y) + labs(y = ylab)
+  p4 <- fig_1_fun_v2_panel(df = which_df,
+                           df_sum = which_df_sum,
+                           which_religion = "Undergraduates",
+                           y = which_y) + labs(y = ylab)
   
   if (!include_title) {
     p1 <- p1 + labs(title = NULL)
@@ -253,28 +253,33 @@ fig1_fun_v2_row <- function(which_df = d_all_fig, which_df_sum = d_all_sum,
 ```
 
 ```{r}
-fig1_row1 <- fig1_fun_v2_row(which_y = "spev_score", ylab = "Spiritual Events", 
-                             include_title = F)
-fig1_row2 <- fig1_fun_v2_row(which_y = "pv_score", ylab = "Porosity Vignettes")
-fig1_row3 <- fig1_fun_v2_row(which_y = "por_score", ylab = "Porosity Scale")
-fig1_row4 <- fig1_fun_v2_row(which_y = "abs_score", ylab = "Absorption")
+fig_1_row1 <- fig_1_fun_v2_row(which_y = "spev_score", ylab = "Spiritual Events", 
+                               include_title = T)
+fig_1_row2 <- fig_1_fun_v2_row(which_y = "pv_score", ylab = "Porosity Vignettes")
+fig_1_row3 <- fig_1_fun_v2_row(which_y = "por_score", ylab = "Porosity Scale")
+fig_1_row4 <- fig_1_fun_v2_row(which_y = "abs_score", ylab = "Absorption")
 ```
 
 ```{r}
-fig1 <- plot_grid(fig1_row1, fig1_row2, fig1_row3, fig1_row4, 
-                  ncol = 1)
-ggsave("./png_files/fig1.png", plot = fig1, device = "png", width = 12, height = 12 * 0.5)
+fig_1 <- plot_grid(fig_1_row1, fig_1_row2, fig_1_row3, fig_1_row4, 
+                   ncol = 1)
+
+ggsave("./pdf_files/fig_1.pdf", plot = fig_1, device = "pdf", 
+       width = 7, height = 7 * 0.5, units = "in", scale = 1.86)
+
+ggsave("./pdf_files/fig_1.svg", plot = fig_1, device = "svg", 
+       width = 7, height = 7 * 0.5, units = "in", scale = 1.86)
 ```
 
 ## Display figure
 
 ```{r, fig.width = 6, fig.asp = 0.5}
-fig1
+fig_1
 ```
 
-Figure 1. Scores on our primary variables of interest—(A) Spiritual Events, (B) Porosity Vignettes, (C) Porosity Scale, and (D) Absorption—for all samples, in all studies. To aid in visual comparison across measures and studies, all scores have been rescaled to range from 0-1. Small points correspond to individual participants, larger points are means, and error bars are ±1 standard deviation; see figure for sample sizes (but note that a few participants in each study were missing data for one or more measures). In Study 1, “faiths of local salience” were as follows—US: Methodism; Ghana: African traditional religion; Thailand: Buddhism; urban China: Buddhism; rural China: spirit mediumship; urban Vanuatu: Presbyterianism; rural Vanuatu: ancestral kastom practices.
+Figure 1. Scores on our primary variables of interest—(A) Spiritual Events, (B) Porosity Vignettes, (C) Porosity Scale, and (D) Absorption—for all samples, in all studies. To aid in visual comparison across measures and studies, all scores have been rescaled to range from 0-1. Small points correspond to individual participants, larger points are means, and error bars are ±1 standard deviation; see figure for sample sizes (but note that a few participants in each study were missing data for one or more measures). In Study 1, “faiths of local salience” were as follows—US: Methodism; Ghana: African traditional religion; Thailand: Buddhism; urban China: Buddhism; rural China: spirit mediumship; urban Vanuatu: Presbyterianism; rural Vanuatu: ancestral _kastom_ practices.
 
-_Note: the version of this figure included in the main text was edited outside of R: Information about Population (above the plot), Study (below the plot), and sample sizes (in the blank facets) were added manually._
+_Note: the version of this figure included in the main text was edited outside of R: Study (below the plot), and sample sizes (in the blank facets) were added manually._
 
 
 # Figure 2 (main text)
@@ -282,7 +287,7 @@ _Note: the version of this figure included in the main text was edited outside o
 ## Create figure
 
 ```{r}
-fig2_fun <- function(g){
+fig_2_fun <- function(g){
   new_plot <- g +
     geom_point(aes(color = country), alpha = 0.1) +
     geom_smooth(aes(color = country), method = "lm", 
@@ -299,120 +304,121 @@ fig2_fun <- function(g){
 ```
 
 ```{r}
-fig2_study1_pv <- d1_fig %>%
+fig_2_study1_pv <- d1_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = pv_score, y = spev_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Porosity Vignettes",
        y = "Spiritual Events",
        color = "Country")
 
-fig2_study1_abs <- d1_fig %>%
+fig_2_study1_abs <- d1_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = abs_score, y = spev_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Absorption",
        y = "Spiritual Events",
        color = "Country")
 
-fig2_study2_por <- d2_fig %>%
+fig_2_study2_por <- d2_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = por_score, y = spev_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Porosity Scale",
        y = "Spiritual Events",
        color = "Country")
 
-fig2_study3_abs <- d3_fig %>%
+fig_2_study3_abs <- d3_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = abs_score, y = spev_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Absorption",
        y = "Spiritual Events",
        color = "Country")
 
-fig2_study4_pv <- d4_fig %>%
+fig_2_study4_pv <- d4_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = pv_score, y = spev_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Porosity Vignettes",
        y = "Spiritual Events",
        color = "Country")
 
-fig2_study4_por <- d4_fig %>%
+fig_2_study4_por <- d4_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = por_score, y = spev_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Porosity Scale",
        y = "Spiritual Events",
        color = "Country")
 
-fig2_study4_abs <- d4_fig %>%
+fig_2_study4_abs <- d4_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = abs_score, y = spev_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Absorption",
        y = "Spiritual Events",
        color = "Country")
 ```
 
 ```{r}
-fig2_study1_title <- ggdraw() + 
+fig_2_study1_title <- ggdraw() + 
   draw_label("STUDY 1", fontface = 'bold', x = 0, hjust = 0) +
   theme(plot.margin = margin(0, 0, 0, 7))
 
-fig2_row1 <- plot_grid(
-  fig2_study1_title,
-  plot_grid(fig2_study1_pv, fig2_study1_abs, ncol = 2, labels = c("A", "B")),
+fig_2_row1 <- plot_grid(
+  fig_2_study1_title,
+  plot_grid(fig_2_study1_pv, fig_2_study1_abs, ncol = 2, labels = c("A", "B")),
   ncol = 1, rel_heights = c(1, 10))
 ```
 
 ```{r}
-fig2_study2_title <- ggdraw() + 
+fig_2_study2_title <- ggdraw() + 
   draw_label("STUDY 2", fontface = 'bold', x = 0, hjust = 0) +
   theme(plot.margin = margin(0, 0, 0, 7))
 
-fig2_study3_title <- ggdraw() + 
+fig_2_study3_title <- ggdraw() + 
   draw_label("STUDY 3", fontface = 'bold', x = 0, hjust = 0) +
   theme(plot.margin = margin(0, 0, 0, 7))
 
-fig2_row2 <- plot_grid(
-  plot_grid(fig2_study2_title, fig2_study3_title),
-  plot_grid(fig2_study2_por, fig2_study3_abs, 
+fig_2_row2 <- plot_grid(
+  plot_grid(fig_2_study2_title, fig_2_study3_title),
+  plot_grid(fig_2_study2_por, fig_2_study3_abs, 
             ncol = 2, labels = c("C", "D")),
   ncol = 1, rel_heights = c(1, 10))
 ```
 
 ```{r}
-fig2_study4_title <- ggdraw() + 
+fig_2_study4_title <- ggdraw() + 
   draw_label("STUDY 4", fontface = 'bold', x = 0, hjust = 0) +
   theme(plot.margin = margin(0, 0, 0, 7))
 
-fig2_row3 <- plot_grid(
-  fig2_study4_title,
-  plot_grid(plot_grid(fig2_study4_pv, fig2_study4_por, 
+fig_2_row3 <- plot_grid(
+  fig_2_study4_title,
+  plot_grid(plot_grid(fig_2_study4_pv, fig_2_study4_por, 
                       ncol = 1, labels = c("E", "F")), 
-            plot_grid(NULL, fig2_study4_abs, NULL, 
+            plot_grid(NULL, fig_2_study4_abs, NULL, 
                       ncol = 1, rel_heights = c(1, 2, 1), labels = c("", "G", "")), 
             ncol = 2),
   ncol = 1, rel_heights = c(1, 20))
 ```
 
 ```{r}
-fig_legend <- get_legend(fig2_study1_pv + theme(legend.position = "bottom"))
+fig_legend <- get_legend(fig_2_study1_pv + theme(legend.position = "bottom"))
 ```
 
 ```{r}
-fig2 <- plot_grid(fig2_row1, fig2_row2, fig2_row3, fig_legend,
-                  ncol = 1, rel_heights = c(1, 1, 2, 0.2))
+fig_2 <- plot_grid(fig_2_row1, fig_2_row2, fig_2_row3, fig_legend,
+                   ncol = 1, rel_heights = c(1, 1, 2, 0.2))
 
-ggsave("./png_files/fig2.png", plot = fig2, device = "png", width = 6, height = 6 * 2.1)
+ggsave("./pdf_files/fig_2.pdf", plot = fig_2, device = "pdf", 
+       width = 9 / 2.1, height = 9, units = "in", scale = 1.2)
 ```
 
 ## Display figure
 
 ```{r, fig.width = 3, fig.asp = 2.1}
-fig2
+fig_2
 ```
 
 Figure 2. Relationships between Spiritual Events and measures of porosity (left) and absorption (right), by study and country, rescaled to range from 0-1. Small colored points correspond to individual participants, dotted colored lines correspond to the trend within each country, and solid black lines correspond to the overall trend collapsing across countries. See Figs. S1-S2 for parallel visualizations of other measures of spiritual and secular anomalous events (Studies 3-4).
@@ -423,71 +429,72 @@ Figure 2. Relationships between Spiritual Events and measures of porosity (left)
 ## Create figure
 
 ```{r}
-figs1_study3_abs <- d3_fig %>%
+fig_s1_study3_abs <- d3_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = abs_score, y = dse_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Absorption",
        y = "Daily Spiritual Experience",
        color = "Country")
 
-figs1_study4_pv <- d4_fig %>%
+fig_s1_study4_pv <- d4_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = pv_score, y = dse_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Porosity Vignettes",
        y = "Daily Spiritual Experience",
        color = "Country")
 
-figs1_study4_por <- d4_fig %>%
+fig_s1_study4_por <- d4_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = por_score, y = dse_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Porosity Scale",
        y = "Daily Spiritual Experience",
        color = "Country")
 
-figs1_study4_abs <- d4_fig %>%
+fig_s1_study4_abs <- d4_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = abs_score, y = dse_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Absorption",
        y = "Daily Spiritual Experience",
        color = "Country")
 ```
 
 ```{r}
-figs1_study3_title <- ggdraw() + 
+fig_s1_study3_title <- ggdraw() + 
   draw_label("STUDY 3", fontface = 'bold', x = 0, hjust = 0) +
   theme(plot.margin = margin(0, 0, 0, 7))
 
-figs1_study4_title <- ggdraw() + 
+fig_s1_study4_title <- ggdraw() + 
   draw_label("STUDY 4", fontface = 'bold', x = 0, hjust = 0) +
   theme(plot.margin = margin(0, 0, 0, 7))
 
-figs1_row1 <- plot_grid(
-  plot_grid(figs1_study4_title, figs1_study3_title),
-  plot_grid(figs1_study4_pv, figs1_study3_abs, ncol = 2, labels = c("A", "B")),
-  plot_grid(figs1_study4_title, figs1_study4_title),
-  plot_grid(figs1_study4_por, figs1_study4_abs, ncol = 2, labels = c("C", "D")),
+fig_s1_row1 <- plot_grid(
+  plot_grid(fig_s1_study4_title, fig_s1_study3_title),
+  plot_grid(fig_s1_study4_pv, fig_s1_study3_abs, ncol = 2, labels = c("A", "B")),
+  plot_grid(fig_s1_study4_title, fig_s1_study4_title),
+  plot_grid(fig_s1_study4_por, fig_s1_study4_abs, ncol = 2, labels = c("C", "D")),
   ncol = 1, rel_heights = c(1, 10, 1, 10))
 ```
 
 ```{r}
-fig_legend <- get_legend(figs1_study4_pv + theme(legend.position = "bottom"))
+fig_legend <- get_legend(fig_s1_study4_pv + theme(legend.position = "bottom"))
 ```
 
 ```{r}
-figs1 <- plot_grid(figs1_row1, fig_legend,
-                   ncol = 1, rel_heights = c(2, 0.2))
+fig_s1 <- plot_grid(fig_s1_row1, fig_legend,
+                    ncol = 1, rel_heights = c(2, 0.2))
 
-ggsave("./png_files/figs1.png", plot = figs1, device = "png", width = 6, height = 6 * 1.2)
+ggsave("./pdf_files/fig_s1.pdf", plot = fig_s1, device = "pdf", 
+       width = 9 / 2.1, height = (9 / 2.1) * 1.2, units = "in", scale = 1.3)
 ```
 
 ## Display figure
 
 ```{r, fig.width = 3, fig.asp = 1.2}
-figs1
+fig_s1
 ```
 
 Figure S1. Relationships between Daily Spiritual Experience scores and scores on our measures of porosity (left side) and absorption (right side), by study and country, rescaled to range from 0-1. Small colored points correspond to individual participants (Study 3: N=519; Study 4: N=505), dotted colored lines correspond to the trend within each country, and solid black lines correspond to the overall trend, collapsing across countries.
@@ -498,84 +505,89 @@ Figure S1. Relationships between Daily Spiritual Experience scores and scores on
 ## Create figure
 
 ```{r}
-figs2_study4_pv_hall <- d4_fig %>%
+fig_s2_study4_pv_hall <- d4_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = pv_score, y = hall_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Porosity Vignettes",
        y = "Hallucinations",
        color = "Country")
 
-figs2_study4_por_hall <- d4_fig %>%
+fig_s2_study4_por_hall <- d4_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = por_score, y = hall_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Porosity Scale",
        y = "Hallucinations",
        color = "Country")
 
-figs2_study4_abs_hall <- d4_fig %>%
+fig_s2_study4_abs_hall <- d4_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = abs_score, y = hall_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Absorption",
        y = "Hallucinations",
        color = "Country")
 
-figs2_study4_pv_para <- d4_fig %>%
+fig_s2_study4_pv_para <- d4_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = pv_score, y = para_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Porosity Vignettes",
        y = "Paranormal",
        color = "Country")
 
-figs2_study4_por_para <- d4_fig %>%
+fig_s2_study4_por_para <- d4_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = por_score, y = para_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Porosity Scale",
        y = "Paranormal",
        color = "Country")
 
-figs2_study4_abs_para <- d4_fig %>%
+fig_s2_study4_abs_para <- d4_fig %>%
   # mutate_at(vars(ends_with("_score")), scale) %>%
   ggplot(aes(x = abs_score, y = para_score)) %>%
-  fig2_fun() +
+  fig_2_fun() +
   labs(x = "Absorption",
        y = "Paranormal",
        color = "Country")
 ```
 
 ```{r}
-figs2_study4_title <- ggdraw() + 
+fig_s2_study4_title <- ggdraw() + 
   draw_label("STUDY 4", fontface = 'bold', x = 0, hjust = 0) +
   theme(plot.margin = margin(0, 0, 0, 7))
 
-figs2_row1 <- plot_grid(
-  plot_grid(figs2_study4_title),
-  plot_grid(figs2_study4_pv_hall, figs2_study4_por_hall, figs2_study4_abs_hall,
+fig_s2_row1 <- plot_grid(
+  plot_grid(fig_s2_study4_title),
+  plot_grid(fig_s2_study4_pv_hall, fig_s2_study4_por_hall, fig_s2_study4_abs_hall,
             ncol = 3, labels = c("A", "B", "C")),
-  plot_grid(figs2_study4_pv_para, figs2_study4_por_para, figs2_study4_abs_para,
+  plot_grid(fig_s2_study4_pv_para, fig_s2_study4_por_para, fig_s2_study4_abs_para,
             ncol = 3, labels = c("D", "E", "F")),
   ncol = 1, rel_heights = c(1, 10, 10))
 ```
 
 ```{r}
-fig_legend <- get_legend(figs2_study4_pv_para + theme(legend.position = "bottom"))
+fig_legend <- get_legend(fig_s2_study4_pv_para + theme(legend.position = "bottom"))
 ```
 
 ```{r}
-figs2 <- plot_grid(figs2_row1, fig_legend,
-                   ncol = 1, rel_heights = c(3, 0.2))
+fig_s2 <- plot_grid(fig_s2_row1, fig_legend,
+                    ncol = 1, rel_heights = c(3, 0.2))
 
-ggsave("./png_files/figs2.png", plot = figs2, device = "png", width = 9, height = 9 * 0.7)
+ggsave("./pdf_files/fig_s2.pdf", plot = fig_s2, device = "pdf", 
+       width = ((9 / 2.1) * 1.2) / 0.7, height = (9 / 2.1) * 1.2, 
+       units = "in", scale = 1.3)
+
+# ggsave("./pdf_files/fig_s1.pdf", plot = fig_s1, device = "pdf", 
+#        width = 9 / 2.1, height = (9 / 2.1) * 1.2, units = "in", scale = 1.3)
 ```
 
 ## Display figure
 
 ```{r, fig.width = 4, fig.asp = 0.7}
-figs2
+fig_s2
 ```
 
 Figure S2. Relationships between scores on our measures of “secular” anomalous events (A-C: Hallucinations; D-F: Paranormal) and scores on the Porosity Vignettes (left), Porosity Scale (middle), and Absorption (right) scales in Study 4, by country, rescaled to range from 0-1. Small colored points correspond to individual participants (N=505), dotted colored lines correspond to the trend within each country, and solid black lines correspond to the overall trend, collapsing across countries.
