@@ -5,8 +5,7 @@ _archive/*
 .DS_Store
 .Rapp.history
 
-# ignore data files
-data/*
+# ignore data by question
 */data_by_question/*
 
 # ignore problematic file types

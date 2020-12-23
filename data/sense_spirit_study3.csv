@@ -1,0 +1,520 @@
+"study","country","subject_id","subject_gender","subject_age","subject_ethnicity","subject_afford","subject_ses","subject_occupation_parent","subject_major","subject_religion","subject_religiosity","subject_church","subject_tongues","spev_score","dse_score","abs_score"
+"study 3","US",10001,"male",18,"black",1,0,"house flipping","comm","christian: non specific",1,"none",1,1.16666666666667,3.14285714285714,0.636363636363636
+"study 3","US",10003,"male",18,"hispanics",1,0,"cashier","civil engineer","christianity: non specific",0,"white memorial",0,0.368421052631579,2.71428571428571,0.352941176470588
+"study 3","US",10005,"male",18,"mexican american",1,0,"mechanic","computer science","christian: catholic",1,"none",NA,0.466666666666667,2.78571428571429,0.617647058823529
+"study 3","US",10010,"male",19,"white",1,0,"missing data","bus","christian: non specific",1,"none",1,0,2.07142857142857,0.588235294117647
+"study 3","US",10012,"male",18,"latino",1,0,"tire shop","business","christian: catholic",0,"i don't know",0,0.142857142857143,1.14285714285714,0.470588235294118
+"study 3","US",10013,"male",18,"mixed",0,-1,"unemployed","business","muslim",1,"msa",NA,0.863636363636364,2,0.382352941176471
+"study 3","US",10020,"male",18,"mexican",1,0,"insurance","business","missing data",0,"not often",NA,1.2,2.21428571428571,0.588235294117647
+"study 3","US",10022,"male",18,"white",1,-2,"carpet cleaner","computer engineer","atheist, agnostic, no religion or spirituality",0,"none",0,0.227272727272727,1.35714285714286,0.647058823529412
+"study 3","US",10025,"female",18,"chinese",0,-1,"home business","studio arts","atheist, agnostic, no religion or spirituality",-2,"n/a",0,0.0909090909090909,0.714285714285714,0.529411764705882
+"study 3","US",10026,"female",18,"african american",1,-1,"secretary","undeclared","christian: non specific",1,"n/a",0,0.263157894736842,2.21428571428571,0.588235294117647
+"study 3","US",10027,"male",18,"black 50% / costa rican 50%",0,-1,"missing data","aviation","christian: non specific",0,"none",NA,2.17647058823529,2.85714285714286,0.676470588235294
+"study 3","US",10028,"male",19,"mexican",0,-1,"n/a","undeclared","christian: non-specific",2,"n/a",0,0.0454545454545455,4.64285714285714,0.470588235294118
+"study 3","US",10029,"male",19,"indian",1,1,"business owner","business administration","sikh",1,"sikh temple",NA,0.545454545454545,2.78571428571429,0.558823529411765
+"study 3","US",10030,"female",18,"filipino",1,-1,"both factory workers","environmental studies","christian: catholic",1,"newman",0,2.61538461538462,3.42857142857143,0.735294117647059
+"study 3","US",10031,"male",18,"white",1,0,"bus driver","kinesiology","atheist, agnostic, no religion or spirituality",-1,"no",0,1.58823529411765,2.28571428571429,0.411764705882353
+"study 3","US",10033,"male",18,"white",1,0,"realtor","business","atheist, agnostic, no religion or spirituality",-1,NA,NA,0.409090909090909,2.07142857142857,0.529411764705882
+"study 3","US",10034,"male",21,"indian",1,-1,"cashier","communication studies","hindu",0,NA,NA,0.0454545454545455,1.85714285714286,0.676470588235294
+"study 3","US",10038,"female",18,"african american",1,0,"nursing","nursing","christian: non specific",2,"church of pentecost",1,1.77272727272727,4,0.411764705882353
+"study 3","US",10044,"male",18,"asian",1,0,"computer engineer","business","christian: non specific",1,"bread & life",1,0.909090909090909,1.78571428571429,0.205882352941176
+"study 3","US",10045,"female",18,"mexican",1,1,"social worker and truck driver","business marketing","christian: catholic",1,"st. patricks",0,2.22727272727273,3,0.970588235294118
+"study 3","US",10047,"female",18,"hispanic",1,-1,"mother: lvn father: factory worker","liberal studies","christian: non specific",1,"corner stone church",0,0.210526315789474,2.21428571428571,0.484848484848485
+"study 3","US",10052,"female",18,"jewish",1,2,"real estate agent","psychology","jewish",0,"n/a",0,0.454545454545455,1.5,0.941176470588235
+"study 3","US",10056,"female",18,"mexican",0,-1,"retires u.s. marine","graphic design","missing data",-2,"missing data",NA,0.8,1.07142857142857,0.705882352941177
+"study 3","US",10062,"female",18,"mexican american",1,0,"teacher & mechanic","software engineer","christian: catholic",0,"missing data",0,0.666666666666667,2.42857142857143,0.647058823529412
+"study 3","US",10063,"female",18,"hispanic",1,0,"self-employed","hspm (hospitality management)","missing data",-2,"christian church",NA,2.46666666666667,4.14285714285714,0.647058823529412
+"study 3","US",10065,"male",18,"white / bolivian",1,1,"cop","geo","missing data",0,"saints peter and paul",0,1.40909090909091,2.28571428571429,0.852941176470588
+"study 3","US",10069,"female",18,"hispanic",0,-1,"bike mechanic","pre nursing","christian: catholic",0,"st. agustine",1,0.454545454545455,1.57142857142857,0.558823529411765
+"study 3","US",10070,"female",18,"salvadoran",1,0,"secretary","communication","missing data",-2,"none",NA,1.36363636363636,1.71428571428571,0.794117647058823
+"study 3","US",10071,"male",18,"latino",1,0,"technicians","creative arts","christian: non specific",1,"haven't gone in a while",1,0.772727272727273,3.57142857142857,0.441176470588235
+"study 3","US",10074,"male",18,"white mexican",1,1,"police officers","physics","atheist, agnostic, no religion or spirituality",-1,NA,NA,0.409090909090909,0.928571428571429,0.588235294117647
+"study 3","US",10075,"female",18,"peruvian & white",1,0,"childcare","psych","buddhist",1,"none",NA,0.545454545454545,2.35714285714286,0.558823529411765
+"study 3","US",10078,"male",18,"american mexican",1,0,"teacher","computer enigneers","atheist, agnostic, no religion or spirituality",-2,NA,NA,0.0454545454545455,0,0.529411764705882
+"study 3","US",10080,"female",19,"mexican",1,0,"grocery store clerks","psychology","missing data",0,"haven't in a while",NA,0,1.57142857142857,0.264705882352941
+"study 3","US",10083,"male",18,"mexican",1,-1,"saw mill","kinesiology","christian: catholic",1,"catholic church",1,0.578947368421053,3.14285714285714,0.545454545454545
+"study 3","US",10087,"male",18,"mexican",1,1,"hair stylist","psychology","christian: catholic",1,"n/a",0,0.428571428571429,2.21428571428571,0.5
+"study 3","US",10088,"female",18,"latina",1,-1,"moving worker","political science","christian: catholic",0,"catholic church",1,0.588235294117647,2.35714285714286,0.470588235294118
+"study 3","US",10091,"female",18,"caucasian",1,0,"unemployed","undeclared","atheist, agnostic, no religion or spirituality",0,NA,NA,0,0,0.470588235294118
+"study 3","US",10096,"male",18,"hispanic",0,0,"assembly line","aerospace engineering","christian: non specific",1,"not at the moment",0,0.523809523809524,3.85714285714286,0.411764705882353
+"study 3","US",10097,"female",18,"hispanic",1,0,"paralegal","psych","missing data",0,"none",NA,0.181818181818182,0.928571428571429,0.176470588235294
+"study 3","US",10100,"female",18,"hispanic",0,0,"public social worker","mathematics","christian: catholic",0,"n/a",0,0.222222222222222,1.42857142857143,0.794117647058823
+"study 3","US",10104,"female",18,"latino/a",1,0,"contractor","biology","missing data",2,"none",NA,0,4.57142857142857,0.558823529411765
+"study 3","US",10106,"female",18,"african american",0,-2,"wal-mart","athletic","missing data",1,"not any at the moment",NA,1.27272727272727,4.14285714285714,0.676470588235294
+"study 3","US",10107,"female",18,"british/fillipino",1,-1,"ballet teacher","political science","missing data",-2,"missing data",NA,0.857142857142857,0.928571428571429,0.878787878787879
+"study 3","US",10108,"missing data",NA,"missing data",NA,NA,"missing data","missing data","missing data",NA,"missing data",NA,0.666666666666667,3.5,0.235294117647059
+"study 3","US",10112,"female",18,"mexican",1,-1,"county of santa barbara","justice studies","christian: non specific",1,"four square",1,0.761904761904762,3.71428571428571,0.323529411764706
+"study 3","US",10114,"male",18,"black/hispanic",0,-2,"in home caretaker","computer engineering","christian: non specific",2,"every saturday",1,0.636363636363636,4,0.606060606060606
+"study 3","US",10115,"male",19,"latino",1,0,"vineyard worker","industrial technology","christian: catholic",-1,"none",0,0.470588235294118,1.07142857142857,0.676470588235294
+"study 3","US",10116,"male",19,"white",1,0,"finance","history","missing data",-1,"missing data",NA,0.368421052631579,0.5,0.705882352941177
+"study 3","US",10118,"male",18,"white",1,-1,"manager","kinesiology","jewish",0,"none",NA,0.0526315789473684,0.785714285714286,0.264705882352941
+"study 3","US",10123,"male",18,"white",1,1,"winery","missing data","missing data",0,"congregation beth david",NA,0.0454545454545455,1.92857142857143,0.264705882352941
+"study 3","US",10124,"male",20,"filipino/irish",1,0,"hospital secretary","business entrepreneurship","atheist, agnostic, no religion or spirituality",-1,NA,NA,0.136363636363636,0.428571428571429,0.529411764705882
+"study 3","US",10125,"male",19,"chinese",1,0,"landlords","pre-nursing","buddhist",-1,"missing data",NA,0.0909090909090909,0.571428571428571,0.666666666666667
+"study 3","US",10127,"male",18,"black/african american",0,-1,"icc clerk","business","atheist, agnostic, no religion or spirituality",-1,NA,NA,0.333333333333333,0,0.558823529411765
+"study 3","US",10129,"female",18,"mexican",1,0,"teacher","sociology","christian: non specific",1,NA,0,1.72222222222222,4.57142857142857,0.647058823529412
+"study 3","US",10130,"female",18,"mexican american/hispanic",0,-2,"no occupation","sociology","missing data",1,"none",NA,0.0909090909090909,1.35714285714286,0.676470588235294
+"study 3","US",10133,"male",18,"black/asian",1,-1,"bartender","music composition","missing data",0,"none",NA,0.363636363636364,1.57142857142857,0.558823529411765
+"study 3","US",10134,"male",18,"taiwanese",1,-1,"software engineering","computer engineering","christian: non specific",0,"bclcc",1,0.8125,1.64285714285714,0.176470588235294
+"study 3","US",10135,"female",18,"filipino",1,0,"supervisor","pre-nursing","christian: catholic",-2,"st. basil",0,2.26666666666667,3.57142857142857,0.529411764705882
+"study 3","US",10136,"female",19,"african-american",1,0,"un-employed","kinesiology","christian - ame (google it!)",1,"bethel ame sf",0,0.636363636363636,4,0.529411764705882
+"study 3","US",10137,"male",21,"asian",0,0,"la country","psychology","christian: catholic",0,"st. basillica",NA,0.619047619047619,2.64285714285714,0.529411764705882
+"study 3","US",10138,"male",18,"latino",0,-1,"nurse","computer engineering","missing data",-2,"none",NA,0.5,0.357142857142857,0.617647058823529
+"study 3","US",10141,"male",18,"white",1,0,"engineer","none","atheist, agnostic, no religion or spirituality",-2,"no",0,0.2,1.07142857142857,0.484848484848485
+"study 3","US",10142,"male",18,"hispanic",0,0,"longshoreman?","english","atheist, agnostic, no religion or spirituality",-2,"n/a",0,0.65,1.57142857142857,0.911764705882353
+"study 3","US",10145,"male",18,"mexican",0,1,"manufacturer","psychology","christian: catholic",1,"our lady of guadalupe",1,1.5,3.71428571428571,0.852941176470588
+"study 3","US",10146,"male",18,"latino",1,-1,"truck driver","psychology","christian: catholic",0,"catholic",0,1.54545454545455,3.46153846153846,0.705882352941177
+"study 3","US",10154,"male",18,"chinese cambodian",1,0,"nurse practitioner / unemployed","software engineer","christianity",0,"none",0,0.181818181818182,2.85714285714286,0.794117647058823
+"study 3","US",10155,"male",18,"filipino",1,0,"bank teller, computer engineer","biology","missing data",0,"saint gregory in san mateo",1,0.285714285714286,1.07142857142857,0.5
+"study 3","US",10156,"male",18,"white",1,1,"finance / marketing","marketing","atheist, agnostic, no religion or spirituality",-1,NA,1,0.318181818181818,1.5,0.794117647058823
+"study 3","US",10158,"male",18,"white",1,1,"special ed teacher","aviation","missing data",1,"christian",0,0,1.21428571428571,0.470588235294118
+"study 3","US",10159,"male",19,"black, white, hawaiian, chinese, filipino",1,0,"recruiting","justice studies","some values of buddhism",1,"none",0,0.6,2.85714285714286,0.676470588235294
+"study 3","US",10162,"female",18,"caucasian",1,0,"tech support manager, secretary","business","atheist, agnostic, no religion or spirituality",0,"was baptist, now agnostic no church",NA,1.65,1.21428571428571,0.705882352941177
+"study 3","US",10163,"male",19,"chinese",1,-1,"receptionist","aerospace engineering","missing data",-1,"missing data",NA,0,0.615384615384615,0.441176470588235
+"study 3","US",10168,"female",18,"white",1,0,"business owner","undeclared","missing data",-1,"the church of jesus christ of latter day saints",1,0.181818181818182,0.857142857142857,0.647058823529412
+"study 3","US",10173,"male",18,"white",1,0,"professor","rtvf (radio television and film)","christian: catholic",1,"st. mary's cathedral",1,1.27272727272727,2.78571428571429,0.970588235294118
+"study 3","US",10178,"female",18,"white",1,0,"managers","business","missing data",-2,"i don't",NA,0.0454545454545455,0.428571428571429,0.323529411764706
+"study 3","US",10182,"male",18,"chinese",0,-1,"missing data","business","missing data",0,"missing data",NA,1.04545454545455,2.5,0.558823529411765
+"study 3","US",10184,"female",18,"african",1,1,"$200,000","radio tv film","missing data",2,"campbell united",1,2.85714285714286,4.21428571428571,0.882352941176471
+"study 3","US",10187,"male",18,"white",1,-1,"sales","software engineering","christian: catholic",2,"none since i've been here",1,0.454545454545455,3.92857142857143,0.558823529411765
+"study 3","US",10188,"male",18,"hispanic",1,-1,"facilities clerk","radio","atheist, agnostic, no religion or spirituality",-1,NA,NA,1.07692307692308,2.07142857142857,0.529411764705882
+"study 3","US",10189,"female",19,"filipino",0,-1,"cashier","psychology","christian: catholic",1,"st. joseph church",0,1.22222222222222,2.92857142857143,0.941176470588235
+"study 3","US",10190,"female",18,"filipino",1,1,NA,"microbiology biology","christian: catholic",2,"st. annes",1,0.0454545454545455,4,0.909090909090909
+"study 3","US",10192,"female",18,"black",1,-1,"housing administrator","undeclared","missing data",1,"none",NA,0.863636363636364,3.30769230769231,0.617647058823529
+"study 3","US",10194,"female",18,"hispanic",1,-1,"field worker and factory worker","biology","missing data",0,"catholic church",0,0.111111111111111,1.35714285714286,0.617647058823529
+"study 3","US",10196,"female",18,"mexican",1,1,"insurance provider","criminal justice","christian: catholic",-2,"st. josephs catholic church",0,1.40909090909091,4.28571428571429,0.705882352941177
+"study 3","US",10197,"female",19,"mexican",1,0,"carpet installer","psychology","missing data",0,"n/a",NA,0.0909090909090909,1.64285714285714,0.558823529411765
+"study 3","US",10198,"male",19,"filipino",1,0,"food scientist","mechanical engineering","christian: catholic",2,"sjsu newman",1,0.818181818181818,3.5,0.588235294117647
+"study 3","US",10200,"male",19,"asian",1,0,"landlords","pre-nursing","buddhist",-1,"not enrolled in any",0,0.105263157894737,0.5,0.454545454545455
+"study 3","US",10203,"female",18,"colombian/samoah",1,0,"firefighters/airfreight shipper","mengineering","atheist, agnostic, no religion or spirituality",-1,"catholic",NA,0.136363636363636,1.14285714285714,0.470588235294118
+"study 3","US",10207,"female",18,"indian (asia)",0,0,"daycare provider/ technical recruiter","business","hindu",0,"fremont temple/ san jose gurawara",NA,0.409090909090909,2,0.764705882352941
+"study 3","US",10209,"female",19,"mexican",1,-1,"drivers","nursing","christian: catholic",-1,"none",NA,0.272727272727273,1.35714285714286,0.294117647058824
+"study 3","US",10216,"male",18,"fillipino",1,0,"accounting","kinesiology","christian: catholic",2,"st. joseph",0,0.888888888888889,3.92857142857143,0.705882352941177
+"study 3","US",10219,"female",18,"mexican/white",NA,-1,"principal and caregiver","kinesiology","coptic orthodox christian",1,"st. george coptic orthodox church",0,1.8,3.14285714285714,0.970588235294118
+"study 3","US",10227,"male",19,"black",1,0,"chef","business","christian: non specific",0,"none",0,2.81818181818182,3.85714285714286,0.647058823529412
+"study 3","US",10228,"female",18,"white",1,1,"marine/teacher","design","christian: non specific",2,"none",0,0,3.71428571428571,0.294117647058824
+"study 3","US",10236,"female",18,"german, irish, mexican, cherokee",0,-2,"para education hospice","journalism","missing data",0,"methodist church in dixon ca",0,0.15,1.28571428571429,0.5
+"study 3","US",10238,"male",18,"canadian/middle eastern",0,0,"teacher","business entrepreneurship","none",-2,NA,NA,0,0.785714285714286,0.294117647058824
+"study 3","US",10239,"female",18,"hispanic",0,0,NA,"undeclared","christian: catholic",2,"none",NA,0.5,4.5,0.794117647058823
+"study 3","US",10240,"female",18,"black",1,0,"self employed","business","christian: non specific",2,"calvary temple",1,1.95454545454545,4.42857142857143,0.705882352941177
+"study 3","US",10243,"female",18,"filipino",1,-1,"receptionist/phone company employee","forensic science","christian: catholic",0,"none",NA,0.4,2.57142857142857,0.666666666666667
+"study 3","US",10247,"female",18,"vietnamese",1,-1,"civil engineer","psychology","atheist, agnostic, no religion or spirituality",-2,NA,NA,0,0.642857142857143,0.352941176470588
+"study 3","US",10248,"female",18,"filipino",1,1,"project manager","kinesiology","christian: non specific",1,"ffucc (faith family united church of christ)",0,0.0952380952380952,1.71428571428571,0.382352941176471
+"study 3","US",10253,"male",18,"chinese",1,-1,"usps, illegible","undeclared","missing data",-1,"chinatown sf pll",1,0.523809523809524,1.35714285714286,0.529411764705882
+"study 3","US",10255,"male",19,"missing data",1,-1,"missing data","civil eng","christian: catholic",-2,"st. catherine",NA,0.285714285714286,1.57142857142857,0.470588235294118
+"study 3","US",10259,"female",18,"white",1,0,"property manager","photography","missing data",0,"none",NA,0.6,0.785714285714286,0.823529411764706
+"study 3","US",20087,"male",18,"yi nationality",0,-2,"staff","law","atheist, agnostic, no religion or spirituality",-2,NA,NA,0,0,0.117647058823529
+"study 3","US",20096,"male",20,"han",1,0,"salesman","economic management","atheist, agnostic, no religion or spirituality",-2,NA,NA,0.0476190476190476,0.5,0.441176470588235
+"study 3","Ghana",40001,"female",19,"akan",1,2,"business people","clinical nutrition and dietetics","missing data",1,"adventist",0,0,2,0.0909090909090909
+"study 3","Ghana",40002,"female",19,"ga",1,1,"receptionist","environmental science","missing data",2,"methodist",0,0.65,2.85714285714286,0.363636363636364
+"study 3","Ghana",40003,"male",20,"akan",0,0,"trader","science","missing data",2,"assemblies of god",1,0.954545454545455,3.85714285714286,0.323529411764706
+"study 3","Ghana",40004,"female",20,"ga",1,0,"business personnel","psychology","missing data",2,"methodist",1,0,2.5,0.121212121212121
+"study 3","Ghana",40005,"male",20,"krobo",0,1,"news vendor","biochemistry","missing data",1,"pentecost",1,2.2,4.21428571428571,0.823529411764706
+"study 3","Ghana",40006,"male",21,"ashanti",0,0,"trader","economics (accounting)","missing data",1,"presbyterian",1,2.47368421052632,3.57142857142857,0.558823529411765
+"study 3","Ghana",40007,"male",16,"christianity",0,0,"lawyer","university of cape coast","missing data",1,"bfrea christian church",1,1.61904761904762,2.57142857142857,0.529411764705882
+"study 3","Ghana",40008,"male",22,"fante",1,2,"trade","information technology","missing data",2,"seventh day adventist",1,1.13636363636364,4.07142857142857,0.40625
+"study 3","Ghana",40009,"female",18,"ashanti",0,0,"accountant","physician assistant studies","missing data",1,"presbyterian church",0,2.68181818181818,3.14285714285714,0.529411764705882
+"study 3","Ghana",40010,"female",20,"akan",0,0,"police","missing data","missing data",0,"pentecost",1,0.863636363636364,3,0.382352941176471
+"study 3","Ghana",40011,"female",19,"akan, akwapim",0,-1,"farmers ( sometimes they do trading also)","business management","missing data",2,"pentecost",1,3.40909090909091,4.14285714285714,0.941176470588235
+"study 3","Ghana",40012,"male",20,"ewe (anlo)",0,0,"teaching","bsc laboratory technology","missing data",1,"ag",1,1.36842105263158,4.07142857142857,0.676470588235294
+"study 3","Ghana",40013,"female",17,"ga and akan",0,0,"businessman and hairdresser","psychology","missing data",2,"icgc",1,3.38095238095238,2.85714285714286,0.852941176470588
+"study 3","Ghana",40014,"male",21,"akan",0,-2,"trader","bachelor of commerce (management)","missing data",1,"resurrection power new generation church",1,1.31818181818182,3.64285714285714,0.205882352941176
+"study 3","Ghana",40015,"male",20,"akan",1,0,"trader","biology, chemistry, and physics","missing data",2,"pentecost",1,1.71428571428571,4.85714285714286,0.558823529411765
+"study 3","Ghana",40016,"male",21,"ewe",1,0,"pastor","agricultural","missing data",-1,"kingdom citizen ministry",1,0.210526315789474,2.35714285714286,0.382352941176471
+"study 3","Ghana",40017,"female",20,"ewe",1,0,"traders","economics and sociology","missing data",1,"agcm",1,3,3.64285714285714,0.941176470588235
+"study 3","Ghana",40018,"male",22,"asante",0,0,"business","ba (arts)","missing data",-1,"assemblies of god",1,1.55555555555556,3.61538461538462,0.676470588235294
+"study 3","Ghana",40019,"male",20,"akan",0,-1,"farmer","chemistry, physics, biology, and maths","missing data",2,"deeper life bible church",1,2.6,3.28571428571429,0.647058823529412
+"study 3","Ghana",40020,"female",19,"krobo",1,1,"farmer","accounting","missing data",2,"pentecost",1,2.42105263157895,4.85714285714286,0.764705882352941
+"study 3","Ghana",40021,"female",22,"'missing data'",0,0,"'missing data'","'missing data'","missing data",1,"qodesh",1,0.666666666666667,3.71428571428571,0.3125
+"study 3","Ghana",40022,"female",21,"ashante",1,0,"traders","university","missing data",2,"resurrection power and living bread ministers",1,2.52380952380952,4.71428571428571,0.774193548387097
+"study 3","Ghana",40023,"female",17,"akan",0,0,"civil servant","pa","missing data",0,"st. joseph",NA,1.5,3.35714285714286,0.147058823529412
+"study 3","Ghana",40024,"male",21,"akan",0,0,"farmer / prophetess","tertiary","missing data",2,"musama church international",1,2.19047619047619,3.71428571428571,0.878787878787879
+"study 3","Ghana",40025,"female",19,"a ga",1,1,"trader","management","missing data",2,"icgc (international central gospel church)",1,2,3.71428571428571,0.676470588235294
+"study 3","Ghana",40026,"male",24,"ewe",1,1,"business","ba social science","missing data",2,"pentecost",1,2.04545454545455,4.71428571428571,0.757575757575758
+"study 3","Ghana",40027,"male",22,"asante",0,0,"doctor","biomedical science","missing data",-2,"adventist",1,2.81818181818182,3.57142857142857,0.411764705882353
+"study 3","Ghana",40028,"male",19,"akan",0,0,"traders","english, linguistics, history","missing data",0,"presby",1,1.05263157894737,3.07142857142857,0.411764705882353
+"study 3","Ghana",40029,"male",21,"akan / fante",0,1,"clergyman","bachelor of arts","missing data",2,"methodist",1,1.3,3.14285714285714,0.558823529411765
+"study 3","Ghana",40030,"male",19,"akan",NA,0,"businessman & seamstress","bachelor of education (social sciences)","missing data",0,"conquerors chapel international",1,1.38888888888889,3.28571428571429,0.382352941176471
+"study 3","Ghana",40031,"male",18,"akan",0,0,"self-employed","procurement","missing data",1,"s.d.a",0,1.5,4.07142857142857,0.470588235294118
+"study 3","Ghana",40032,"male",19,"akyem / akan",0,0,"trader","ba social science","missing data",1,"presbyterian church",1,2.22222222222222,2.28571428571429,0.676470588235294
+"study 3","Ghana",40033,"missing data",NA,"missing data",NA,NA,"missing data","missing data","missing data",NA,"missing data",NA,0.863636363636364,3.14285714285714,0.384615384615385
+"study 3","Ghana",40034,"female",18,"akan (fante)",0,0,"father - miner ; mother - business woman","bsc medical laboratory","missing data",1,"holy trinity catholic church",1,1,4.57142857142857,0.303030303030303
+"study 3","Ghana",40035,"male",22,"illegible",0,0,"proprietor & proprietess","university of capecoast","missing data",1,"icgc (international central gospel church)",1,0.684210526315789,3.42857142857143,0.441176470588235
+"study 3","Ghana",40036,"female",21,"akwapim",1,0,"teacher","procurement and supply chain management","missing data",1,"presbyterian church",1,1.38888888888889,3.35714285714286,0.424242424242424
+"study 3","Ghana",40037,"female",21,"akan",0,0,"caterer and a businessman","clinical nutrition and dietetics","missing data",2,"methodist church (orthodox was written as an answer for question 12)",NA,1.83333333333333,4.07142857142857,0.764705882352941
+"study 3","Ghana",40038,"male",19,"akan",0,1,"trader","ba social science","missing data",1,"church of pentecost",1,0.428571428571429,2.71428571428571,0.242424242424242
+"study 3","Ghana",40039,"female",19,"akan",1,1,"trader","optometry, chemistry, biology, physics","missing data",2,"the apostolic church, ucg chapter",1,2.22727272727273,4.78571428571429,0.470588235294118
+"study 3","Ghana",40040,"female",17,"ewe",0,1,"lawyer and ecg officer","allied health science","missing data",1,"presbyterian church",1,2,2.71428571428571,0.676470588235294
+"study 3","Ghana",40041,"female",18,"fante",0,1,"trader","physician assistant studies","missing data",1,"the church of pentecost",1,2.44444444444444,3.07142857142857,0.636363636363636
+"study 3","Ghana",40042,"male",19,"akan",0,-1,"engineer and business woman","computer science","missing data",2,"methodist",0,0.666666666666667,4.07142857142857,0.588235294117647
+"study 3","Ghana",40043,"male",20,"ewe's",1,2,"traders","diagnostic imaging technology","missing data",2,"assemblies of god",1,1.70588235294118,3.21428571428571,0.53125
+"study 3","Ghana",40044,"male",17,"akan",0,0,"mother (trader) father (business man)","bachelor of commerce (accounting)","missing data",2,"icgc (international central gospel church)",1,2.66666666666667,4.71428571428571,0.970588235294118
+"study 3","Ghana",40045,"female",20,"akan",1,0,"banking","nursing","missing data",1,"icgc (international central gospel church)",1,0.857142857142857,3.71428571428571,0.529411764705882
+"study 3","Ghana",40046,"female",20,"akan",0,0,"mother: trade, father: engineer","physician assistant studies","missing data",1,"the church of pentecost",1,0.772727272727273,3,0.636363636363636
+"study 3","Ghana",40047,"female",16,"dagonda",0,0,"trading","medicine","missing data",1,"'missing data'",NA,1.90909090909091,3.85714285714286,0.529411764705882
+"study 3","Ghana",40048,"female",18,"ga",1,0,"it manager","medical sciences","missing data",0,"the church of pentecost",1,1.68181818181818,4.64285714285714,0.617647058823529
+"study 3","Ghana",40049,"male",20,"akan",0,1,"driver/ trader","ucc","missing data",1,"pentecost",1,1.86363636363636,3.57142857142857,0.323529411764706
+"study 3","Ghana",40050,"male",20,"dagasti",0,-1,"trade","bsc. medical laboratory technology","missing data",1,"roman catholic",0,1.78947368421053,3.42857142857143,0.794117647058823
+"study 3","Ghana",40051,"male",19,"akan",0,0,"teaching","wassce (west african senior school certificate examination)","missing data",1,"baptist",1,0.789473684210526,3.5,0.484848484848485
+"study 3","Ghana",40052,"male",19,"fante",0,0,"headmistress contractor","information technology","missing data",2,"pentecost",1,3,4.71428571428571,0.6875
+"study 3","Ghana",40053,"female",18,"akan",0,0,"tax officer","physics and biology","missing data",1,"baptist",1,0.882352941176471,2.64285714285714,0.411764705882353
+"study 3","Ghana",40054,"female",21,"fante",1,2,"manager","p.a.s","missing data",2,"glic",1,3.36363636363636,5,0.647058823529412
+"study 3","Ghana",40055,"male",20,"akan",0,1,"trading","biochemistry","missing data",0,"catholic",0,0.368421052631579,2.28571428571429,0.411764705882353
+"study 3","Ghana",40056,"male",19,"fante",1,0,"entrepreneur","marketing","missing data",0,"christ embassy",1,0.555555555555556,3.57142857142857,0.617647058823529
+"study 3","Ghana",40057,"female",18,"sefwi",1,2,"fisherman","economics","missing data",2,"methodist",1,2,3.07142857142857,0.470588235294118
+"study 3","Ghana",40058,"male",19,"akuapim",1,2,"doctor","biochemistry","missing data",2,"assemblies of god",1,2.09090909090909,3.4,0.5
+"study 3","Ghana",40059,"male",19,"ewe",0,1,"clergy and seamstress","economics","missing data",2,"assemblies of god",1,2.31818181818182,5,0.882352941176471
+"study 3","Ghana",40060,"male",19,"christianity",1,0,"surveyor / businessman","information technology","missing data",0,"action chapel",1,0.888888888888889,3.28571428571429,0.617647058823529
+"study 3","Ghana",40061,"male",22,"ewe",0,0,"fishmonger ; fisherman","bachelor of commerce (finance)","missing data",2,"pentecost",1,1.90909090909091,4.28571428571429,0.606060606060606
+"study 3","Ghana",40062,"male",19,"akan",0,1,"lab technician and nurse","communication studies","missing data",1,"pentecost",1,1.94444444444444,3.28571428571429,0.323529411764706
+"study 3","Ghana",40063,"male",20,"akan",1,0,"traders","geography","missing data",1,"deeper life bible church",1,1.61538461538462,3.28571428571429,0.470588235294118
+"study 3","Ghana",40064,"male",24,"denkyira c/r",0,0,"teaching","college of agriculture and natural sciences","missing data",1,"house of glory a/g",1,0.818181818181818,2.92307692307692,0.0882352941176471
+"study 3","Ghana",40065,"male",19,"fante / akwapim",1,1,"driver's instructor","bachelor of education (art)","missing data",2,"icgc (international central gospel church)",1,0.588235294117647,5,0.354838709677419
+"study 3","Ghana",40066,"female",18,"akan",0,0,"tax officer","physics & biology","missing data",1,"baptist",1,0.882352941176471,2.64285714285714,0.393939393939394
+"study 3","Ghana",40067,"male",25,"ga",1,0,"traders","economics and geography","missing data",2,"cdm",1,1.63636363636364,3.71428571428571,0.588235294117647
+"study 3","Ghana",40068,"male",19,"akan",1,0,"teacher","medical laboratory","missing data",1,"methodist",1,0.571428571428571,2.64285714285714,0.0882352941176471
+"study 3","Ghana",40069,"male",24,"akan",1,1,"trader","geography","missing data",1,"lighthouse chapel",1,1.52380952380952,4.07142857142857,0.735294117647059
+"study 3","Ghana",40070,"male",18,"ga",1,1,"dad; educationist mom: seamstress","forensic science","missing data",1,"presbyterian",0,2.59090909090909,3.35714285714286,0.647058823529412
+"study 3","Ghana",40071,"male",19,"akan",1,0,"trader","maths/econs","missing data",0,"pentecost",0,0.142857142857143,1.14285714285714,0.264705882352941
+"study 3","Ghana",40072,"male",25,"ashanti",1,1,"trader","business (management)","missing data",1,"pentecost",1,2.95454545454545,4,0.794117647058823
+"study 3","Ghana",40073,"female",23,"akan",0,0,"self-employed","bachelors of laws","missing data",1,"st. paul's catholic church",1,2.17647058823529,2.64285714285714,0.647058823529412
+"study 3","Ghana",40074,"male",20,"akan",0,0,"traders","geography and economics","missing data",0,"none",NA,0.8,2.78571428571429,0.382352941176471
+"study 3","Ghana",40075,"male",21,"fante",1,1,"teaching","linguistics, history and (illegible)","missing data",NA,"a.g.c.m",1,1.65,2.64285714285714,0.617647058823529
+"study 3","Ghana",40076,"female",20,"ewe",1,1,"missing data","bachelor of commerce (management)","missing data",2,"gesam",1,1.5,4,0.470588235294118
+"study 3","Ghana",40077,"male",20,"krubo",0,1,"farming","ba social science","missing data",2,"the apostolic church",1,1.42857142857143,3.78571428571429,0.411764705882353
+"study 3","Ghana",40078,"male",20,"ewe",1,0,"teacher and businessman","economics and maths","missing data",1,"presbyterian church",0,2.42105263157895,2.64285714285714,0.794117647058823
+"study 3","Ghana",40079,"female",20,"ga- adangbe",1,0,"business administrator","bsc. medical laboratory science","missing data",1,"grace chapel int.",1,1.05555555555556,4.07142857142857,0.705882352941177
+"study 3","Ghana",40080,"female",17,"christianity",1,1,"businessman and woman","university (college of allied health & sciences)","missing data",1,"assemblies of god",1,1.8125,1.92857142857143,0.470588235294118
+"study 3","Ghana",40081,"male",20,"akan",0,0,"traders","b.ed & mathematics?","missing data",1,"baptist",1,2.35294117647059,3.14285714285714,0.647058823529412
+"study 3","Ghana",40083,"female",20,"fante",1,1,"traders","clinical nutrition and dietetics","missing data",1,"pentecost",NA,2,3.57142857142857,0.882352941176471
+"study 3","Ghana",40084,"female",18,"ga",NA,0,"mechanical engineer","clinical nutrition and dietetics","missing data",1,"lighthouse chapel international",1,1.11111111111111,3.28571428571429,0.676470588235294
+"study 3","Ghana",40085,"female",21,"akan",1,2,"missing data","missing data","missing data",2,"c.a.c",1,2.64705882352941,4.64285714285714,0.294117647058824
+"study 3","Ghana",40087,"female",21,"akan",1,2,"missing data","missing data","missing data",2,"cac",1,2.77777777777778,4.64285714285714,0.323529411764706
+"study 3","Ghana",40088,"female",21,"frafra",0,1,"food vendor","physician assistant","missing data",2,"assemblies of god",1,1.42857142857143,4,0.617647058823529
+"study 3","Ghana",40089,"female",17,"ewe",0,0,"businessman and caterer","clinical nutrition and dietetics","missing data",1,"conquerors chapel international",1,1.04545454545455,3.42857142857143,0.588235294117647
+"study 3","Ghana",40090,"female",19,"fanti",1,0,"father (technician) - mother (nurse)","health information management","missing data",1,"piwc",1,0.681818181818182,3.57142857142857,0.794117647058823
+"study 3","Ghana",40091,"female",24,"akan",1,0,"retired head teacher","ba arts","missing data",1,"fcgc",0,2.57142857142857,3.92857142857143,0.393939393939394
+"study 3","Ghana",40092,"male",21,"ewe",1,0,"seamstress","economics","missing data",1,"anglican",1,1.78947368421053,4.78571428571429,0.696969696969697
+"study 3","Ghana",40093,"female",19,"ga and ewe",1,0,"business woman and clergy","psychology","missing data",1,"assemblies of god",1,2.1,3.35714285714286,0.647058823529412
+"study 3","Ghana",40094,"female",18,"guan",NA,0,"government worker","b. ed accounting","missing data",0,"pentecost",1,0.571428571428571,2.85714285714286,0.375
+"study 3","Ghana",40095,"female",19,"akan",1,0,"trading","psychology","missing data",1,"good shepherd",NA,1.13636363636364,2.07142857142857,0.5625
+"study 3","Ghana",40096,"female",18,"fante",1,1,"clergy","physician asist. std","missing data",1,"assemblies of god",1,0.714285714285714,3.78571428571429,0.393939393939394
+"study 3","Ghana",40097,"female",17,"ni-van",1,-1,"mum accountant and dad works at municipal","business","aog assemblies of god",1,"we care ministry",1,0.642857142857143,2.42857142857143,0.647058823529412
+"study 3","Ghana",40116,"female",19,"akan",0,1,"banking","b.com (ucc)","missing data",1,"presby",1,1.31578947368421,3.5,0.470588235294118
+"study 3","Ghana",40136,"male",20,"akan",0,1,"trading","biochemistry","missing data",0,"catholic",0,1.28571428571429,4.92857142857143,0.647058823529412
+"study 3","Thailand",30001,"other",19,"thai",0,-1,"missing data","sociology and anthropology","buddhist",0,"temple",NA,0.909090909090909,3,0.735294117647059
+"study 3","Thailand",30002,"male",23,"thai",1,0,"lecturer","sociology and anthropology","buddhist",-1,"not go",NA,0,1.5,0.454545454545455
+"study 3","Thailand",30003,"female",18,"thai",1,-1,"seller","associate medical science/ physical therapy","christian: protestant mainline",0,"church",1,0.454545454545455,2.57142857142857,0.735294117647059
+"study 3","Thailand",30004,"other",19,"thai",0,-1,"employees","social science, sociology and anthropology","buddhist",-1,"bot",NA,0.227272727272727,2.42857142857143,0.617647058823529
+"study 3","Thailand",30005,"female",18,"thai",0,0,"sellers","social science,","buddhist",0,"temple",NA,1.66666666666667,2.92857142857143,0.666666666666667
+"study 3","Thailand",30006,"female",18,"thai",1,0,"farmer","faculty of social science, geography","buddhist",0,"temple",NA,0.157894736842105,3.21428571428571,0.558823529411765
+"study 3","Thailand",30007,"female",19,"thai",1,0,"company employee","faculty of associated medical sciences, occupational therapy","buddhist",-1,"not really go",NA,0.0909090909090909,1.28571428571429,0.588235294117647
+"study 3","Thailand",30008,"male",19,"thai",1,1,"teacher, farmer","science, math","buddhist",-2,"temple",NA,0.227272727272727,1.57142857142857,0.676470588235294
+"study 3","Thailand",30009,"male",19,"thai",1,0,"contract worker","faculty of science, math","buddhist",-2,"wat photharam",NA,0.476190476190476,3.07142857142857,0.617647058823529
+"study 3","Thailand",30010,"female",18,"thai",1,0,"government official","faculty of social science, geography","buddhist",0,"sometimes",NA,0.619047619047619,2.78571428571429,0.764705882352941
+"study 3","Thailand",30011,"female",19,"thai",1,0,"government official, seller","faculty of social science, geography","buddhist",0,"6 times / year",NA,0.409090909090909,2.64285714285714,0.852941176470588
+"study 3","Thailand",30012,"female",18,"thai",1,0,"contract worker","faculty of social science, geography","buddhist",1,"go to temple",NA,0.952380952380952,2,0.5
+"study 3","Thailand",30013,"female",18,"thai",0,0,"self- employed","med tech","buddhist",0,"every birthday (dad, mom, my bday) and buddhist holiday",NA,0.555555555555556,2.5,0.735294117647059
+"study 3","Thailand",30014,"female",18,"thai",1,0,"self-employed","faculty of associated medical sciences, occupational therapy","buddhist",0,"every holy day",NA,0.636363636363636,2.5,0.5
+"study 3","Thailand",30015,"female",19,"thai",1,-1,"contract worker","faculty of science","buddhist",0,"temple",NA,0.526315789473684,1.92857142857143,0.787878787878788
+"study 3","Thailand",30016,"male",20,"thai",0,1,"nurse, broker","faculty of engineering, civil engineer","buddhist",-2,"temple",0,0.578947368421053,1.57142857142857,0.647058823529412
+"study 3","Thailand",30017,"female",19,"thai",1,0,"father: retirement, mother: nurse","science mathematics","christian and buddhism",0,"every sunday, every special day",0,0.409090909090909,2.64285714285714,0.676470588235294
+"study 3","Thailand",30018,"female",18,"tahi",1,0,"seller","associated medical sciences, occupational therapy","buddhist",0,"on important days",NA,0.357142857142857,2.57142857142857,0.558823529411765
+"study 3","Thailand",30019,"female",19,"thai",1,0,"teacher, housewife","faculty of social sciences, sociology and anthropology","muslim",0,"mosque",NA,0.80952380952381,4.28571428571429,0.911764705882353
+"study 3","Thailand",30020,"female",19,"thai",1,0,"work at post office, company manager","social sciences, sociology and anthropology","buddhist",-1,"rarely",NA,0.272727272727273,1.92857142857143,0.705882352941177
+"study 3","Thailand",30021,"female",18,"thai",1,0,"contract worker","associated medical sciences, occupational therapy","buddhist",0,"wat sri wanaram",1,1.08333333333333,2.64285714285714,0.588235294117647
+"study 3","Thailand",30022,"female",19,"thai",1,0,"contract worker","associated medical sciences, occupational therapy","buddhist",0,"wat chedi luang",NA,0.0909090909090909,1.64285714285714,0.411764705882353
+"study 3","Thailand",30023,"female",18,"thai",1,0,"retired, self- employed","associated medical sciences, occupational therapy","buddhist",0,"temple",NA,0.454545454545455,2.57142857142857,0.5
+"study 3","Thailand",30024,"female",18,"thai",1,0,"employee","social science, geography","buddhist",0,"wat ban khwang",NA,0.6,2.07142857142857,0.676470588235294
+"study 3","Thailand",30025,"female",19,"thai",1,0,"seller","associated medical science","buddhist",0,"sometimes go",1,0.590909090909091,2.92857142857143,0.647058823529412
+"study 3","Thailand",30026,"male",19,"thai",1,0,"contract worker","engineering, mining and petroleum engineering","buddhist",-1,"wat pong sanuk",NA,0.523809523809524,2.21428571428571,0.323529411764706
+"study 3","Thailand",30027,"female",18,"thai",0,0,"seller","associated medical science, occupational therapy","buddhist",0,"quite often",0,0.227272727272727,1.71428571428571,0.323529411764706
+"study 3","Thailand",30028,"male",19,"thai",1,0,"state enterprise (government savings bank)","associated medical sciences, occupational therapy","buddhist",0,"temple",NA,0.954545454545455,2.78571428571429,0.794117647058823
+"study 3","Thailand",30029,"male",22,"thai",1,0,"free worker (free lance)","math","buddhist",1,"twice/year",NA,0.473684210526316,2.71428571428571,0.5
+"study 3","Thailand",30030,"female",19,"thai",1,0,"tutor","faculty of science, geology","buddhist",-2,"temple less than 5 times/year",NA,1,1.42857142857143,0.470588235294118
+"study 3","Thailand",30031,"female",20,"thai",1,0,"nurse","sience, geology","buddhist",-1,"only on important days",NA,0.409090909090909,1.78571428571429,0.441176470588235
+"study 3","Thailand",30032,"male",19,"thai",1,0,"government official","faculty of science, geography","buddhist",0,"temple",NA,0.5,1.78571428571429,0.441176470588235
+"study 3","Thailand",30033,"male",19,"thai",1,-1,"police","faculty of science, geography","buddhist",-2,"temple",NA,0.272727272727273,2,0.470588235294118
+"study 3","Thailand",30034,"female",19,"thai",1,0,"seller","associated medical sciences","buddhist",0,"often",NA,1.21052631578947,2.78571428571429,0.647058823529412
+"study 3","Thailand",30035,"female",18,"thai",1,1,"teacher","associated medical sciences, occupational therapy","buddhist",-1,"no, i rarely go",NA,0.55,2.64285714285714,0.5
+"study 3","Thailand",30036,"female",19,"thai",0,0,"housewife","faculty of science, chemistry","buddhist",0,"2-3 times / year",NA,0.272727272727273,2.14285714285714,0.617647058823529
+"study 3","Thailand",30037,"male",19,"thai",1,0,"merchant","science, geological science","buddhist",-1,"temple",NA,0.181818181818182,2.35714285714286,0.588235294117647
+"study 3","Thailand",30038,"female",19,"thai",1,0,"businessman","associated medical sciences, occupational therapy","buddhist",-1,"2 times/3 mos",NA,0.25,1.5,0.470588235294118
+"study 3","Thailand",30039,"female",18,"thai",1,-1,"contract worker","faculty of social science, geography","buddhist",0,"temple",NA,0.136363636363636,1.64285714285714,0.441176470588235
+"study 3","Thailand",30040,"female",18,"thai",1,0,"contract worker","associated medical sciences, occupational therapy","buddhist",0,"temple",NA,0.681818181818182,2.42857142857143,0.545454545454545
+"study 3","Thailand",30041,"female",19,"thai",1,0,"self-employed","associated medical sciences, occupational therapy","buddhist",0,"not often",NA,0.380952380952381,1.71428571428571,0.647058823529412
+"study 3","Thailand",30042,"female",18,"thai",0,-2,"seller","associated medical sciences, occupational therapy","buddhist",0,"often",NA,0.272727272727273,1.85714285714286,0.470588235294118
+"study 3","Thailand",30043,"female",18,"thai",1,0,"self- employed","associated medical sciences, occupational therapy","buddhist",0,"neighborhood temple",NA,0.681818181818182,2.5,0.235294117647059
+"study 3","Thailand",30044,"male",18,"thai",1,0,"officer @ royal forest department","associated medical sciences, occupational therapy","buddhist",0,"on buddhist important days",NA,1.18181818181818,2.14285714285714,0.647058823529412
+"study 3","Thailand",30045,"female",19,"thai",1,0,"farmer","social sciences, geography","buddhist",-1,"important days",NA,0.470588235294118,2.07142857142857,0.558823529411765
+"study 3","Thailand",30046,"female",22,"thai",1,2,"police / nurse","fine arts, media art and design","buddhist",0,"my hometown temple",NA,2.40909090909091,4.57142857142857,0.970588235294118
+"study 3","Thailand",30047,"male",20,"thai",1,0,"teacher","engineering, electrical engineering","atheist, agnostic, no religion or spirituality",-2,"near relative's house in phrae province",NA,0.684210526315789,2.21428571428571,0.735294117647059
+"study 3","Thailand",30048,"female",18,"thai",1,0,"seller","associated medical science, occupational therapy","buddhist",0,"n/a",NA,0.136363636363636,1.21428571428571,0.411764705882353
+"study 3","Thailand",30049,"female",18,"thai",1,0,"employee","associated medical sciences, occupational therapy","buddhist",0,"only go on days that have religious activity",NA,0.333333333333333,1.57142857142857,0.382352941176471
+"study 3","Thailand",30050,"male",19,"thai",0,0,"housewife","associated medical sciences, occupational therapy","muslim",0,"often",NA,0.388888888888889,3.57142857142857,0.705882352941177
+"study 3","Thailand",30051,"female",18,"thai",1,0,"teacher","associated medical sciences, occupational therapy","buddhist",0,"temple",NA,0.176470588235294,2.07142857142857,0.352941176470588
+"study 3","Thailand",30052,"male",27,"thai",0,-1,"contract worker","sociology","buddhist",-1,"temple",NA,0.409090909090909,1.85714285714286,0.558823529411765
+"study 3","Thailand",30053,"male",22,"thai",0,-1,"vendor","animation","buddhist",-2,"wat chedi luang",NA,0.545454545454545,1.78571428571429,0.676470588235294
+"study 3","Thailand",30054,"female",19,"thai",0,0,"vendor","biology","buddhist",0,"sometime / holy day",NA,0.454545454545455,2.92857142857143,0.647058823529412
+"study 3","Thailand",30055,"female",18,"thai",1,0,"officer","medical technologist/ occupational therapy","atheist, agnostic, no religion or spirituality",-1,"temple",NA,0.315789473684211,1.5,0.5
+"study 3","Thailand",30056,"female",18,"thai",1,0,"owner","occupational therapy","buddhist",0,"every week",NA,0.454545454545455,1.71428571428571,0.382352941176471
+"study 3","Thailand",30057,"female",18,"thai",0,0,"owner","occupational therapy","buddhist",0,"sometime",NA,0.476190476190476,2.78571428571429,0.794117647058823
+"study 3","Thailand",30058,"female",19,"thai",0,0,"owner","social science, geography","buddhist",0,"wat tha mai nuea",NA,0.368421052631579,1.71428571428571,0.5
+"study 3","Thailand",30059,"female",19,"thai",1,0,"owner","medical technologist, occupational therapy","buddhist",0,"every month",NA,0.368421052631579,3.07142857142857,0.558823529411765
+"study 3","Thailand",30060,"female",19,"thai",1,0,"labor","medical technologist, occupational therapy","buddhist",0,"holy day",NA,1.36363636363636,4.5,0.823529411764706
+"study 3","Thailand",30061,"female",19,"thai",1,1,"owner","occupational therapy","buddhist",0,"often",NA,1.04545454545455,2.92857142857143,0.735294117647059
+"study 3","Thailand",30062,"female",20,"thai",1,-1,"officer","biochemistry","buddhist",0,"2-3x/month",NA,0.590909090909091,2.57142857142857,0.470588235294118
+"study 3","Thailand",30063,"female",19,"thai",1,0,"owner","medical technologist, occupational therapy","buddhist",0,"occationally",NA,0.727272727272727,2.28571428571429,0.470588235294118
+"study 3","Thailand",30064,"female",20,"thai",1,0,"farmer","education, elementary school education","buddhist",1,"temple",NA,0.523809523809524,1.5,0.411764705882353
+"study 3","Thailand",30065,"male",20,"thai",0,0,"vendor","social science, geography","buddhist",-1,"sometimes",0,0,1.42857142857143,0.529411764705882
+"study 3","Thailand",30066,"female",18,"thai",0,0,"vendor","occupational therapy","buddhist",-1,"2-3x/year",NA,1,1.21428571428571,0.794117647058823
+"study 3","Thailand",30067,"female",18,"thai",1,0,"vendor","occupational therapy","buddhist",0,"1x/month",NA,0.818181818181818,3.07142857142857,0.852941176470588
+"study 3","Thailand",30068,"female",18,"thai",1,0,"farmer","associated medical science, occupational therapy","buddhist",0,"sometimes",NA,0.363636363636364,2.78571428571429,0.735294117647059
+"study 3","Thailand",30069,"male",19,"thai",0,-1,"teacher","social science, geography","buddhist",-1,"don't really - meaning, i don't really go",NA,0.5,1.42857142857143,0.676470588235294
+"study 3","Thailand",30070,"female",19,"thai",1,0,"farmer","social science, geography","buddhist",0,"sometimes",NA,0.380952380952381,2.35714285714286,0.441176470588235
+"study 3","Thailand",30071,"female",18,"thai",0,1,"officer","associated medical science, occupational therapy","buddhist",0,"sometimes",NA,0.19047619047619,2.78571428571429,0.588235294117647
+"study 3","Thailand",30072,"female",19,"thai",1,0,"driver","associated medical science, occupational therapy","buddhist",0,"wat ha tao",0,0.772727272727273,2.42857142857143,0.818181818181818
+"study 3","Thailand",30073,"male",18,"thai",1,0,"vendor","social science, geography","buddhist",0,"none",0,0.523809523809524,1.78571428571429,0.588235294117647
+"study 3","Thailand",30074,"female",18,"thai",0,-1,"vendor","associated medical science, occupational therapy","buddhist",-1,"temple",NA,0,1.64285714285714,0.441176470588235
+"study 3","Thailand",30075,"female",18,"thai",1,1,"owner","social science, geography","buddhist",0,"holy day",NA,0.571428571428571,3.14285714285714,0.617647058823529
+"study 3","Thailand",30076,"female",18,"thai",0,-1,"owner","social science, geography","buddhist",0,"sometime",NA,0.111111111111111,1.64285714285714,0.558823529411765
+"study 3","Thailand",30077,"female",19,"thai",1,0,"farmer","associated medical science, occupational therapy","buddhist",0,"often",NA,0.454545454545455,1.85714285714286,0.647058823529412
+"study 3","Thailand",30078,"female",20,"thai",1,0,"state enterprise employee","science","buddhist",-1,"temple",NA,0.454545454545455,1.71428571428571,0.411764705882353
+"study 3","Thailand",30079,"female",18,"thai",1,0,"(labor)","agriculture, economics for agriculture","buddhist",0,"'not often' meaning don't really go",NA,1,2.5,0.5
+"study 3","Thailand",30080,"female",18,"thai",0,0,"pharmacist","associated medical science, occupational therapy","buddhist",-1,"occasionally",NA,0.35,2.42857142857143,0.352941176470588
+"study 3","Thailand",30081,"female",19,"thai",1,0,"farmer","science, bio-chemical","buddhist",0,"often",NA,0.909090909090909,2.64285714285714,0.617647058823529
+"study 3","Thailand",30082,"male",19,"thai",1,0,"employee","social science, geography","buddhist",-2,"never",1,0.454545454545455,2.35714285714286,0.588235294117647
+"study 3","Thailand",30083,"male",19,"thai",1,0,"farmer, agriculturalist","associated medical medicine, occupational therapy","buddhist",0,"temple",NA,0.25,2.07142857142857,0.470588235294118
+"study 3","Thailand",30084,"female",18,"thai",1,0,"employee","social science, geography","buddhist",0,"place of worship in yang kram",NA,0.5,2.57142857142857,0.676470588235294
+"study 3","Thailand",30085,"female",18,"thai",1,0,"employee","social science, geography","buddhist",-1,"sometimes",NA,0.944444444444444,2.71428571428571,0.735294117647059
+"study 3","Thailand",30086,"female",18,"thai",1,1,"owner","social science, geography","buddhist",1,"sometimes",NA,0.454545454545455,3.64285714285714,0.735294117647059
+"study 3","Thailand",30087,"female",18,"thai",1,0,"vendor, owner","college of arts, media and technology, technology management","buddhist",0,"holy day",1,1,2.35714285714286,0.382352941176471
+"study 3","Thailand",30088,"female",18,"thai",1,0,"government official","associated medical science, occupational therapy","buddhist",-1,"temple",NA,0.85,2.14285714285714,0.617647058823529
+"study 3","Thailand",30089,"female",17,"thai",1,0,"employee","associated medical science, occupational therapy","buddhist",1,"temple",NA,0.590909090909091,3.14285714285714,0.878787878787879
+"study 3","Thailand",30090,"female",18,"thai",0,0,"employee","associated medical science, occupational therapy","buddhist",0,"sometimes, holy day",NA,0.19047619047619,1.78571428571429,0.411764705882353
+"study 3","Thailand",30091,"female",20,"thai",1,0,"government official","science, micro-biology","buddhist",-1,"temple",NA,0.3,1.78571428571429,0.294117647058824
+"study 3","Thailand",30092,"female",20,"thai",0,0,"owner","science, stat","buddhist",-1,"wat aranyik",NA,0.727272727272727,2.07142857142857,0.558823529411765
+"study 3","Thailand",30093,"male",19,"thai",0,-2,"(vendor)","associated medical science, occupational therapy","buddhist",-2,"wat changkawnoyneua (temple name)",NA,0.5,1.35714285714286,0.454545454545455
+"study 3","Thailand",30094,"female",19,"thai",0,0,"businessman","associated medical science, occupational therapy","buddhist",0,"sometimes",NA,0.19047619047619,1.5,0.323529411764706
+"study 3","Thailand",30095,"female",19,"thai",0,-1,"employee","agriculture, general","buddhist",0,"sometime",0,0.363636363636364,2.5,0.588235294117647
+"study 3","Thailand",30096,"female",19,"thai",1,1,"mechanic/housewife","science","buddhist",0,"wat sri don chai",NA,0.545454545454545,2.57142857142857,0.264705882352941
+"study 3","Thailand",30097,"female",18,"thai",0,-2,"employee","associated medical science, occupational therapy","muslim",1,"none",NA,0.380952380952381,2.42857142857143,0.764705882352941
+"study 3","Thailand",30098,"female",18,"thai",1,0,"employee","social science, geography","buddhist",0,"temple / often",1,0.772727272727273,1.64285714285714,0.558823529411765
+"study 3","Thailand",30099,"male",19,"thai",0,0,"employee","social science, geography","buddhist",0,"temple / sometimes",NA,0.266666666666667,1.71428571428571,0.558823529411765
+"study 3","Thailand",30100,"male",19,"thai",0,-1,"agriculture","social science, geography","buddhist",-1,"temple",1,0,0.928571428571429,0.323529411764706
+"study 3","Thailand",30101,"female",19,"thai",1,0,"agriculturalist","associated medical science, occupational therapy","buddhist",1,"3x/month",1,0.416666666666667,2.57142857142857,0.352941176470588
+"study 3","Thailand",30102,"male",18,"thai",1,0,"farmer","social science, geography","buddhist",-2,"none",NA,0,1.14285714285714,0.441176470588235
+"study 3","Thailand",30103,"male",20,"thai",0,-1,"none","fine arts, media arts and design","atheist, agnostic, no religion or spirituality",-2,"(travel)",NA,0,1.28571428571429,0.441176470588235
+"study 3","Thailand",30104,"female",18,"thai",0,0,"employee","social science, geography","buddhist",0,"sometimes",NA,0.863636363636364,2.28571428571429,0.5
+"study 3","Thailand",30105,"female",19,"tahi",1,0,"employee/ vendor","college of art, media, and technology","buddhist",0,"holy day",0,0.866666666666667,2.21428571428571,0.676470588235294
+"study 3","Thailand",30106,"female",19,"thai",1,0,"owner","associated medical science, occupational therapy","buddhist",1,"temple",0,1.28571428571429,3.21428571428571,0.823529411764706
+"study 3","Thailand",30107,"female",18,"thai",0,0,"vendor/employee","social science, geography","buddhist",0,"holy day",NA,0.142857142857143,1.64285714285714,0.558823529411765
+"study 3","Thailand",30108,"female",18,"thai-vietnam",1,-1,"auditor","associated medical science, occupational therapy","buddhist",0,"church - high school, temple - graduated high school",NA,0.590909090909091,1.64285714285714,0.5
+"study 3","Thailand",30109,"female",18,"thai",1,0,"government official","associated medical science, occupational therapy","muslim",0,"sometime",NA,0.2,2.07142857142857,0.5
+"study 3","Thailand",30110,"female",18,"thai",0,1,"agriculturalist","agriculture, economic for agriculture","buddhist",0,"temple",NA,0.19047619047619,1.28571428571429,0.411764705882353
+"study 3","Thailand",30111,"female",18,"thai",0,-1,"employee","associated medical science, occupational therapy","buddhist",1,"every month",NA,0.5,2.42857142857143,0.588235294117647
+"study 3","Thailand",30112,"female",18,"thai",1,0,"officer","college of art, media and technology, animation","buddhist",0,"temple",NA,0.181818181818182,1.85714285714286,0.676470588235294
+"study 3","China",20001,"female",19,"han",1,-1,"freelancers","social science","atheist, agnostic, no religion or spirituality",-1,NA,NA,0,0.428571428571429,0.558823529411765
+"study 3","China",20002,"male",21,"han",1,0,"teacher / doctor","mathematics","atheist, agnostic, no religion or spirituality",-2,"none",NA,0.888888888888889,1.21428571428571,0.705882352941177
+"study 3","China",20003,"male",19,"han",1,0,"official and teacher","theoretical and applied mechanics","atheist, agnostic, no religion or spirituality",-2,NA,NA,0.523809523809524,0.642857142857143,0.617647058823529
+"study 3","China",20004,"male",21,"han",1,0,"f: teacher; m: doctor","mathematics","atheist, agnostic, no religion or spirituality",0,"none",NA,0.863636363636364,1.5,0.647058823529412
+"study 3","China",20005,"male",19,"han",1,0,"teachers","physics","atheist, agnostic, no religion or spirituality",-1,"buddhist temples",1,0.166666666666667,1.07142857142857,0.852941176470588
+"study 3","China",20006,"male",22,"han",1,0,"f: professor, m: staff","physics","atheist, agnostic, no religion or spirituality",-1,"none",0,1.55,2.35714285714286,0.911764705882353
+"study 3","China",20007,"male",20,"han",1,0,"staff of state-owned enterprises","translation","atheist, agnostic, no religion or spirituality",-2,"none",1,0.181818181818182,0.785714285714286,0.382352941176471
+"study 3","China",20008,"female",20,"han",1,0,"security guard","nursing","atheist, agnostic, no religion or spirituality",-1,"none",1,0.0555555555555556,1.14285714285714,0.705882352941177
+"study 3","China",20009,"male",20,"han",1,0,"farmers","mathematics","atheist, agnostic, no religion or spirituality",-2,"none",1,0.470588235294118,0.714285714285714,0.617647058823529
+"study 3","China",20010,"male",19,"han",1,1,"f: teacher, m: nurse","mathematics","atheist, agnostic, no religion or spirituality",-1,"none",0,0.380952380952381,1.14285714285714,0.852941176470588
+"study 3","China",20011,"male",20,"han",1,-1,"officials","clinical medicine","atheist, agnostic, no religion or spirituality",-1,NA,0,0.181818181818182,0.214285714285714,0.441176470588235
+"study 3","China",20012,"male",19,"han",1,-1,"farmers","clinical medicine","atheist, agnostic, no religion or spirituality",-2,"temple",NA,0.578947368421053,1.42857142857143,0.617647058823529
+"study 3","China",20013,"male",19,"han",0,-1,"farmers","law","atheist, agnostic, no religion or spirituality",-1,"temple",1,1,1.64285714285714,0.735294117647059
+"study 3","China",20014,"female",23,"han",1,-1,"f: mechanic m: kindergarten teacher","clinical medicine","christian: non specific",0,"churches",1,0.142857142857143,2,0.735294117647059
+"study 3","China",20015,"female",20,"han",1,0,"f: ems official, m: postal savings bank of china, in charge of credit depatment","preventive medicine","atheist, agnostic, no religion or spirituality",-1,"temples",1,0.428571428571429,1.35714285714286,0.705882352941177
+"study 3","China",20016,"female",21,"han",1,0,"farmers","social work","atheist, agnostic, no religion or spirituality",0,"none",NA,0.857142857142857,0.928571428571429,0.75
+"study 3","China",20017,"female",21,"han",1,0,"father: private businessman; mother: clerk","museology","atheist, agnostic, no religion or spirituality",0,"temple",NA,0,0.428571428571429,0.411764705882353
+"study 3","China",20018,"male",19,"han",1,1,"pharmacistc (both)","international economics and trade","atheist, agnostic, no religion or spirituality",-1,"none",NA,0.0909090909090909,1.5,0.617647058823529
+"study 3","China",20019,"female",20,"han",1,0,"father: farmer , mother: worker","social science","atheist, agnostic, no religion or spirituality",0,"none",NA,0.952380952380952,2.07142857142857,0.941176470588235
+"study 3","China",20020,"female",19,"han",1,0,"freelancers","sociology","atheist, agnostic, no religion or spirituality",-1,"church",NA,0.136363636363636,1.28571428571429,0.588235294117647
+"study 3","China",20021,"female",19,"mongolian nationality",1,0,"clerks","history","dge-lugs-pa (buddhist sect)",2,"lamasery in my hometown",NA,0.266666666666667,1.64285714285714,0.727272727272727
+"study 3","China",20022,"male",19,"han",1,-1,"f: worker, m: teacher","economics","atheist, agnostic, no religion or spirituality",-2,"none",NA,0,0.142857142857143,0.794117647058823
+"study 3","China",20023,"male",21,"han",1,-2,"farmers","prophylactic medicine","atheist, agnostic, no religion or spirituality",-2,NA,NA,1.57142857142857,0.714285714285714,1
+"study 3","China",20024,"male",19,"han",1,0,"salesmen","mathematics","atheist, agnostic, no religion or spirituality",0,"none",NA,0.227272727272727,0.857142857142857,0.5
+"study 3","China",20025,"female",21,"han",1,0,"engineer, housewife","ecology","atheist, agnostic, no religion or spirituality",-2,"none",NA,0.181818181818182,0.785714285714286,0.676470588235294
+"study 3","China",20026,"male",19,"han",1,0,"medicine (in public health system)","medicine","atheist, agnostic, no religion or spirituality",0,NA,NA,0,0.769230769230769,0.911764705882353
+"study 3","China",20027,"female",20,"han",1,-1,"farmers","social science experimental class","atheist, agnostic, no religion or spirituality",-1,"none",NA,0.647058823529412,1.07142857142857,0.705882352941177
+"study 3","China",20028,"male",22,"han",1,1,"engineers","sociology","atheist, agnostic, no religion or spirituality",-1,"none",NA,0,0.428571428571429,0.235294117647059
+"study 3","China",20029,"male",23,"han",1,-2,"father: policeman mother: teacher","sociology","missing data",-1,"mount wutai buddha temple (for only tourist purpose)",NA,0.409090909090909,1.42857142857143,0.382352941176471
+"study 3","China",20030,"male",19,"han",1,0,"teachers","philosophy","atheist, agnostic, no religion or spirituality",0,"ocasionally go to temples with family",NA,0.555555555555556,2.35714285714286,0.735294117647059
+"study 3","China",20031,"male",20,"han",1,-1,"teachers","law","atheist, agnostic, no religion or spirituality",-2,"none",NA,0.476190476190476,1.21428571428571,0.735294117647059
+"study 3","China",20032,"male",20,"han",1,0,"f: teacher m: doctor","electrical engineering and automation","atheist, agnostic, no religion or spirituality",-2,"tianning temple (heavenly tranquility temple)",1,0.65,0.857142857142857,0.575757575757576
+"study 3","China",20033,"male",22,"han",1,-1,"teachers","psychology","atheist, agnostic, no religion or spirituality",-2,"none",NA,0,0.857142857142857,0.529411764705882
+"study 3","China",20034,"female",18,"han",1,0,"f: teacher, m: housewife","natural science","atheist, agnostic, no religion or spirituality",-2,"none",NA,0,0.928571428571429,0.617647058823529
+"study 3","China",20035,"female",20,"han",1,0,"administrative staff","electronic engineering","atheist, agnostic, no religion or spirituality",-1,NA,NA,0.105263157894737,0.928571428571429,0.676470588235294
+"study 3","China",20036,"male",20,"han",1,0,"teachers","clinical medicine (8 - year program)","atheist, agnostic, no religion or spirituality",-1,"none",NA,0,0.5,0.352941176470588
+"study 3","China",20037,"male",19,"she",1,0,"f: accountant, m: financial staff","preventive medicine","atheist, agnostic, no religion or spirituality",-1,"none",1,0.227272727272727,0.428571428571429,0.529411764705882
+"study 3","China",20038,"male",20,"han",1,0,"f: businessman m: nurse","japanese","atheist, agnostic, no religion or spirituality",0,NA,NA,0.2,1.07142857142857,0.5
+"study 3","China",20039,"female",18,"han",1,0,"self-employed households","technology & science experimental class","atheist, agnostic, no religion or spirituality",-1,NA,NA,0.5,0.928571428571429,0.705882352941177
+"study 3","China",20040,"female",18,"tujia",1,-1,"f: freelance, m: government staff","social science experimental class","atheist, agnostic, no religion or spirituality",-1,"very rare",NA,0.5,0.571428571428571,0.676470588235294
+"study 3","China",20041,"female",19,"han",1,0,"f: bank staff m: primary school teacher","chinese language & literature","leveyan satanism",0,"usually don't go to religious places",NA,0.181818181818182,1.5,0.823529411764706
+"study 3","China",20042,"female",20,"tujia",1,0,"merchant","international politics","atheist, agnostic, no religion or spirituality",-2,"buddha temples (for tourist purposes, sometimes donate)",NA,0.0454545454545455,0.642857142857143,0.529411764705882
+"study 3","China",20043,"female",20,"han",1,1,"teachers","international politics","atheist, agnostic, no religion or spirituality",0,NA,NA,0.727272727272727,1.42857142857143,0.911764705882353
+"study 3","China",20044,"female",21,"han",1,0,"f: lawyer ; m: doctor","korean","atheist, agnostic, no religion or spirituality",-1,"buddha temples",NA,0.0526315789473684,0.642857142857143,0.454545454545455
+"study 3","China",20045,"female",20,"han",1,0,"f: government staff, m: worker","social sciene experimental class","atheist, agnostic, no religion or spirituality",-1,"none",1,0,0.357142857142857,0.264705882352941
+"study 3","China",20046,"female",18,"han",1,0,"workers","nursing","atheist, agnostic, no religion or spirituality",-1,"none",NA,0.0714285714285714,0.928571428571429,0.647058823529412
+"study 3","China",20047,"female",22,"han",1,1,"teachers","law","atheist, agnostic, no religion or spirituality",-1,NA,NA,0.277777777777778,1.07142857142857,0.676470588235294
+"study 3","China",20048,"female",19,"han",1,1,"f: manager, m: self-employed household","social work","atheist, agnostic, no religion or spirituality",-1,"none",NA,0.0454545454545455,1.28571428571429,0.787878787878788
+"study 3","China",20049,"female",20,"han",1,0,"f: company staff, m: housewife","sociology","atheist, agnostic, no religion or spirituality",-1,"buddha temple",NA,0.136363636363636,0.714285714285714,0.823529411764706
+"study 3","China",20050,"female",19,"han",1,0,"f: teacher m: accountant","law","atheist, agnostic, no religion or spirituality",-2,NA,NA,0.454545454545455,0.714285714285714,0.588235294117647
+"study 3","China",20051,"female",19,"han",1,0,"staffs","natural science experimental class","buddhist",1,"temples",NA,0.545454545454545,2.07142857142857,0.735294117647059
+"study 3","China",20052,"male",21,"han",1,0,"f: government staff, m: middle school teacher","mathematics","christian: non specific",1,"house church",1,0.5,1.85714285714286,0.735294117647059
+"study 3","China",20053,"female",22,"han",1,0,"statistician","physics","atheist, agnostic, no religion or spirituality",-2,"temples (during trips)",0,0.421052631578947,1.57142857142857,0.705882352941177
+"study 3","China",20054,"female",21,"han",1,1,"white collars","history","atheist, agnostic, no religion or spirituality",-1,NA,NA,0.0909090909090909,0.785714285714286,0.5
+"study 3","China",20055,"male",21,"han",1,0,"teachers","theoretical and applied mechanics","atheist, agnostic, no religion or spirituality",-2,NA,NA,0.454545454545455,0.928571428571429,0.705882352941177
+"study 3","China",20056,"female",19,"han",1,0,"father: accountant; mother: teacher","pharmacy","flying spaghetti monsterism (fsm)",-2,"lanzhou hand-pulled noodles restaurant",0,0.0909090909090909,0.142857142857143,0.264705882352941
+"study 3","China",20057,"female",19,"han",1,0,"workers","law","atheist, agnostic, no religion or spirituality",-1,NA,NA,0.363636363636364,0.714285714285714,0.676470588235294
+"study 3","China",20058,"male",21,"li",1,-1,"farmers","international economics and trade","atheist, agnostic, no religion or spirituality",-1,"temple",1,0.272727272727273,0.785714285714286,0.529411764705882
+"study 3","China",20059,"female",18,"han",1,0,"m: kindergarten teacher, f: engineer","cultural relic and museology","atheist, agnostic, no religion or spirituality",-2,"temple (for visiting)",NA,0.0909090909090909,0.214285714285714,0.617647058823529
+"study 3","China",20060,"female",18,"han",1,0,"officials","english language and literature","atheist, agnostic, no religion or spirituality",-1,NA,NA,0,0.571428571428571,0.735294117647059
+"study 3","China",20061,"female",20,"han",1,-1,"teachers","international economic and trade","atheist, agnostic, no religion or spirituality",-1,"none",NA,0,0.357142857142857,0.411764705882353
+"study 3","China",20062,"male",18,"han",1,1,"staffs","pharmacy","atheist, agnostic, no religion or spirituality",0,"none",NA,0.181818181818182,0.428571428571429,0.558823529411765
+"study 3","China",20063,"male",22,"han",1,0,"company employee","history","atheist, agnostic, no religion or spirituality",0,NA,NA,0.318181818181818,1.61538461538462,0.764705882352941
+"study 3","China",20064,"male",20,"han",1,0,"staffs of state-owned enterprises","mathematics","atheist, agnostic, no religion or spirituality",-1,"none",NA,0.952380952380952,0.642857142857143,0.647058823529412
+"study 3","China",20065,"male",23,"han",1,0,"f: taxi driver, m: housewife","medical imaging technology","communism",-1,"i have no need",NA,0,0.785714285714286,0.352941176470588
+"study 3","China",20066,"male",19,"han",1,1,"f: government staff m: accountant","law","atheist, agnostic, no religion or spirituality",-1,NA,NA,0.227272727272727,0.571428571428571,0.852941176470588
+"study 3","China",20067,"male",19,"han",1,-1,"f: doctor, m: no occupation","law","atheist, agnostic, no religion or spirituality",-1,"none",NA,0.318181818181818,0.571428571428571,0.647058823529412
+"study 3","China",20068,"male",19,"han",1,1,"government staffs","social work","atheist, agnostic, no religion or spirituality",-2,NA,NA,0.227272727272727,2.42857142857143,0.823529411764706
+"study 3","China",20069,"male",20,"han",1,0,"farmers","sociology","atheist, agnostic, no religion or spirituality",-1,NA,1,0,0.928571428571429,0.787878787878788
+"study 3","China",20070,"male",23,"han",1,0,"government staffs","law","atheist, agnostic, no religion or spirituality",0,"catholic churches",1,1.04545454545455,2,0.558823529411765
+"study 3","China",20071,"male",20,"han",1,1,"teachers","mathematics","atheist, agnostic, no religion or spirituality",-1,"none",NA,0,0.928571428571429,0.676470588235294
+"study 3","China",20072,"female",19,"han",1,0,"businessmen","economic management","atheist, agnostic, no religion or spirituality",0,NA,NA,0.454545454545455,0.357142857142857,0.636363636363636
+"study 3","China",20073,"female",20,"han",1,0,"f: official, m: accountant","physics","atheist, agnostic, no religion or spirituality",-1,"temple",NA,0.818181818181818,1.64285714285714,0.970588235294118
+"study 3","China",20074,"female",20,"han",1,0,"material management","materials physics","atheist, agnostic, no religion or spirituality",0,"none",NA,0.8125,1.21428571428571,0.852941176470588
+"study 3","China",20075,"female",21,"han",1,0,"businessmen","clinical medicine","atheist, agnostic, no religion or spirituality",0,"temple",NA,0.631578947368421,1.69230769230769,0.764705882352941
+"study 3","China",20076,"female",20,"han",0,-1,"individual household","environtology","atheist, agnostic, no religion or spirituality",-2,"none",1,0.428571428571429,2,0.529411764705882
+"study 3","China",20077,"female",19,"han",1,2,"engineers","natural science experimental class","atheist, agnostic, no religion or spirituality",-1,"none",NA,0.0454545454545455,1.07142857142857,0.617647058823529
+"study 3","China",20078,"female",20,"han",1,0,"staffs in institutions","international politics","atheist, agnostic, no religion or spirituality",0,NA,NA,0.272727272727273,0.714285714285714,0.588235294117647
+"study 3","China",20079,"female",19,"hui",1,2,"f: engineer, m: accountant","law","muslim",1,"mosque",NA,0.954545454545455,2.85714285714286,0.735294117647059
+"study 3","China",20080,"female",18,"han",1,-1,"f: tv practitioner, m: teacher","english language and literature","atheist, agnostic, no religion or spirituality",0,"buddha temples",NA,0.6,1.64285714285714,0.705882352941177
+"study 3","China",20081,"female",20,"miao",1,-1,"workers","administrative management","atheist, agnostic, no religion or spirituality",-1,NA,NA,0,1,0.676470588235294
+"study 3","China",20082,"female",19,"han",1,0,"f: bank manager, m: teacher","law","atheist, agnostic, no religion or spirituality",-1,NA,NA,0.5,0.142857142857143,0.666666666666667
+"study 3","China",20083,"female",20,"han",1,0,"farmers","social work","atheist, agnostic, no religion or spirituality",-1,"no, but had been to churches during tours",NA,0.333333333333333,1.07142857142857,0.823529411764706
+"study 3","China",20084,"female",20,"han",1,0,"company staff","philosophy","atheist, agnostic, no religion or spirituality",-1,NA,NA,0,1.07142857142857,0.470588235294118
+"study 3","China",20085,"female",19,"han",1,-2,"farmers","microelectronics science and engineering","atheist, agnostic, no religion or spirituality",-1,"never",NA,0.75,0.642857142857143,0.676470588235294
+"study 3","China",20086,"female",20,"han",1,0,"workers","journalism","atheist, agnostic, no religion or spirituality",-1,"temples, usually with my mom to admire",NA,0.210526315789474,0.785714285714286,0.705882352941177
+"study 3","China",20088,"male",20,"han",1,2,"financial practitioners","mathematics","atheist, agnostic, no religion or spirituality",-1,"temple",NA,1.59090909090909,2.21428571428571,0.941176470588235
+"study 3","China",20089,"male",20,"han",1,0,"f:teacher, m:worker","mathematics","atheist, agnostic, no religion or spirituality",-2,"none",NA,0.0476190476190476,0.928571428571429,0.617647058823529
+"study 3","China",20090,"male",20,"han",1,-1,"staffs","mathematics","atheist, agnostic, no religion or spirituality",-1,NA,NA,0.545454545454545,0.785714285714286,0.558823529411765
+"study 3","China",20091,"male",23,"han",1,1,"engineer","biotechnology","atheist, agnostic, no religion or spirituality",-2,"church, just for fun",NA,0.0909090909090909,0.0714285714285714,0.676470588235294
+"study 3","China",20092,"male",20,"han",1,0,"f: freelancer, m: staff","international politics","atheist, agnostic, no religion or spirituality",0,"temple (shangai jade buddha temple)",NA,1.31578947368421,2.71428571428571,0.735294117647059
+"study 3","China",20093,"male",19,"han",1,0,"workers","social work","christian: non specific",1,"none",1,0.409090909090909,1.42857142857143,0.823529411764706
+"study 3","China",20094,"female",19,"han",1,0,"teachers","law","atheist, agnostic, no religion or spirituality",-2,"sometimes to temples or churches during tours",NA,0.0909090909090909,0.571428571428571,0.470588235294118
+"study 3","China",20095,"male",21,"han",1,0,"teacher","communication engineering","atheist, agnostic, no religion or spirituality",-1,"none",1,0.772727272727273,1.14285714285714,0.735294117647059
+"study 3","China",20097,"male",20,"han",1,0,"f: engineer, m: support crew","electronic science and technology","christian: catholic",0,"church",1,0.588235294117647,2.07142857142857,0.617647058823529
+"study 3","China",20098,"male",22,"hui nationality",1,-2,"teachers","insurance","muslim",-2,"none",0,0.0952380952380952,0.571428571428571,0.470588235294118
+"study 3","China",20099,"male",20,"han",1,0,"doctors","mathematics","atheist, agnostic, no religion or spirituality",-1,NA,NA,0.388888888888889,1.28571428571429,0.470588235294118
+"study 3","China",20100,"male",21,"han",1,0,"f: individual household, m: staff in public institution","prophylactic medicine","atheist, agnostic, no religion or spirituality",-2,"none",NA,0.681818181818182,0.785714285714286,0.794117647058823
+"study 3","China",20101,"female",20,"han",1,0,"father: hr, m: teacher","electronic engineering / electrical engineering","atheist, agnostic, no religion or spirituality",-1,"temple",NA,0.736842105263158,1.64285714285714,0.470588235294118
+"study 3","China",20102,"female",20,"han",1,0,"officials","clinical medicine","atheist, agnostic, no religion or spirituality",-1,"temple",NA,1.14285714285714,1.5,0.882352941176471
+"study 3","China",20103,"male",22,"han",1,0,"officials","electronic engineering","atheist, agnostic, no religion or spirituality",0,"temple, church",NA,0.666666666666667,0.571428571428571,0.735294117647059
+"study 3","China",20104,"female",20,"han",1,0,"father: insurance agents, mother: worker","international politics","atheist, agnostic, no religion or spirituality",-1,NA,NA,0.181818181818182,0.428571428571429,0.5
+"study 3","China",20105,"female",19,"han",1,0,"m: manager of a sales store f: bus driver","law","buddhist",0,"buddha temples & ancestral hall",NA,0.714285714285714,2.07142857142857,0.705882352941177
+"study 3","China",20106,"female",20,"han",1,0,"managers","advertising","sanqi buddhism",-1,"go to buddha temples with family in spring festival",NA,0.0909090909090909,1.42857142857143,0.484848484848485
+"study 3","Vanuatu",50001,"male",21,"ni-vanz",1,-1,"yes","ccdrr (climate change and disaster risk reduction)","anglican",1,"anglican",1,2.86363636363636,3.35714285714286,1
+"study 3","Vanuatu",50002,"female",27,"ni-vanuatu",1,-1,"gardener","climate change","seven day adventist",2,"maumau organic church",0,1.36363636363636,4.64285714285714,0.529411764705882
+"study 3","Vanuatu",50003,"male",24,"ni vanuatu",0,0,"gardeners","science and climate change","presbyterian",2,"malasitopa fuesh klota 1 port vila",1,1.33333333333333,3.64285714285714,0.794117647058823
+"study 3","Vanuatu",50004,"female",20,"ni vanuatu",0,0,"dad: bank manager mum: house wife","climate change and disaster risk reduction","seventh day adventist",-2,"potoriki church",1,1.11111111111111,4.78571428571429,0.818181818181818
+"study 3","Vanuatu",50005,"female",25,"ni-vanuatu",1,0,"deceased","climate change and disaster risk reduction","seventh day adventist",0,"seventh day adventist church",0,0.727272727272727,2.84615384615385,0.970588235294118
+"study 3","Vanuatu",50006,"female",22,"ni-vanuatu",0,0,"teacher","climate change and disaster risk reduction","missing data",2,"presbyterian",1,0.428571428571429,3.64285714285714,0.588235294117647
+"study 3","Vanuatu",50007,"female",29,"ni-vanuatu",1,0,"mother: secretary accountant","climate change & disaster risk reduction","presbyterian",1,"nagire presbyterian church",1,1.6,4.21428571428571,0.909090909090909
+"study 3","Vanuatu",50008,"female",20,"ni-vanuatu",0,0,"self-employed","climate change certificate 1","missing data",1,"jehovah witness",0,1.77272727272727,4.14285714285714,0.823529411764706
+"study 3","Vanuatu",50009,"male",23,"ni vanuatu",1,-1,"father (farmer), mother - part-time cleaner","climate change and disaster risk reduction","christian: non specific",2,"seventh-day adventist",0,1.61111111111111,3.92857142857143,0.735294117647059
+"study 3","Vanuatu",50010,"male",22,"ni-vanuatu",0,0,"father: immigration officer mother: housewife","climate change and disaster risk reduction (ccdrr)","christian: non specific",0,"presbyterian",1,0.857142857142857,4.78571428571429,0.764705882352941
+"study 3","Vanuatu",50011,"male",28,"ni-vanuatu",1,1,"dad- department of labor, mom- housewife/cake business","climate change and disaster risk reduction","kingdom citizenship of god",2,"you tube, myles munroe bahamas faith ministries",1,2.18181818181818,4.14285714285714,0.882352941176471
+"study 3","Vanuatu",50012,"male",25,"ni-vanuatu",0,0,"waiter","climate change and disaster risk reduction","christian: non specific",0,"presbyterian",1,0.789473684210526,4,0.705882352941177
+"study 3","Vanuatu",50013,"male",25,"ni-vanuatu",1,0,"missing data","ccdrr","sda",2,"illegible sda",0,1.80952380952381,3.42857142857143,0.515151515151515
+"study 3","Vanuatu",50014,"male",18,"ni vanuatu",1,1,"farmers","climate change","sunday keeper",0,"presbyterian church",1,0.727272727272727,2.78571428571429,0.823529411764706
+"study 3","Vanuatu",50015,"male",40,"ni-vanuatu",1,-1,"deceased","climate change / disaster risk reduction","anglican",NA,"anglican",0,2.04545454545455,3.5,0.666666666666667
+"study 3","Vanuatu",50016,"female",20,"ni-vanuatu",0,0,"housewife and father gardener","climate change","presbyterian",2,"presbyterian",1,1.83333333333333,4.28571428571429,0.75
+"study 3","Vanuatu",50017,"male",22,"ni-vans",1,1,"malekula","climate change","presbyterian",2,"most presbyterian",1,2.72727272727273,3.92857142857143,0.764705882352941
+"study 3","Vanuatu",50018,"male",22,"missing data",1,1,"missing data","climate change","missing data",2,"aog",1,1.63157894736842,3.42857142857143,0.878787878787879
+"study 3","Vanuatu",50019,"male",18,"ni-vanuatu",0,1,"gardener","climate change course @ uit","sda",1,"sda",NA,1,2.71428571428571,0.558823529411765
+"study 3","Vanuatu",50020,"male",26,"ni vanuatu",1,0,"civil servants","climate change","atheist, agnostic, no religion or spirituality",-2,"none",NA,0,1.21428571428571,0.794117647058823
+"study 3","Vanuatu",50021,"male",26,"ni van",0,-1,"farmers","natural science","christian: non specific",0,"new covenant church",1,2.26315789473684,3.28571428571429,0.852941176470588
+"study 3","Vanuatu",50022,"female",24,"ni-vanuatu",1,-1,"house keeping","biology","christian: catholic",0,"catholic",1,2.5,4.14285714285714,0.588235294117647
+"study 3","Vanuatu",50023,"male",22,"ni-vanuatu",NA,0,"carpenter","ccdrr at vit, port vila","missing data",1,"aog",1,1.68181818181818,2.64285714285714,0.823529411764706
+"study 3","Vanuatu",50024,"male",21,"ni-vanuatu",0,0,"gardeners","climate change disaster risk reduction @ vit - port vila","christian: non specific",1,"presbyterian",0,0.833333333333333,2.85714285714286,0.911764705882353
+"study 3","Vanuatu",50025,"female",21,"missing data",1,0,"mother housewife, father gardener","climate change","presbyterian",2,"presbyterian church",1,1.71428571428571,3.92857142857143,0.882352941176471
+"study 3","Vanuatu",50026,"female",27,"ni-vanuatu",0,-2,"mother - nurse, father - gardener","accounting","word christian fellowship",1,"beverly hills church (sabath)",0,0.833333333333333,2.64285714285714,0.352941176470588
+"study 3","Vanuatu",50027,"female",19,"ni-vanuatu",1,0,"mechanic / housewife","economics/ accounting","christian: non specific",1,"anglican",1,0.714285714285714,2.71428571428571,0.5
+"study 3","Vanuatu",50028,"female",23,"ni-vanuatu",1,0,"teacher / gardener","geography","christian: non specific",0,"anglican",0,2.52941176470588,4.85714285714286,0.823529411764706
+"study 3","Vanuatu",50029,"male",20,"ni vanuatu",1,0,"seven stav?, port vila","uu114","aog",2,"evangel temple",1,0.363636363636364,3.07142857142857,0.696969696969697
+"study 3","Vanuatu",50030,"male",23,"missing data",1,0,"anglican priest","llb","anglican/muslim",-2,"tagaloe? anglican / mele",0,0.866666666666667,2.64285714285714,0.705882352941177
+"study 3","Vanuatu",50031,"male",27,"ni-vanuatu",1,-1,"housekeeper","llb","christian: non specific",1,"church of christ",1,2.3,1.85714285714286,0.96969696969697
+"study 3","Vanuatu",50032,"male",22,"ni-vanuatu",0,0,"carpentry","biology / chemistry","christian: non specific",1,"anglican church",0,1.04545454545455,3.57142857142857,0.764705882352941
+"study 3","Vanuatu",50033,"male",21,"ni-vanuatu",0,0,"gardener","maii2","aog",1,"ekof tawa",1,0.875,2.78571428571429,0.470588235294118
+"study 3","Vanuatu",50034,"male",21,"ni-vanuatu",0,-1,"gardener","af101","a.o.g",2,"a.o.g - global mission church?",1,2.13636363636364,2.5,0.705882352941177
+"study 3","Vanuatu",50035,"male",27,"ni-van",1,-2,"house wife / gardener","emalus campus llb law","seventh day adventist",2,"epouto church",0,1,4.14285714285714,0.606060606060606
+"study 3","Vanuatu",50036,"male",21,"ni-vanuatu",0,-1,"gardener","bachelors of science","anglican",0,"anglican",0,1.15384615384615,2.42857142857143,0.823529411764706
+"study 3","Vanuatu",50037,"male",23,"ni-vanuatu",1,-2,"carpenter / housewife","bachelors of science","christian: non specific",1,"anglican church",1,0.842105263157895,2.85714285714286,0.558823529411765
+"study 3","Vanuatu",50038,"female",23,"ni-vanuatu",0,-1,"father-farmer, mother-housewife + shopkeeper","management & education","anglican",0,"anglican church",1,2.26315789473684,3.92857142857143,0.970588235294118
+"study 3","Vanuatu",50039,"male",21,"ni-vanuatu",0,-2,"teachers","history","anglican",0,"tagabe resurrection",1,2.52380952380952,4.21428571428571,0.676470588235294
+"study 3","Vanuatu",50040,"female",18,"ni-van",1,-1,"teacher/farmer","biology, chemistry, computer","christian: catholic",1,"anglican",0,1.27777777777778,3,0.484848484848485
+"study 3","Vanuatu",50041,"female",27,"ni-vanuatu",1,0,"unemployed","graduate certificate in education","christian: anglican",0,"anglican",0,0.818181818181818,4,0.705882352941177
+"study 3","Vanuatu",50042,"female",24,"ni-vanuatu",0,0,"gardener","program - commerce","attending every services",1,"sunday and fouths worship",1,0.727272727272727,2.5,0.757575757575758
+"study 3","Vanuatu",50043,"female",21,"ni vanuatu",0,1,"teacher/gardener","geography","christian: non specific",2,"anglican",0,1.09090909090909,2.57142857142857,0.617647058823529
+"study 3","Vanuatu",50044,"female",22,"ni vanuatu",0,0,"farmers","science","christian",1,"anglican",1,0.411764705882353,3,0.588235294117647
+"study 3","Vanuatu",50045,"female",23,"ni-vanuatu",1,1,"burser, housewife","science","christian: non specific",1,"anglican",1,1.68421052631579,3.92857142857143,0.558823529411765
+"study 3","Vanuatu",50046,"female",20,"ni-vanuatu",1,0,"gardeners","studying at vcne","missing data",0,"most regularly attending words christian fellowship",1,1.13333333333333,2.21428571428571,0.794117647058823
+"study 3","Vanuatu",50047,"male",24,"ni- vanuatu",1,-1,"gardener","climate change course","protestant",1,"protestant",1,2.23529411764706,4.42857142857143,0.735294117647059
+"study 3","Vanuatu",50048,"female",25,"ni-vanuatu",1,0,"deceased","climate change and disaster risk reduction","seventh day adventist church",1,"seventh day adventist church",0,0.411764705882353,1.35714285714286,0.676470588235294
+"study 3","Vanuatu",50049,"male",23,"ni-van",1,-1,"father - farmer & mother - housewife","climate change & disaster risk reduction","christian: non specific",1,"sda",0,1.25,3.14285714285714,0.882352941176471
+"study 3","Vanuatu",50050,"male",22,"ni van",0,0,"acom","math","anglican",NA,"resurrection church",0,1.70588235294118,2.14285714285714,0.647058823529412
+"study 3","Vanuatu",50051,"male",25,"ni-vanuatu",1,0,"divorced","ict (information communication technology)","sda (seventh day adventist)",2,"beverly hills",0,0.75,1.92857142857143,0.647058823529412
+"study 3","Vanuatu",50052,"male",17,"ni-vanuatu",1,-1,"nz bank and lelagoon","business","sda (seventh day adventist)",1,"beverly hills",1,1.23809523809524,2.78571428571429,0.676470588235294
+"study 3","Vanuatu",50053,"female",20,"ni vanuatu",0,0,"teacher","information technology","seven day adventist",1,"sda",1,1.05,2.92857142857143,0.647058823529412
+"study 3","Vanuatu",50054,"female",16,"ni-vanuatu",0,0,"officer","business","presbyterian",0,"pakarua",1,1.47368421052632,2.92857142857143,0.617647058823529
+"study 3","Vanuatu",50055,"female",17,"ni-vanuatu",0,0,"teacher","business","presbyterian",1,"pakaroa",1,1,3.42857142857143,0.696969696969697
+"study 3","Vanuatu",50056,"female",17,"ni-vanuatu",1,-1,"mum: accountant, dad works at municiple","business","aog, assemblies of god",1,"we care ministry",1,0.642857142857143,2.42857142857143,0.647058823529412
+"study 3","Vanuatu",50057,"female",15,"ni-vanuatu",0,0,"housekeeping, moke store","ict","yes",1,"'missing data'",1,0.944444444444444,2.5,0.65625
+"study 3","Vanuatu",50058,"female",18,"ni-vanuatu",0,-1,"business woman","business","presbyterian",1,"malasitapu",1,1.78947368421053,2.78571428571429,0.617647058823529
+"study 3","Vanuatu",50059,"female",20,"ni vanuatu",0,0,"farmers","i.t.","living water",0,"living water",1,0.5,2.57142857142857,0.470588235294118
+"study 3","Vanuatu",50060,"female",18,"ni vanuatu",1,0,"no: farmer","it or cit","living water",1,"presbyterian church | attend most regularly now",1,0.681818181818182,3.28571428571429,0.483870967741935
+"study 3","Vanuatu",50061,"male",18,"ni-vanuatu",1,1,"wilco","it","aog",1,"evangel temple",1,1.72727272727273,3.5,1
+"study 3","Vanuatu",50062,"female",19,"ni-vanuatu",0,-1,"pastor","business","presbyterian",1,"p.m.c.",1,0.705882352941177,2.07142857142857,0.5
+"study 3","Vanuatu",50063,"female",22,"ni-vanuatu",0,0,"internal affairs (department of local authorities)","business","assemblies of god",1,"fresh wind christian life centre",1,0.95,2.42857142857143,0.676470588235294
+"study 3","Vanuatu",50064,"male",19,"ni van",0,-1,"tanna island","ict/it","sda",-2,"sda",1,1.42857142857143,3.15384615384615,0.794117647058823
+"study 3","Vanuatu",50065,"male",18,"missing data",1,0,"mom - rental business, dad-judge","i.t","missing data",0,"missing data",1,0.45,2.38461538461538,0.272727272727273
+"study 3","Vanuatu",50066,"male",19,"ni-vanuatu",0,0,"law enforcement officer","i.c.t. (information / communication technology)","christian: non specific",1,"four square church",1,1.5,2.78571428571429,0.882352941176471
+"study 3","Vanuatu",50067,"male",19,"ni-vanuatu",0,0,"oil mile (capsi)","i.t.","c.m.c presbyterian",0,"c.m.c",1,2.15789473684211,3,0.852941176470588
+"study 3","Vanuatu",50068,"female",23,"ni-vanuatu",1,0,"grand hotel (dad)","ict","presbyterian",1,"saliti church (saliti)",0,0.785714285714286,3,0.424242424242424
+"study 3","Vanuatu",50069,"female",17,"ni vanuatu",1,-1,"telecom vanuatu ltd","ict","family worship ark healing ministry",1,"family warm",1,2.33333333333333,3.78571428571429,0.705882352941177
+"study 3","Vanuatu",50070,"female",NA,"ni vanu fresh wota",1,-1,"private lawyer","business","anglican",0,"anglican / fresh wota",1,1.28571428571429,3.92857142857143,0.774193548387097
+"study 3","Vanuatu",50071,"other",21,"ni-vanuatu",1,0,"agriculture officer","vot","sda",2,"n#2",1,2.05555555555556,3.71428571428571,0.735294117647059
+"study 3","Vanuatu",50072,"male",23,"ni-vanuatu",0,0,"no","it (information technology)","presbyterian",1,"presbyterian church",1,1.95238095238095,3.57142857142857,0.735294117647059
+"study 3","Vanuatu",50073,"male",19,"ni-vanuatu",1,0,"prima portvila","it","anglican",1,"anglican",1,1,1.5,0.606060606060606
+"study 3","Vanuatu",50074,"male",18,"ni-van",0,1,"missing data","information technology","presbyterian",1,"bible church",1,2,3.78571428571429,0.666666666666667
+"study 3","Vanuatu",50075,"female",22,"ni van",1,0,"mom project office of presbyterian church, dad (chair)","ict","presbyterian",0,"presbyterian",1,2.94444444444444,3.57142857142857,0.941176470588235
+"study 3","Vanuatu",50076,"male",21,"ni-vanuatu",1,0,"colorite graphic printers","ict","christian: non specific",2,"pentecostal",1,1,3.78571428571429,0.529411764705882
+"study 3","Vanuatu",50077,"male",21,"'missing data'",0,0,"vanwards","it","presbyterian",0,"pmc",1,0.904761904761905,2.42857142857143,0.441176470588235
+"study 3","Vanuatu",50078,"male",21,"ni-vanuatu",0,0,"finance officer","ict","s.d.a.",1,"s.d.a.",1,1.1,3,0.705882352941177
+"study 3","Vanuatu",50079,"male",20,"ni-vanuatu",1,0,"teacher, farmer","csiii","christian: non specific",1,"sda",0,2.11111111111111,3.64285714285714,0.705882352941177
+"study 3","Vanuatu",50080,"male",22,"ni-van",0,0,"sales / it officer","computer science","christian: non specific",1,"jehovah's witness",1,0.05,3.35714285714286,0.558823529411765
+"study 3","Vanuatu",50081,"male",20,"ni-vanuatu",1,0,"nurse","ph102, uu114","christian: non specific",-2,"sda",0,1.36842105263158,3.5,0.735294117647059
+"study 3","Vanuatu",50082,"female",19,"ni-vanuatu",1,0,"doctor","computer science","christian: non specific",0,"ntu",0,0.636363636363636,2.57142857142857,0.617647058823529
+"study 3","Vanuatu",50083,"male",21,"ni-vanuatu",0,0,"missing data","science","church of christ",-1,"sarabetu",1,0.85,2.07142857142857,0.647058823529412
+"study 3","Vanuatu",50084,"female",22,"ni-van",1,-2,"samma inspector","bachelor of commerce","presbyterian",2,"sda",1,1.77272727272727,3.5,1
+"study 3","Vanuatu",50085,"male",22,"ni vanuatu",0,-1,"police officer (dad), house wife (mum)","physics electronic engineering","sda",0,"epauto, only sometimes",0,1.04545454545455,4.42857142857143,0.764705882352941
+"study 3","Vanuatu",50086,"female",19,"ni-vanuatu",1,0,"'missing data'","accounting","christian: non specific",0,"aog",1,0.777777777777778,3.42857142857143,0.588235294117647
+"study 3","Vanuatu",50087,"female",20,"ni-vanuatu",1,1,"housewife","bcom","church of christ",1,"church of christ",1,0.578947368421053,2.78571428571429,0.393939393939394
+"study 3","Vanuatu",50088,"male",19,"ni-vanuatu",1,0,"farmers","uu114","seventh day adventist",1,"sda",1,1.42857142857143,3.07142857142857,0.735294117647059
+"study 3","Vanuatu",50089,"male",24,"ni-vanuatu",0,0,"pentecost","bachelor of science (biology & chemistry)","pentecostal",1,"pentecostal",1,2.22727272727273,4.35714285714286,0.5
+"study 3","Vanuatu",50090,"male",23,"ni-vanuatu",0,0,"pastor & housewife","geography & information system","christian: non specific",0,"survival church",1,2.19047619047619,4.61538461538461,1
+"study 3","Vanuatu",50091,"male",24,"ni-vanuatu",0,0,"manager / bus driver","bsc computing science and information system","s.d.a.",1,"potoroki church",0,1,3.64285714285714,0.65625
+"study 3","Vanuatu",50092,"male",27,"ni-vanuatu",1,0,"single","ub","christian: non specific",2,"church of christ",1,1.68181818181818,3.5,1
+"study 3","Vanuatu",50093,"male",29,"ni-vanuatu",0,-2,"missing data","missing data","anglicanism",1,"anglican",1,2.4,3.64285714285714,1
+"study 3","Vanuatu",50094,"male",24,"ni vanuatu",1,-1,"carpenter & housewife","bachelor of science","christian: non specific",1,"endtime christian fellowship",0,2.66666666666667,3.64285714285714,0.735294117647059
+"study 3","Vanuatu",50095,"male",24,"ni-vanuatu",1,0,"gardeners","biology and chemistry","no but always live positive",2,"no",NA,0.368421052631579,4.35714285714286,0.411764705882353
+"study 3","Vanuatu",50096,"male",17,"ni-vanuatu",1,-1,"pastor & teacher","llf11 & maf21","(seventh day adventist) youth",1,"s.d.a.",0,1.81818181818182,3.85714285714286,0.794117647058823
+"study 3","Vanuatu",50097,"male",23,"bi-vanuatu",1,-1,"farmers","bsc","presbyterian (illegible)",2,"malasitapu",1,1.6,3.14285714285714,0.794117647058823
+"study 3","Vanuatu",50098,"male",20,"ni-vanuatu",1,1,"elder's gardener","aff01 & ecf04","ntm",0,"presbyterian",1,1.59090909090909,3.07142857142857,0.588235294117647
+"study 3","Vanuatu",50099,"male",22,"ni-vanuatu",1,0,"gardener","biology chemistry","presbyterian",2,"presbyterian",1,0.473684210526316,2.92857142857143,0.529411764705882
+"study 3","Vanuatu",50100,"male",23,"ni-vanuatu",0,0,"builder","missing data","christian: non specific",0,"seventh day adventist",0,1.3,3,0.941176470588235
