@@ -7,6 +7,7 @@ _archive/*
 
 # ignore data by question
 */data_by_question/*
+*/data_byquestion/*
 
 # ignore problematic file types
 *.xls
